@@ -1,0 +1,58 @@
+git push --mirror git@github.com:mixcore-studio/ElectroluxCms.git
+
+Link tools:
+
+https://portal.vietguys.biz/
+
+Account
+
+electrolux
+Password tools
+
+  Electrolux123#
+Sender
+
+TEST-DS
+
+Phone
+
+Vd: Số điện thoại người nhận sms, vd: 84908176769
+
+Content
+
+Anh/Chi dung quen minh co hen voi chung toi vao luc 19h ngay 1/1/2020 Hen gap lai. Tran Trong !
+
+Instruction 
+
+https://portal.vietguys.biz/downloads/VIETGUYS_MESSENGER_GUIDE.pdf
+
+
+
+*Hướng dẫn sử dụng dịch vụ tích hợp API 
+
+
+
+Kết nối API
+
+Account
+
+electrolux
+Password API
+
+  5ez5w  
+Service_ID
+
+TEST-DS
+
+Phone
+
+Vd: Số điện thoại người nhận sms, vd: 84908176769
+
+Content
+
+Anh/Chi dung quen minh co hen voi chung toi vao luc 19h ngay 1/1/2020 Hen gap lai. Tran Trong !
+
+Instruction 
+
+https://developers.vietguys.biz/#gi-i-thi-u
+
