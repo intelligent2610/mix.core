@@ -757,6 +757,11 @@
           "path": "/portal/attribute-set-data/details",
           "templatePath": "/app/app-portal/pages/attribute-set-data/details.html",
           "controller": "MixAttributeSetDataController"
+        },
+        {
+          "path": "/portal/electrolux-register/list",
+          "templatePath": "/app/app-portal/_custom/register-list.html",
+          "controller": "ElectroluxRegisterController"
         }
       ]
     },

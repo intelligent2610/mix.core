@@ -13,11 +13,9 @@
     var posts = Mix.Cms.Lib.ViewModels.MixPosts.Helper.GetModelistByMeta<Mix.Cms.Lib.ViewModels.MixPosts.ReadMvcViewModel>(
         MixConstants.AttributeSetName.SYSTEM_TAG, Context.Request.Query["tag"],
         ViewBag.culture as string, "CreatedDateTime", Mix.Heart.Enums.MixHeartEnums.DisplayDirection.Desc, 10, 0);
-    //string code = await Electrolux.Api.Domain.Helper.SendMessage(111, "", "");
 }
 <input type="hidden" id="view-type" value="Alias" />
 <input type="hidden" id="view-id" value="@Model.Id" />
-@*<h1>@code</h1>*@
 @if (!string.IsNullOrEmpty(Model.TemplatePath))
 {
 

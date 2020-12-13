@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\ViewModels\" />
+    <ProjectReference Include="..\Mix.Cms.Lib\Mix.Cms.Lib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mix.Cms.Lib\Mix.Cms.Lib.csproj" />
+    <Folder Include="Mix\Cms\Lib\ViewModels\MixAttributeSetDatas\" />
   </ItemGroup>
 
 

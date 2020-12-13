@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Mix.Cms.Lib.Helpers;
 using Mix.Cms.Lib.Models.Cms;
-using Mix.Cms.Lib.Repositories;
 using Mix.Common.Helper;
 using Mix.Domain.Core.ViewModels;
 using Mix.Domain.Data.ViewModels;
@@ -17,8 +16,8 @@ using System.Threading.Tasks;
 
 namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 {
-    public class FormPortalViewModel
-      : ViewModelBase<MixCmsContext, MixAttributeSetData, FormPortalViewModel>
+    public class ElectroluxRegisterViewModel
+      : ViewModelBase<MixCmsContext, MixAttributeSetData, ElectroluxRegisterViewModel>
     {
         #region Properties
 
@@ -28,8 +27,6 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
         public string Id { get; set; }
         [JsonProperty("specificulture")]
         public string Specificulture { get; set; }
-        [JsonProperty("cultures")]
-        public List<Domain.Core.Models.SupportedCulture> Cultures { get; set; }
 
         [JsonProperty("attributeSetId")]
         public int AttributeSetId { get; set; }
@@ -72,13 +69,14 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
         [JsonProperty("relatedData")]
         public List<MixRelatedAttributeDatas.UpdateViewModel> RelatedData { get; set; } = new List<MixRelatedAttributeDatas.UpdateViewModel>();
 
-        [JsonProperty("values")]
-        public List<MixAttributeSetValues.UpdateViewModel> Values { get; set; }
-
-        [JsonProperty("fields")]
-        public List<MixAttributeFields.UpdateViewModel> Fields { get; set; }
         [JsonIgnore]
-        public List<MixAttributeSetDatas.FormPortalViewModel> RefData { get; set; } = new List<FormPortalViewModel>();
+        public List<MixAttributeSetValues.ElectroluxRegisterValueViewModel> Values { get; set; }
+
+        [JsonIgnore]
+        public List<MixAttributeFields.UpdateViewModel> Fields { get; set; }
+
+        [JsonIgnore]
+        public List<MixAttributeSetDatas.ElectroluxRegisterViewModel> RefData { get; set; } = new List<ElectroluxRegisterViewModel>();
 
 
 
@@ -88,11 +86,11 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 
         #region Contructors
 
-        public FormPortalViewModel() : base()
+        public ElectroluxRegisterViewModel() : base()
         {
         }
 
-        public FormPortalViewModel(MixAttributeSetData model, MixCmsContext _context = null, IDbContextTransaction _transaction = null) : base(model, _context, _transaction)
+        public ElectroluxRegisterViewModel(MixAttributeSetData model, MixCmsContext _context = null, IDbContextTransaction _transaction = null) : base(model, _context, _transaction)
         {
         }
 
@@ -102,7 +100,27 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 
         public override void ExpandView(MixCmsContext _context = null, IDbContextTransaction _transaction = null)
         {
-            ParseData(_context, _transaction);
+            Fields = MixAttributeFields.UpdateViewModel.Repository.GetModelListBy(f => f.AttributeSetId == AttributeSetId, _context, _transaction).Data;
+            if (Obj == null)
+            {
+                ParseData(_context, _transaction);
+            }
+            foreach (var refField in Fields.Where(f => f.DataType == MixEnums.MixDataType.Reference).OrderBy(m => m.Priority))
+            {
+                var arr = new JArray();
+
+                var children = MixRelatedAttributeDatas.FormViewModel.Repository.GetModelListBy(
+                        m => m.Specificulture == Specificulture && m.ParentId == Id && m.ParentType == MixEnums.MixAttributeSetDataType.Set.ToString()
+                        && m.AttributeSetId == refField.ReferenceId
+                        , _context, _transaction);
+                foreach (var child in children.Data.OrderBy(m => m.Priority))
+                {
+                    child.AttributeData.Priority = child.Priority;
+                    arr.Add(JObject.FromObject(child.AttributeData));
+                }
+                Obj[refField.Name] = arr;
+
+            }
         }
 
         public override MixAttributeSetData ParseModel(MixCmsContext _context = null, IDbContextTransaction _transaction = null)
@@ -111,7 +129,8 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             {
                 Id = Guid.NewGuid().ToString();
                 CreatedDateTime = DateTime.UtcNow;
-                Priority = Repository.Count(m => m.AttributeSetName == AttributeSetName && m.Specificulture == Specificulture, _context, _transaction).Data + 1;
+                Priority = Priority == 0 ? Repository.Count(m => m.AttributeSetName == AttributeSetName && m.Specificulture == Specificulture, _context, _transaction).Data + 1
+                        : Priority;
             }
 
             if (string.IsNullOrEmpty(AttributeSetName))
@@ -122,7 +141,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             {
                 AttributeSetId = _context.MixAttributeSet.First(m => m.Name == AttributeSetName)?.Id ?? 0;
             }
-            Values = Values ?? MixAttributeSetValues.UpdateViewModel
+            Values = Values ?? MixAttributeSetValues.ElectroluxRegisterValueViewModel
                 .Repository.GetModelListBy(a => a.DataId == Id && a.Specificulture == Specificulture, _context, _transaction).Data.OrderBy(a => a.Priority).ToList();
             Fields = MixAttributeFields.UpdateViewModel.Repository.GetModelListBy(f => f.AttributeSetId == AttributeSetId, _context, _transaction).Data;
 
@@ -131,7 +150,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 var val = Values.FirstOrDefault(v => v.AttributeFieldId == field.Id);
                 if (val == null)
                 {
-                    val = new MixAttributeSetValues.UpdateViewModel(
+                    val = new MixAttributeSetValues.ElectroluxRegisterValueViewModel(
                         new MixAttributeSetValue()
                         {
                             AttributeFieldId = field.Id,
@@ -170,7 +189,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                                 }
                                 else
                                 {
-                                    RefData.Add(new FormPortalViewModel()
+                                    RefData.Add(new ElectroluxRegisterViewModel()
                                     {
                                         Specificulture = Specificulture,
                                         AttributeSetId = field.ReferenceId.Value,
@@ -187,41 +206,49 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 }
                 else
                 {
-                    Obj.Add(ParseValue(val, _context, _transaction));
+                    //Obj.Add(ParseValue(val, _context, _transaction));
                 }
             }
 
-            // Save Edm html
-            var getAttrSet = Mix.Cms.Lib.ViewModels.MixAttributeSets.ReadViewModel.Repository.GetSingleModel(m => m.Name == AttributeSetName, _context, _transaction);
-            var getEdm = Lib.ViewModels.MixTemplates.UpdateViewModel.GetTemplateByPath(getAttrSet.Data.EdmTemplate, Specificulture);
-            var edmField = Values.FirstOrDefault(f => f.AttributeFieldName == "edm");
-            if (edmField != null && getEdm.IsSucceed && !string.IsNullOrEmpty(getEdm.Data.Content))
+            return base.ParseModel(_context, _transaction); ;
+        }
+
+        public override void Validate(MixCmsContext _context, IDbContextTransaction _transaction)
+        {
+            base.Validate(_context, _transaction);
+
+            var hd = Obj.Value<string>("hoa_don");
+            var ma_san_pham = Obj.Value<string>("ma_san_pham");
+            var sn = Obj.Value<string>("sn");
+            var pnc = Obj.Value<string>("pnc");
+            var q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && m.AttributeFieldName == "hoa_don" && m.StringValue == hd.Trim());
+            
+            if (q.Count() > 0)
             {
-                string body = getEdm.Data.Content;
-                foreach (var prop in Obj.Properties())
+                var ids = q.Select(m => m.DataId).ToList();
+                q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n=>n == m.DataId) && m.AttributeFieldName == "ma_san_pham" && m.StringValue == ma_san_pham.Trim());
+                if (q.Count() > 0)
                 {
-                    body = body.Replace($"[[{prop.Name}]]", Obj[prop.Name].Value<string>());
-                }
-                var edmFile = new FileViewModel()
-                {
-                    Content = body,
-                    Extension = ".html",
-                    FileFolder = "edms",
-                    Filename = $"{getAttrSet.Data.EdmSubject}-{Id}"
-                };
-                if (FileRepository.Instance.SaveWebFile(edmFile))
-                {
-                    Obj["edm"] = edmFile.WebPath;
-                    edmField.StringValue = edmFile.WebPath;
+                    ids = q.Select(m => m.DataId).ToList();
+                    q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n => n == m.DataId) && m.AttributeFieldName == "sn" && m.StringValue == sn.Trim());
+                    if (q.Count() > 0)
+                    {
+                        ids = q.Select(m => m.DataId).ToList();
+                        q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n => n == m.DataId) && m.AttributeFieldName == "pnc" && m.StringValue == pnc.Trim());
+                        IsValid = q.Count() == 0;
+                    }
                 }
             }
-            //End save edm
-            return base.ParseModel(_context, _transaction); ;
+            if (!IsValid)
+            {
+                Errors.Add("Thông tin hóa đơn không hợp lệ!");
+            }
+
         }
 
         #region Async
 
-        public override async Task<RepositoryResponse<FormPortalViewModel>> SaveModelAsync(bool isSaveSubModels = false, MixCmsContext _context = null, IDbContextTransaction _transaction = null)
+        public override async Task<RepositoryResponse<ElectroluxRegisterViewModel>> SaveModelAsync(bool isSaveSubModels = false, MixCmsContext _context = null, IDbContextTransaction _transaction = null)
         {
             UnitOfWorkHelper<MixCmsContext>.InitTransaction(_context, _transaction, out MixCmsContext context, out IDbContextTransaction transaction, out bool isRoot);
             try
@@ -243,7 +270,8 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                             AttributeSetName = AttributeSetName,
                             ParentType = ParentType,
                             ParentId = ParentId,
-                            Status = MixEnums.MixContentStatus.Published
+                            Status = MixEnums.MixContentStatus.Published,
+                            Priority = Priority
                         };
                         var saveResult = await nav.SaveModelAsync(false, context, transaction);
                         if (!saveResult.IsSucceed)
@@ -251,6 +279,10 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                             result.IsSucceed = false;
                             result.Exception = saveResult.Exception;
                             result.Errors = saveResult.Errors;
+                        }
+                        else
+                        {
+                            ParseData(context, transaction);
                         }
                     }
                 }
@@ -260,20 +292,19 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             }
             catch (Exception ex)
             {
-                return UnitOfWorkHelper<MixCmsContext>.HandleException<FormPortalViewModel>(ex, isRoot, transaction);
+                return UnitOfWorkHelper<MixCmsContext>.HandleException<ElectroluxRegisterViewModel>(ex, isRoot, transaction);
             }
             finally
             {
                 if (isRoot)
                 {
-                    ParseData(context, transaction);
                     context.Dispose();
                 }
             }
 
         }
 
-        public override RepositoryResponse<FormPortalViewModel> SaveModel(bool isSaveSubModels = false, MixCmsContext _context = null, IDbContextTransaction _transaction = null)
+        public override RepositoryResponse<ElectroluxRegisterViewModel> SaveModel(bool isSaveSubModels = false, MixCmsContext _context = null, IDbContextTransaction _transaction = null)
         {
             var result = base.SaveModel(isSaveSubModels, _context, _transaction);
             if (result.IsSucceed)
@@ -292,19 +323,6 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 RepositoryResponse<bool> saveValues = await SaveValues(parent, _context, _transaction);
                 ViewModelHelper.HandleResult(saveValues, ref result);
             }
-            // Save Ref Data
-            if (result.IsSucceed)
-            {
-                RepositoryResponse<bool> saveRefData = await SaveRefDataAsync(parent, _context, _transaction);
-                ViewModelHelper.HandleResult(saveRefData, ref result);
-            }
-
-            //// Save Related Data
-            //if (result.IsSucceed)
-            //{
-            //    RepositoryResponse<bool> saveRelated = await SaveRelatedDataAsync(parent, _context, _transaction);
-            //    ViewModelHelper.HandleResult(saveRelated, ref result);
-            //}
 
             return result;
         }
@@ -416,7 +434,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 
         #region Expands
 
-        private JProperty ParseValue(MixAttributeSetValues.UpdateViewModel item, MixCmsContext context, IDbContextTransaction transaction)
+        private JProperty ParseValue(MixAttributeSetValues.ElectroluxRegisterValueViewModel item, MixCmsContext context, IDbContextTransaction transaction)
         {
             switch (item.DataType)
             {
@@ -439,9 +457,8 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                     return (new JProperty(item.AttributeFieldName, item.IntegerValue));
 
                 case MixEnums.MixDataType.Reference:
-
-                    var arr = new JArray();
-                    return (new JProperty(item.AttributeFieldName, arr));
+                    //string url = $"/api/v1/odata/en-us/related-attribute-set-data/mobile/parent/set/{Id}/{item.Field.ReferenceId}";
+                    return (new JProperty(item.AttributeFieldName, null));
 
                 case MixEnums.MixDataType.Custom:
                 case MixEnums.MixDataType.Duration:
@@ -465,7 +482,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             }
         }
 
-        private void ParseModelValue(JToken property, MixAttributeSetValues.UpdateViewModel item)
+        private void ParseModelValue(JToken property, MixAttributeSetValues.ElectroluxRegisterValueViewModel item)
         {
             if (item.Field.IsEncrypt)
             {
@@ -500,7 +517,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 
                     case MixEnums.MixDataType.Boolean:
                         item.BooleanValue = property.Value<bool?>();
-                        item.StringValue = property.Value<string>()?.ToLower();
+                        item.StringValue = property.Value<string>().ToLower();
                         break;
 
                     case MixEnums.MixDataType.Integer:
@@ -607,26 +624,30 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             }
         }
 
+        public override Task GenerateCache(MixAttributeSetData model, ElectroluxRegisterViewModel view, MixCmsContext _context = null, IDbContextTransaction _transaction = null)
+        {
+            ParseData();
+            return base.GenerateCache(model, view, _context, _transaction);
+        }
+
 
         private void ParseData(MixCmsContext _context = null, IDbContextTransaction _transaction = null)
         {
-            if (Obj == null)
-            {
-                var getValues = MixAttributeSetValues.UpdateViewModel
+            var getValues = MixAttributeSetValues.ElectroluxRegisterValueViewModel
                        .Repository.GetModelListBy(a => a.DataId == Id && a.Specificulture == Specificulture, _context, _transaction);
-                Fields = MixAttributeFields.UpdateViewModel.Repository.GetModelListBy(f => f.AttributeSetId == AttributeSetId, _context, _transaction).Data;
+            if (getValues.IsSucceed)
+            {
                 Values = getValues.Data.OrderBy(a => a.Priority).ToList();
                 foreach (var field in Fields.OrderBy(f => f.Priority))
                 {
                     var val = Values.FirstOrDefault(v => v.AttributeFieldId == field.Id);
                     if (val == null)
                     {
-                        val = new MixAttributeSetValues.UpdateViewModel(
+                        val = new MixAttributeSetValues.ElectroluxRegisterValueViewModel(
                             new MixAttributeSetValue()
                             {
                                 AttributeFieldId = field.Id,
                                 AttributeFieldName = field.Name,
-                                StringValue = field.DefaultValue
                             }
                             , _context, _transaction)
                         {
@@ -644,7 +665,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             );
                 foreach (var item in Values.OrderBy(v => v.Priority))
                 {
-                    item.AttributeFieldName = item.AttributeFieldName ?? item.Field?.Name;
+                    item.AttributeFieldName = item.Field.Name;
                     Obj.Add(ParseValue(item, _context, _transaction));
                 }
             }
@@ -660,6 +681,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             };
             return await vm.SaveModelAsync();
         }
+
         public bool HasValue(string fieldName)
         {
             return Obj.Value<string>(fieldName) != null;

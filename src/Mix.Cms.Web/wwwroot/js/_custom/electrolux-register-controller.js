@@ -1,13 +1,20 @@
 (function (angular, $) {
-  app.controller('ElectroluxRegisterController',
-    ["$scope", "$controller", "$uibModal", "ngAppSettings",
+  app.controller('ElectroluxRegisterFormController',
+    ["$rootScope", "$scope", "$controller", "$uibModal", "ngAppSettings",
+      "CommonService",
       "MediaService",
       "RestRelatedAttributeDataPortalService",
-      "RestAttributeSetDataElectroluxService", function ($scope, $controller, $uibModal, ngAppSettings, mediaService, navService, dataService) {
+      "RestAttributeSetDataElectroluxService", function ($rootScope, $scope, $controller, $uibModal, ngAppSettings, commonService, mediaService, navService, dataService) {
         $controller('AttributeSetFormController', { $scope: $scope }); //This works
         $scope.receipt = null;
         $scope.product = null;
         $scope.medias = [];
+        $scope.admins = ['admin', 'admin1', 'admin3', 'admin4'];
+        $scope.message = {
+          title: '',
+          type: '',
+          content: ''
+        }
         $scope.alpha = /^[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f]+$/;
         $scope.alpha_numeric = /^[a-zA-Z0-9]+$/;
         $scope.alpha_numeric_with_minus = /^[a-zA-Z0-9\-]+$/;
@@ -36,49 +43,139 @@
           $scope.navRequest.attributeSetName = formName;
           $scope.navRequest.parentType = parentType;
           $scope.navRequest.parentId = parentId;
+          $scope.cityCode = 'NA';
+          $scope.districtCode = 'NA';
+          $scope.bankMethod = "Chuyển tiền qua ngân hàng";
+          $scope.postMethod = "Chuyển tiền qua đường bưu điện";
+          commonService.loadJArrayData("product_list.json").then((resp) => {
+            $scope.products = resp.data;
+          });
+          commonService.loadJArrayData("city_list.json").then((resp) => {
+            $scope.cities = resp.data;
+          });
+          commonService.loadJArrayData("district_list.json").then((resp) => {
+            $scope.districts = resp.data;
+          });
+          commonService.loadJArrayData("ward_list.json").then((resp) => {
+            $scope.wards = resp.data;
+          });
+
           var getDefault = await dataService.initData($scope.formName);
+
           $scope.defaultData = getDefault.data;
           if ($scope.defaultData) {
             $scope.defaultData.attributeSetName = $scope.formName;
             $scope.defaultData.parentType = parentType || "Set";
             $scope.defaultData.parentId = parentId;
             $scope.formData = angular.copy($scope.defaultData);
+            $scope.formData.obj.admin = $scope.admins[Math.floor(Math.random() * $scope.admins.length)];
           }
 
           $scope.$apply();
         };
         $scope.initNestedData = async function () {
+
+
           // var getDefaultReceipt = await dataService.initData('thong_tin_hoa_don');
           // var getDefaultProduct = await dataService.initData('thong_tin_san_pham');
           // if (getDefaultReceipt.isSucceed) {
           //   $scope.receipt = getDefaultReceipt.data;
           // }
-          var getDefaultMedia = await dataService.initData('media');
-          if (getDefaultMedia.isSucceed) {
-            $scope.defaultMedia = getDefaultMedia.data;
-          }
+          // var getDefaultMedia = await dataService.initData('media');
+          // if (getDefaultMedia.isSucceed) {
+          //   $scope.defaultMedia = getDefaultMedia.data;
+          // }
           // if (getDefaultProduct.isSucceed) {
           //   $scope.product = getDefaultProduct.data;
           // }
-          $scope.$apply();
+          // $scope.$apply();
         }
         $scope.register = async function () {
-          const isValid = await $scope.validate(formData);
+          const isValid = await $scope.validate($scope.formData);
           if (isValid) {
             await $scope.submit($scope.formData);
           }
+          // else {
+          //   $scope.message.content = 'Thông tin không hợp lệ';
+          //   $scope.message.errors = $scope.form.$error;
+          //   $scope.$apply();
+          //   $('#alertModal').modal('show');
+          // }
         }
+        $scope.selectProduct = function () {
+          if ($scope.formData.obj.ma_san_pham) {
+            const pr = $rootScope.findObjectByKey($scope.products, 'model', $scope.formData.obj.ma_san_pham);
+            if (pr) {
+              $scope.formData.obj.pnc = pr.pnc;
+            }
+          }
+        }
+        $scope.selectReceiptDate = function (data, $event) {
+          alert('a');
+          alert($event.target.value)
+          // var currentElement = $event.target;
+          // console.log(currentElement.value);                  
+          // $scope.formData.obj.ngay_tren_hoa_don = currentElement.value;            
 
-        $scope.selectFiles = function (files, arr) {
+        }
+        $scope.selectBankMethod = function (data, $event) {
+          // var currentElement = $event.target;
+          // console.log(currentElement.value);                  
+          console.log($scope.bankMethod);
+          $scope.formData.obj.phuong_thuc_nhan_qua = $scope.bankMethod;
+
+        }
+        $scope.selectPostMethod = function (data, $event) {
+          // var currentElement = $event.target;
+          // console.log(currentElement.value);         
+          console.log($scope.postMethod);
+          $scope.formData.obj.phuong_thuc_nhan_qua = $scope.postMethod;
+
+        }
+        // $scope.initDate = function () {
+        //   // init datepicker
+        //   var date;
+        //   $('#receiptDate').datepicker({
+        //     onSelect: function (t) {
+        //       c.formValidatorInstance.validateSpecific($(this)), c.formValidatorInstance.validateRemaining();
+        //       date = $(this).val();
+        //       $('#receiptDate').val(date);
+        //       alert(date);
+        //     },
+        //     dateFormat: 'dd/mm/yy',
+        //     gotoCurrent: !1,
+        //   });
+        //   $scope.formData.obj.ngay_tren_hoa_don = date;
+        // }
+        $scope.selectCity = function () {
+          if ($scope.formData.obj.thanh_pho) {
+            const city = $rootScope.findObjectByKey($scope.cities, 'tpName', $scope.formData.obj.thanh_pho);
+            if (city) {
+              $scope.cityCode = city.tpNo;
+              $scope.formData.obj.quan = '';
+              $scope.formData.obj.phuong = '';
+            }
+          }
+        }
+        $scope.selectDistrict = function () {
+          if ($scope.formData.obj.quan) {
+            const district = $rootScope.findObjectByKey($scope.districts, 'qhName', $scope.formData.obj.quan);
+            if (district) {
+              $scope.districtCode = district.qhNo;
+              $scope.formData.obj.phuong = '';
+            }
+          }
+        }
+        $scope.selectFiles = function (files, type) {
           angular.forEach(files, function (e, i) {
-            $scope.openCroppie(e, arr);
+            $scope.openCroppie(e, type);
           })
         }
 
         $scope.uploadFile = function (file) {
           console.log(file);
         }
-        $scope.openCroppie = function (file, arr) {
+        $scope.openCroppie = function (file, type) {
           var modalInstance = $uibModal.open({
             animation: true,
             windowClass: "show",
@@ -93,26 +190,54 @@
               },
               w: 800,
               h: 600,
-              rto: null
+              rto: null,
+              autoSave: false
             },
           });
 
           modalInstance.result.then(
             function (result) {
-              let media = angular.copy($scope.defaultMedia);
-              media.obj.title = result.title;
-              media.obj.upload_file = result.fullPath;
-              arr.push(media);
+              // let media = angular.copy($scope.defaultMedia);
+              // media.obj.title = result.title;
+              $scope.formData.obj[type] = result.fullPath;
+              // arr.push(media);
             },
             function () { }
           );
         };
-
+        $scope.randomCode = function () {
+          var max = 99999;
+          var length = 5;
+          let val = Math.floor(Math.random() * Math.floor(max)).toString();
+          for (var i = 0; i < (5 - val.length); i++) {
+            val = `0${val}`;
+          }
+          return val;
+        }
         $scope.validate = async function (data) {
-          return true;
+          validateForm();
+          return $scope.form.$valid;
+        }
+        $scope.selectDate = function (src, des) {
+          $scope.formData.obj[des] = `${src.getDate()}/${src.getMonth()}/${src.getFullYear()}`;
         }
       }]);
 }(angular, jQuery));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
