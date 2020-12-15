@@ -355,7 +355,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                                     Expression<Func<MixAttributeSetValue, bool>> pre =
                                        m => m.AttributeFieldName == q.Key &&
                                             (filterType == "equal" && m.StringValue == (q.Value.ToString())) ||
-                                            (filterType == "contain" && (EF.Functions.Like(m.StringValue, $"%{q.Value.ToString()}%")));
+                                            (filterType == "contain" && (EF.Functions.Like(m.StringValue, $"%{q.Value}%")));
                                     if (valPredicate != null)
                                     {
                                         valPredicate = ReflectionHelper.CombineExpression(valPredicate, pre, Heart.Enums.MixHeartEnums.ExpressionMethod.Or);
@@ -376,11 +376,15 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
 
                     if (attrPredicate != null)
                     {
-                        var query = context.MixAttributeSetValue.Where(attrPredicate).Select(m => m.DataId).Distinct();
+                        var query = fieldQueries.Count == 0 ? context.MixAttributeSetValue.Where(attrPredicate).Select(m => m.DataId).Distinct()
+                                : context.MixAttributeSetValue.Where(attrPredicate).GroupBy(m => m.DataId)
+                            .Select(g => new { DataId = g.Key, Count = g.Count() }).Where(c => c.Count == fieldQueries.Count).Select(c => c.DataId);
                         var dataIds = query.ToList();
                         if (query != null)
                         {
-                            Expression<Func<MixAttributeSetData, bool>> pre = m => dataIds.Any(id => m.Id == id);
+                            Expression<Func<MixAttributeSetData, bool>> pre = m => dataIds.Any(id => m.Id == id) &&
+                            (!isFromDate || (m.CreatedDateTime >= fromDate))
+                            && (!isToDate || (m.CreatedDateTime <= toDate)); ;
                             predicate = pre; // ReflectionHelper.CombineExpression(pre, predicate, Heart.Enums.MixHeartEnums.ExpressionMethod.And);
 
                         }

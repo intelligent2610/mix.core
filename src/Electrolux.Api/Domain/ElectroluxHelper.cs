@@ -1,5 +1,8 @@
 ﻿using Mix.Cms.Lib.Models.Cms;
 using Mix.Cms.Lib.Services;
+using Mix.Cms.Lib.ViewModels.MixAttributeSetDatas;
+using Mix.Services;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +49,27 @@ namespace Electrolux.Api.Domain
                 return result;
             }
         }
+
+        public static async Task<bool> SendMessageByStatus(string culture, string status)
+        {
+            var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(culture, "register", "equal", "status", status);
+            if (getData.IsSucceed)
+            {
+                foreach (var item in getData.Data)
+                {
+                    var smsCode = await SendMessage(status, item.Property<string>("so_dien_thoai"));
+                    if (!string.IsNullOrEmpty(smsCode))
+                    {
+                        await SaveValues(item.Id, new JObject()
+                        {
+                            new JProperty("sms_status", smsCode)
+                        }, culture);
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
         public static async Task<string> SendMessage(string status, string phone, string bid = null)
         {
             string culture = MixService.GetConfig<string>("DefaultCulture");
@@ -82,5 +106,24 @@ namespace Electrolux.Api.Domain
                     return null;
             }
         }
+
+        public static async Task<bool> SaveValues(string dataId, JObject obj, string culture)
+        {
+            using (var context = new MixCmsContext())
+            {
+                foreach (var prop in obj.Properties())
+                {
+                    var val = context.MixAttributeSetValue.FirstOrDefault(m => m.DataId == dataId && m.AttributeFieldName == prop.Name);
+                    if (val != null)
+                    {
+                        val.StringValue = obj.Value<string>(prop.Name);
+                    }
+                }
+                _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetDatas/_{dataId}_{culture}");
+                await context.SaveChangesAsync();
+                return true;
+            }
+        }
+
     }
 }

@@ -295,8 +295,8 @@
       "items": [
         {
           "path": "/portal",
-          "templatePath": "/app/app-portal/pages/dashboard/dashboard.html",
-          "controller": "DashboardController"
+          "templatePath": "/app/app-portal/_custom/register-list.html",
+          "controller": "ElectroluxRegisterController"
         },
         {
           "path": "/portal/import",

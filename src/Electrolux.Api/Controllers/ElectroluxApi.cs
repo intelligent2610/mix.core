@@ -35,7 +35,14 @@ namespace Electrolux.Api.Controllers
                 return BadRequest(getData.Errors);
             }
         }
-        
+
+        [HttpPost]
+        public override Task<ActionResult<MixAttributeSetData>> Create([FromBody] ElectroluxRegisterViewModel data)
+        {
+            data.SetProperty("ip_address", Request.Headers["X-Forwarded-For"]);
+            return base.Create(data);
+        }
+
         [HttpGet("search")]
         public async Task<ActionResult<List<ElectroluxRegisterViewModel>>> Search()
         {
@@ -50,17 +57,17 @@ namespace Electrolux.Api.Controllers
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
             if (getData.IsSucceed)
             {
-                var result = new List<ElectroluxRegisterViewModel>();
-                foreach (var item in getData.Data.Items)
-                {
-                    var dt = item.Obj.Value<string>("so_dien_thoai");
-                    var hd = item.Obj.Value<string>("hoa_don");
-                    if (dt.IndexOf(phone) == dt.Length-5 && hd == receipt)
-                    {
-                        result.Add(item);
-                    }
-                }
-                return Ok(result);
+                //var result = new List<ElectroluxRegisterViewModel>();
+                //foreach (var item in getData.Data.Items)
+                //{
+                //    var dt = item.Obj.Value<string>("so_dien_thoai");
+                //    var hd = item.Obj.Value<string>("hoa_don");
+                //    if (dt.IndexOf(phone) == dt.Length-5 && hd == receipt)
+                //    {
+                //        result.Add(item);
+                //    }
+                //}
+                return Ok(getData.Data.Items);
             }
             else
             {
@@ -72,7 +79,7 @@ namespace Electrolux.Api.Controllers
         [HttpPost("save-values/{dataId}")]
         public async Task<ActionResult> SaveValue([FromRoute] string dataId, [FromBody]JObject obj)
         {
-            var result = await SaveValues(dataId, obj);
+            var result = await ElectroluxHelper.SaveValues(dataId, obj, _lang);
             if (result)
             {
                 return Ok();
@@ -83,24 +90,7 @@ namespace Electrolux.Api.Controllers
             }
         }
 
-        private async Task<bool> SaveValues(string dataId, JObject obj)
-        {
-            using (var context = new MixCmsContext())
-            {
-                foreach (var prop in obj.Properties())
-                {
-                    var val = context.MixAttributeSetValue.FirstOrDefault(m => m.DataId == dataId && m.AttributeFieldName == prop.Name);
-                    if (val != null)
-                    {
-                        val.StringValue = obj.Value<string>(prop.Name);
-                    }
-                }
-                _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetDatas/_{dataId}_{_lang}");
-                await context.SaveChangesAsync();
-                return true;
-            }
-        }
-
+        
         [Authorize]
         [HttpPost("send-sms")]
         public async Task<ActionResult> SendSMS([FromBody] JObject data)
@@ -112,7 +102,22 @@ namespace Electrolux.Api.Controllers
                 {
                     new JProperty("sms_status", result)
                 };
-                await SaveValues(data.Value<string>("id"), obj);
+                await ElectroluxHelper.SaveValues(data.Value<string>("id"), obj, _lang);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        
+        [Authorize]
+        [HttpGet("send-sms-by-status/{status}")]
+        public async Task<ActionResult> SendSMS([FromRoute] string status)
+        {
+            var result = await ElectroluxHelper.SendMessageByStatus(_lang, status);
+            if (result)
+            {
                 return Ok();
             }
             else

@@ -221,24 +221,16 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             var ma_san_pham = Obj.Value<string>("ma_san_pham");
             var sn = Obj.Value<string>("sn");
             var pnc = Obj.Value<string>("pnc");
-            var q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && m.AttributeFieldName == "hoa_don" && m.StringValue == hd.Trim());
+            IsValid = !_context.MixAttributeSetValue.Where(m => m.DataId != Id 
+                && 
+                    (
+                        m.AttributeFieldName == "hoa_don" && m.StringValue == hd.Trim()
+                        || m.AttributeFieldName == "ma_san_pham" && m.StringValue == ma_san_pham.Trim()
+                        || m.AttributeFieldName == "sn" && m.StringValue == sn.Trim()
+                        || m.AttributeFieldName == "pnc" && m.StringValue == pnc.Trim()
+                    )
+                ).GroupBy(m => m.DataId).Select(g => new { DataId = g.Key, Count = g.Count() }).Any(c => c.Count == 4);
             
-            if (q.Count() > 0)
-            {
-                var ids = q.Select(m => m.DataId).ToList();
-                q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n=>n == m.DataId) && m.AttributeFieldName == "ma_san_pham" && m.StringValue == ma_san_pham.Trim());
-                if (q.Count() > 0)
-                {
-                    ids = q.Select(m => m.DataId).ToList();
-                    q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n => n == m.DataId) && m.AttributeFieldName == "sn" && m.StringValue == sn.Trim());
-                    if (q.Count() > 0)
-                    {
-                        ids = q.Select(m => m.DataId).ToList();
-                        q = _context.MixAttributeSetValue.Where(m => m.DataId != Id && ids.Any(n => n == m.DataId) && m.AttributeFieldName == "pnc" && m.StringValue == pnc.Trim());
-                        IsValid = q.Count() == 0;
-                    }
-                }
-            }
             if (!IsValid)
             {
                 Errors.Add("Thông tin hóa đơn không hợp lệ!");
@@ -696,6 +688,14 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             else
             {
                 return default(T);
+            }
+        }
+        
+        public void SetProperty(string fieldName, string value)
+        {
+            if (Obj != null)
+            {
+                Obj[fieldName] = value;
             }
         }
         #endregion Expands
