@@ -1,0 +1,49 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+
+<preview-popup></preview-popup>
+<form id="register-form"
+  ng-class="{'submitted': submitted}"
+  ng-controller="ElectroluxRegisterFormController" ng-init="init('register')"
+      ng-submit="register()"
+      name="form"
+      data-validate="" novalidate="" data-customersourceidprepend="VN" data-sourceapi="">
+    <mix-loader ng-show="isBusy"></mix-loader>      
+    @await Html.PartialAsync("./Register_Form_Personal.cshtml")
+
+    @await Html.PartialAsync("./Register_Form_Product.cshtml")
+
+    @await Html.PartialAsync("./Register_Form_Receipt.cshtml")
+
+    @await Html.PartialAsync("./Register_Form_Transfer.cshtml")
+    
+    <div class="row submit-reset">
+        <!-- data-sitekey="6LfsJgYaAAAAANVfqFPgpiYMxd_1X7gdBtZ9v-Me" 
+            data-callback='onSubmit' 
+            data-action='submit' -->
+        <fieldset class="col-12 col-md-2">
+            <input  
+            
+            id="btnHoanTatDangKy"
+                data-sitekey="6LfsJgYaAAAAANVfqFPgpiYMxd_1X7gdBtZ9v-Me" 
+            data-callback='onSubmit' 
+            data-action='submit'
+             class="g-recaptcha button primary highlight-secondary-color" type="submit" value="Hoàn Tất Đăng Ký">
+            <!-- <button class="button primary highlight-secondary-color"
+                    type="button"
+                    name="Register"
+                    value="Register"
+                    ng-click="form.submit()">
+                Hoàn Tất Đăng Ký
+            </button> -->
+        </fieldset>
+        <div class="col-12 hidden">
+            <h3>Required errors:</h3>
+            <p ng-repeat="err in form.$error.required">{{err.$name}} - {{err.$viewValue}}</p>
+            <h3>Pattern Errors:</h3>
+            <p ng-repeat="err in form.$error.pattern">{{err.$name}} - {{err.$viewValue}}</p>
+            <h3>Form Data:</h3>
+            <pre>{{formData.obj|json}}</pre>
+        </div>
+    </div>
+    @await Html.PartialAsync("../Widgets/Alert_Modal.cshtml")
+</form>

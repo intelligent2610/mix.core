@@ -1,0 +1,404 @@
+﻿{
+    "data": [
+        {
+            "id": "1",
+            "name": "Citi Bank TP HCM (CitibankHCM)"
+        },
+        {
+            "id": "2",
+            "name": "Ngân hàng Thương mại cổ phần Việt Nam Thịnh Vượng (VPBank)"
+        },
+        {
+            "id": "3",
+            "name": "Ngân hàng Kỹ thương Việt Nam (Techcombank, TCB)"
+        },
+        {
+            "id": "4",
+            "name": "Ngân hàng TMCP Ngoại Thương (Vietcombank, VCB)"
+        },
+        {
+            "id": "5",
+            "name": "Ngân hàng Đầu tư và Phát triển Việt Nam (BIDV)"
+        },
+        {
+            "id": "6",
+            "name": "Ngân hàng An Bình (ABBank)"
+        },
+        {
+            "id": "7",
+            "name": "Ngân hàng Á Châu (ACB)"
+        },
+        {
+            "id": "8",
+            "name": "Ngân hàng NN &amp; PTNT VN (Agribank, VBARD)"
+        },
+        {
+            "id": "9",
+            "name": "Ngân hàng ANZ Việt Nam (ANZ)"
+        },
+        {
+            "id": "10",
+            "name": "BANGKOK  BANK (BANGKOK  BANK)"
+        },
+        {
+            "id": "11",
+            "name": "Công ty cổ phần chuyển mạch tài chính quốc gia Việt Nam (Banknetvn)"
+        },
+        {
+            "id": "12",
+            "name": "Ngân hàng TMCP Bảo Việt (Baoviet Bank)"
+        },
+        {
+            "id": "13",
+            "name": "BANK OF CHINA (BC)"
+        },
+        {
+            "id": "14",
+            "name": "NH ĐT&amp;PT Campuchia CN HCM (BIDC HCM)"
+        },
+        {
+            "id": "15",
+            "name": "NH ĐT&amp;PT Campuchia CN Hà Nội (BIDC HN)"
+        },
+        {
+            "id": "16",
+            "name": "BNP Paribas Bank HCM (BNP Paribas HCM)"
+        },
+        {
+            "id": "17",
+            "name": "Ngan hang BNP Paribas CN Ha Noi (BNP Paribas HN)"
+        },
+        {
+            "id": "18",
+            "name": "Bank of Communications (BOC)"
+        },
+        {
+            "id": "19",
+            "name": "Ngân hàng Bank of India (BOI)"
+        },
+        {
+            "id": "20",
+            "name": "Ngân hàng BPCEIOM CN  TP Hồ Chí Minh (BPCEICOM)"
+        },
+        {
+            "id": "21",
+            "name": "BANK OF TOKYO - MITSUBISHI UFJ - TP HCM (BTMU HCM)"
+        },
+        {
+            "id": "22",
+            "name": "BANK OF TOKYO - MITSUBISHI UFJ - HN (BTMU HN)"
+        },
+        {
+            "id": "23",
+            "name": "Credit Agricole Corporate and Investment Bank (CACIB)"
+        },
+        {
+            "id": "24",
+            "name": "Commonwealth Bank of Australia (CBA)"
+        },
+        {
+            "id": "25",
+            "name": "China Construction Bank Corporation (CCBC)"
+        },
+        {
+            "id": "26",
+            "name": "The Chase Manhattan Bank (CHASE)"
+        },
+        {
+            "id": "27",
+            "name": "Ngân hàng TNHH MTV CIMB Việt Nam (CIMB)"
+        },
+        {
+            "id": "28",
+            "name": "Citi Bank Ha Noi (CitibankHN)"
+        },
+        {
+            "id": "29",
+            "name": "Ngân hàng Hợp tác Việt Nam (COOPBANK)"
+        },
+        {
+            "id": "30",
+            "name": "Ngân hàng CTBC CN TP Hồ Chí Minh (CTBC)"
+        },
+        {
+            "id": "31",
+            "name": "Ngân hàng Cathay (CTU)"
+        },
+        {
+            "id": "32",
+            "name": "DEUTSCHE BANK (DB)"
+        },
+        {
+            "id": "33",
+            "name": "DBS Bank Ltd (DBS)"
+        },
+        {
+            "id": "34",
+            "name": "Ngân hàng Đông Á (Dong A Bank, DAB)"
+        },
+        {
+            "id": "35",
+            "name": "Ngân hàng Xuất nhập khẩu Việt Nam (Eximbank, EIB)"
+        },
+        {
+            "id": "36",
+            "name": "First Commercial Bank (FCNB)"
+        },
+        {
+            "id": "37",
+            "name": "First Commercial Bank Ha Noi (FCNB HN)"
+        },
+        {
+            "id": "38",
+            "name": "Ngân hàng Dầu khí Toàn cầu (GP Bank)"
+        },
+        {
+            "id": "39",
+            "name": "Ngân hàng Phát triển TP HCM (HDBank)"
+        },
+        {
+            "id": "40",
+            "name": "Ngân hàng Hong Leong Viet Nam (HLO)"
+        },
+        {
+            "id": "41",
+            "name": "Hua Nan Commercial Bank (HNCB)"
+        },
+        {
+            "id": "42",
+            "name": "NH TNHH Một Thành Viên HSBC Việt Nam (HSBC)"
+        },
+        {
+            "id": "43",
+            "name": "Ngân hàng The Hongkong và Thượng Hải (HSBC HN)"
+        },
+        {
+            "id": "44",
+            "name": "Industrial Bank of Korea (IBK)"
+        },
+        {
+            "id": "45",
+            "name": "Ngân hàng Industrial Bank of Korea- Chi nhánh Thành phố Hồ Chí Minh (IBK HCM)"
+        },
+        {
+            "id": "46",
+            "name": "ICB of China CN Ha Noi (ICB)"
+        },
+        {
+            "id": "47",
+            "name": "Indovina Bank (IVB)"
+        },
+        {
+            "id": "48",
+            "name": "Kho Bạc Nhà Nước (KBNN)"
+        },
+        {
+            "id": "49",
+            "name": "Korea Exchange Bank (KEB)"
+        },
+        {
+            "id": "50",
+            "name": "Ngân hàng Kiên Long (Kienlongbank)"
+        },
+        {
+            "id": "51",
+            "name": "Ngân hàng Kookmin (KMB)"
+        },
+        {
+            "id": "52",
+            "name": "Ngan hàng TMCP Bưu điện Liên Việt (Lienvietbank,  LPB)"
+        },
+        {
+            "id": "53",
+            "name": "Ngân hàng Hàng Hải Việt Nam (Maritime Bank, MSB)"
+        },
+        {
+            "id": "54",
+            "name": "Malayan Banking Berhad (Maybank)"
+        },
+        {
+            "id": "55",
+            "name": "Ngân hàng Quân Đội (MB)"
+        },
+        {
+            "id": "56",
+            "name": "Malayan Banking Berhad (MBB)"
+        },
+        {
+            "id": "57",
+            "name": "Mizuho Corporate Bank - TP HCM (MCB_HCM)"
+        },
+        {
+            "id": "58",
+            "name": "Mega ICBC Bank (MICB)"
+        },
+        {
+            "id": "59",
+            "name": "Mizuho Corporate Bank (Mizuho Bank)"
+        },
+        {
+            "id": "60",
+            "name": "Ngân hàng Nam Á (Nam A Bank, NAB)"
+        },
+        {
+            "id": "61",
+            "name": "Ngân hàng Bắc Á (NASBank, NASB)"
+        },
+        {
+            "id": "62",
+            "name": "Ngân hàng Quoc Dan (NCB)"
+        },
+        {
+            "id": "63",
+            "name": "Ngân hàng Nonghyup – Chi nhánh Hà Nội (NHB HN)"
+        },
+        {
+            "id": "64",
+            "name": "Oversea - Chinese Bank (OCBC)"
+        },
+        {
+            "id": "65",
+            "name": "Ngân hàng Đại Dương (Ocean Bank)"
+        },
+        {
+            "id": "66",
+            "name": "Ngân hàng Phương Đông (Oricombank, OCB, PhuongDong Bank)"
+        },
+        {
+            "id": "67",
+            "name": "Ngân hàng Xăng dầu Petrolimex (PG Bank)"
+        },
+        {
+            "id": "68",
+            "name": "NH TMCP Đại Chúng Viet Nam (PVcombank)"
+        },
+        {
+            "id": "69",
+            "name": "Quỹ tín dụng cơ sở (QTDCS)"
+        },
+        {
+            "id": "70",
+            "name": "Ngân hàng Sài Gòn Thương Tín (Sacombank)"
+        },
+        {
+            "id": "71",
+            "name": "Ngân hàng Sài Gòn Công Thương (Saigonbank)"
+        },
+        {
+            "id": "72",
+            "name": "Ngân Hàng Nhà Nước (SBV)"
+        },
+        {
+            "id": "73",
+            "name": "Ngân hàng TMCP Sài Gòn (SCB)"
+        },
+        {
+            "id": "74",
+            "name": "Ngân hàng Standard Chartered Bank Việt Nam (SCBank)"
+        },
+        {
+            "id": "75",
+            "name": "Ngân hàng Standard Chartered Bank HN (SCBank HN)"
+        },
+        {
+            "id": "76",
+            "name": "The Shanghai Commercial &amp; Savings Bank CN Đồng Nai (SCSB)"
+        },
+        {
+            "id": "77",
+            "name": "Ngân hàng TMCP Đông Nam Á (SeABank)"
+        },
+        {
+            "id": "78",
+            "name": "Ngân hàng Sài Gòn - Hà Nội (SHB)"
+        },
+        {
+            "id": "79",
+            "name": "Ngân hàng TNHH MTV Shinhan Việt Nam (Shinhan Bank)"
+        },
+        {
+            "id": "80",
+            "name": "Ngân hàng The Siam Commercial Public (SIAM)"
+        },
+        {
+            "id": "81",
+            "name": "Sumitomo Mitsui Banking Corporation HCM (SMBC)"
+        },
+        {
+            "id": "82",
+            "name": "Sumitomo Mitsui Banking Corporation HN (SMBC HN)"
+        },
+        {
+            "id": "83",
+            "name": "Ngân hàng SinoPac (SPB)"
+        },
+        {
+            "id": "84",
+            "name": "Taipei Fubon Commercial Bank Ha Noi (TFCBHN)"
+        },
+        {
+            "id": "85",
+            "name": "Taipei Fubon Commercial Bank TP Ho Chi Minh (TFCBTPHCM)"
+        },
+        {
+            "id": "86",
+            "name": "United Oversea Bank (UOB)"
+        },
+        {
+            "id": "87",
+            "name": "Ngân hàng Chính sách xã hội Việt Nam (VBSP)"
+        },
+        {
+            "id": "88",
+            "name": "Ngân hàng Phát triển Việt Nam (VDB)"
+        },
+        {
+            "id": "89",
+            "name": "Ngân hàng Quốc tế (VIBank, VIB)"
+        },
+        {
+            "id": "90",
+            "name": "Ngân hàng VID Public (VID public)"
+        },
+        {
+            "id": "91",
+            "name": "Ngân hàng Việt Hoa (Viet Hoa Bank)"
+        },
+        {
+            "id": "92",
+            "name": "Ngân hàng Việt Á (VietA Bank, VAB)"
+        },
+        {
+            "id": "93",
+            "name": "Ngân hàng Việt Nam Thương Tín (Vietbank)"
+        },
+        {
+            "id": "94",
+            "name": "NHTMCP Bản Việt (VietCapital Bank)"
+        },
+        {
+            "id": "95",
+            "name": "Ngân hàng công thương Việt Nam (Vietinbank)"
+        },
+        {
+            "id": "96",
+            "name": "NH TMCP Xây dựng Việt Nam (VNCB)"
+        },
+        {
+            "id": "97",
+            "name": "Ngân hàng Liên doanh Việt Nga (VRB)"
+        },
+        {
+            "id": "98",
+            "name": "Ngân hàng Vũng Tàu (Vung Tau)"
+        },
+        {
+            "id": "99",
+            "name": "NH Woori HCM (WHHCM)"
+        },
+        {
+            "id": "100",
+            "name": "WOORI BANK Hà Nội (WHHN)"
+        }
+    ]
+}

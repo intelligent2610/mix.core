@@ -1,0 +1,94 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{ 
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture); 
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+}
+@*
+    // Get Configuration
+    @MixService.GetConfig<T>("conf_name", ViewBag.culture)
+
+    // Get Extra Attribute
+    @(Model.Property<TDataType>("[propertyName]"))
+    ex: @(Model.Property<string>("html_title"))
+
+    // Loop Data
+    @foreach(var item in Model.Posts.Items){
+        // get simple Data value
+        var post = item.Post
+        @post.Property("[propertyName]")
+    }
+    @foreach(var item in Model.Modules.Items){
+        // get simple Data value
+        @item.Property("[propertyName]")
+    }
+*@
+<section id="indexSection" class="body-container">
+          <section id="heroBannerSection">
+            <div class="hero-banner-slider hero-banner-slider-js" data-slide-infinite="False" data-slide-autoplay-speed="7000">
+              <div class="hero-banner-standard theme-blue-rich " role="banner">
+                <div class="card col-12">
+                  <div class="card-section feature-img" data-imagizer="">
+                    <picture>
+                      <source srcset="@assetFolder/assets/img/promotion-banner-mobile-375x350.jpg" media="(max-width: 767px)">
+                      <source srcset="@assetFolder/assets/img/promotion-banner-desktop-1980x500.jpg" media="(min-width: 768px)">
+                      <img src="@assetFolder/assets/img/promotion-banner-desktop-1980x500.jpg" alt="Banner homepage">
+                    </picture>
+                  </div>
+                  <div class="card-section content card-section_content row">
+                    <div class="card-column">
+                      <div class="card-content-wrapper card-column__content">
+                        <h1 class="heading ">Tết trao lì xì, <br>Khai xuân như ý.
+                          <br>
+                          <button class="button primary highlight-secondary-color" type="button" name="Register" value="Register" data-register="Vào sổ" data-loading="Tải..." onclick="return validateForm();" style="margin: 0;">Tham gia chương trình
+                          </button>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class=" mgbt-sm-50 d-flex flex-direction-column">
+                  <div class=" row mgl-sm-0 mgr-sm-0">
+                    <div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                      <div class="img-text-block    mgt-sm-50  mgbt-sm-30    d-flex  
+                     ">
+                        <div class="img-text-block__content js-img-block__content      text-sm-center  justify-content-center d-flex">
+                          <div class="img-text-block__title order-1 text-sm-center">
+                            <h1>Hỗ trợ: 1800 588 899</h1>
+                            <h2>Thời gian làm việc từ: 09:00 - 18:00 từ thứ hai đến thứ bảy</h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grid d-flex fulltextblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                      <div class="full-text-module w-100-percent">
+                        <div class="content-container "><strong>Lưu ý về thông tin sản phẩm:</strong>
+                          <p>Hình ảnh không được cắt khép, rách rời. Chứ trên hình ảnh hoặc hóa đơn không được tẩy xóa hoặc bị mờ.
+                          </p>
+                          <ol>
+                            <li>Hình mẫu chứng minh thư, chứng minh nhân dân</li>
+                            <p><img src="https://visabaongoc.com/wp-content/uploads/2018/02/quy-dinh-ve-anh-lam-chung-minh-thu-nhan-dan-3-1024x614.jpg" width="50%"></p>
+                            <li>Hình mẫu về tem sản phẩm</li>
+                            <img src="@assetFolder/assets/sample/tem-may-giat.jpg" width="50%">
+                            <li>Hình mẫu về hóa đơn mua hàng</li>
+                            <img src="@assetFolder/assets/sample/tem-tu-lanh.jpg" width="50%">
+                          </ol>
+                          <br>
+                          <p style="text-align: center;"><a href="/dang-ky" class="button primary highlight-secondary-color" type="button" name="Register" value="Register" data-register="Vào sổ" data-loading="Tải..." style="margin: 0;">Tham gia chương trình
+                            </a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>

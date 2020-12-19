@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@{
+    string culture = ViewBag.culture;
+    string assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture);
+}
+<header class="header is-dark">
+  <nav class="navigation-wrapper">
+    <div class="main-navigation__close js-mobile-menu-close hide"><button class="close-icon" type="button" data-open="offCanvasRight" aria-expanded="true" aria-controls="offCanvasRight" aria-label="Close icon" aria-hidden="true"></button></div>
+    <div class="main-navigation js-menu-container" id="offCanvasRight" data-off-canvas="" data-transition="push">
+      <div class="opt-left hide-for-small">
+        <div class="navigation-logo"><a href="/" class="logo-link tracking-link" data-track-location-id="header" data-track-button-name="electrolux icon"><img src="@assetFolder/assets/icons/electrolux_logo_sg.svg" alt="Electrolux Vietnam"></a></div>
+      </div>
+      <div class="main-navigation__menu js-dropdown-menu" data-closing-time="200" role="menubar">
+        <div class="main-navigation__main-item has-submenu js-menu-item js-menu-expand-icon"><a href="/" class="main-navigation__main-item-link">Đăng kí tham gia</a></div>
+        <div class="main-navigation__main-item has-submenu js-menu-item js-menu-expand-icon"><a href="/tchs" class="main-navigation__main-item-link">Tra cứu hồ sơ</a></div>
+        <div class="main-navigation__main-item has-submenu js-menu-item js-menu-expand-icon"><a href="/the-le-dieu-kien" class="main-navigation__main-item-link">Thể lệ và điều kiện</a></div>
+        <div class="main-navigation__main-item has-submenu js-menu-item" role="menuitem" aria-haspopup="true" aria-label="Support"><a href="/huong-dan-tham-gia" class="main-navigation__main-item-link">Hướng dẫn tham gia</a></div>
+        <div class="main-navigation__main-item has-submenu -profile navigation-icon js-menu-item js-menu-expand-icon">
+          <div class="mobileMenu hide-for-large main-navigation__main-item-link profile-button js-profile-button">
+            <div class="navigation-logo"><a href="/" class="logo-link tracking-link" data-track-location-id="header" data-track-button-name="electrolux icon"><img src="@assetFolder/assets/icons/electrolux_logo_sg.svg" alt="Electrolux Vietnam"></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="js-off-canvas-overlay is-overlay-fixed"></div>
+    <div class="main-nav off-canvas-content header-mobile" data-off-canvas-content="">
+      <div class="hide-for-large mobile-menu js-mobile-menu" data-toggle="offCanvas"><img class="preview" src="@assetFolder/assets/img/place-holder.png" data-src="@assetFolder/assets/icons/hamburger.svg" width="25px" height="25px" alt="close"></div>
+      <div class="header-mobile-logo" role="menu">
+        <div class="navigation-logo" role="menuitem"><a href="/" class="logo-link tracking-link" data-track-location-id="header" data-track-button-name="electrolux icon"><img src="@assetFolder/assets/icons/electrolux_logo_sg.svg" alt="Electrolux Vietnam"></a></div>
+      </div>
+      <div class="close-search-bar option-right-content hide click-disable"><img class="preview" src="@assetFolder/assets/img/place-holder.png" data-src="@assetFolder/assets/img/cross.png" alt="close"></div>
+    </div>
+  </nav>
+</header>

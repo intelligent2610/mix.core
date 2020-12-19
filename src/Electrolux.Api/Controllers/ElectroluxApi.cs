@@ -50,7 +50,7 @@ namespace Electrolux.Api.Controllers
             string phone = queries.Value<string>("so_dien_thoai");
             string receipt = queries.Value<string>("hoa_don");
 
-            if (string.IsNullOrEmpty(phone) || phone.Length != 5 || string.IsNullOrEmpty(receipt))
+            if (string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(receipt))
             {
                 return BadRequest();
             }
@@ -62,7 +62,7 @@ namespace Electrolux.Api.Controllers
                 //{
                 //    var dt = item.Obj.Value<string>("so_dien_thoai");
                 //    var hd = item.Obj.Value<string>("hoa_don");
-                //    if (dt.IndexOf(phone) == dt.Length-5 && hd == receipt)
+                //    if (dt.IndexOf(phone) == dt.Length-5 && hd == receipt)srtxfdvx
                 //    {
                 //        result.Add(item);
                 //    }
@@ -75,7 +75,7 @@ namespace Electrolux.Api.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("save-values/{dataId}")]
         public async Task<ActionResult> SaveValue([FromRoute] string dataId, [FromBody]JObject obj)
         {
@@ -91,7 +91,7 @@ namespace Electrolux.Api.Controllers
         }
 
         
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("send-sms")]
         public async Task<ActionResult> SendSMS([FromBody] JObject data)
         {
@@ -111,7 +111,7 @@ namespace Electrolux.Api.Controllers
             }
         }
         
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("send-sms-by-status/{status}")]
         public async Task<ActionResult> SendSMS([FromRoute] string status)
         {
@@ -128,31 +128,39 @@ namespace Electrolux.Api.Controllers
 
         // GET: api/v1/rest/{culture}/attribute-set-data
         [HttpGet("init/{attributeSet}")]
-        public async Task<ActionResult<ElectroluxRegisterViewModel>> Init(string attributeSet)
+        public async Task<ActionResult<JObject>> Init(string attributeSet)
         {
-            int.TryParse(attributeSet, out int attributeSetId);
-            var getAttrSet = await Mix.Cms.Lib.ViewModels.MixAttributeSets.UpdateViewModel.Repository.GetSingleModelAsync(m => m.Name == attributeSet || m.Id == attributeSetId);
-            if (getAttrSet.IsSucceed)
-            {
-                ElectroluxRegisterViewModel result = new ElectroluxRegisterViewModel()
-                {
-                    Specificulture = _lang,
-                    AttributeSetId = getAttrSet.Data.Id,
-                    AttributeSetName = getAttrSet.Data.Name,
-                    Status = MixEnums.MixContentStatus.Published,
-                    Fields = getAttrSet.Data.Fields
-                };
-                result.ExpandView();
-                result.Obj["code"] = ElectroluxHelper.GenerateCodeInteger(5);
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(getAttrSet.Errors);
-            }
+
+            var cultures = FileRepository.Instance.GetFile("register.json", "data", true, "{}");
+            return JObject.Parse(cultures.Content);
+            //return new RepositoryResponse<JObject>()
+            //{
+            //    IsSucceed = true,
+            //    Data = obj as JObject
+            //};
+            //var getAttrSet = await Mix.Cms.Lib.ViewModels.MixAttributeSets.UpdateViewModel.Repository.GetSingleModelAsync(m => m.Name == "register");
+            //if (getAttrSet.IsSucceed)
+            //{
+            //    ElectroluxRegisterViewModel result = new ElectroluxRegisterViewModel()
+            //    {
+            //        Specificulture = _lang,
+            //        AttributeSetId = getAttrSet.Data.Id,
+            //        AttributeSetName = getAttrSet.Data.Name,
+            //        Status = MixEnums.MixContentStatus.Published,
+            //        Fields = getAttrSet.Data.Fields
+            //    };
+            //    result.ExpandView();
+            //    result.Obj["code"] = ElectroluxHelper.GenerateCodeInteger(5);
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(getAttrSet.Errors);
+            //}
         }
 
         // GET api/attribute-set-data
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("export")]
         public async Task<ActionResult> Export()
         {
@@ -167,7 +175,7 @@ namespace Electrolux.Api.Controllers
                 {
                     jData.Add(item.Obj);
                 }
-                var result = Mix.Cms.Lib.ViewModels.MixAttributeSetDatas.Helper.ExportAttributeToExcel(jData, string.Empty, exportPath, $"{attributeSetName}", null);
+                var result = Helper.ExportAttributeToExcel(jData, string.Empty, exportPath, $"{attributeSetName}", null);
                 return Ok(result.Data);
             }
             else
@@ -177,7 +185,7 @@ namespace Electrolux.Api.Controllers
         }
 
         // POST api/attribute-set-data
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "SuperAdmin, Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost, HttpOptions]
         [Route("import-data/{attributeSetName}")]
         public async Task<ActionResult<RepositoryResponse<ImportViewModel>>> ImportData(string attributeSetName, [FromForm] IFormFile file)

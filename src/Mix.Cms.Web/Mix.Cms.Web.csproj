@@ -4,15 +4,20 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <StartupObject>Mix.Cms.Web.Program</StartupObject>
         <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <UserSecretsId>bdb9bd72-25fb-4e4a-96b4-ad5e9d4751e3</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Remove="cache\**" />
         <Compile Remove="logs\**" />
         <Compile Remove="Views\Shared\Templates\**" />
+        <Content Remove="cache\**" />
         <Content Remove="logs\**" />
         <Content Remove="Views\Shared\Templates\**" />
+        <EmbeddedResource Remove="cache\**" />
         <EmbeddedResource Remove="logs\**" />
         <EmbeddedResource Remove="Views\Shared\Templates\**" />
+        <None Remove="cache\**" />
         <None Remove="logs\**" />
         <None Remove="Views\Shared\Templates\**" />
     </ItemGroup>

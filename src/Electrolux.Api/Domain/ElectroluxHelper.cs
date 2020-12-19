@@ -57,13 +57,16 @@ namespace Electrolux.Api.Domain
             {
                 foreach (var item in getData.Data)
                 {
-                    var smsCode = await SendMessage(status, item.Property<string>("so_dien_thoai"));
-                    if (!string.IsNullOrEmpty(smsCode))
+                    if (string.IsNullOrEmpty(item.Property<string>("sms_status")))
                     {
-                        await SaveValues(item.Id, new JObject()
+                        var smsCode = await SendMessage(status, item.Property<string>("so_dien_thoai"));
+                        if (!string.IsNullOrEmpty(smsCode) && !int.TryParse(smsCode, out int tmp))
                         {
-                            new JProperty("sms_status", smsCode)
+                            await SaveValues(item.Id, new JObject()
+                        {
+                            new JProperty("sms_status", smsCode),
                         }, culture);
+                        }
                     }
                 }
                 return true;

@@ -1,0 +1,94 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{ 
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture); 
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+}
+@*
+    // Get Configuration
+    @MixService.GetConfig<T>("conf_name", ViewBag.culture)
+
+    // Get Extra Attribute
+    @(Model.Property<TDataType>("[propertyName]"))
+    ex: @(Model.Property<string>("html_title"))
+
+    // Loop Data
+    @foreach(var item in Model.Posts.Items){
+        // get simple Data value
+        var post = item.Post
+        @post.Property("[propertyName]")
+    }
+    @foreach(var item in Model.Modules.Items){
+        // get simple Data value
+        @item.Property("[propertyName]")
+    }
+*@
+ <section id="indexSection" class="body-container">
+    <!-- <section id="heroBannerSection">
+    <div class="hero-banner-slider hero-banner-slider-js" data-slide-infinite="False" data-slide-autoplay-speed="7000">
+        <div class="hero-banner-standard theme-blue-rich " role="banner">
+            <div class="card col-12">
+                <div class="card-section feature-img" data-imagizer="">
+                    <picture>
+                        <source srcset="@assetFolder/assets/img/e_wb_home_360x350_nov20.jpg" media="(max-width: 767px)">
+                        <source srcset="@assetFolder/assets/img/KV.jpg?preset=xlarge" media="(min-width: 768px)">
+                            <img src="@assetFolder/assets/img/KV.jpg?preset=xlarge" alt="Electrolux tư duy Thụy Điển nâng tầm cuộc sống">
+                    </picture>
+                </div>            
+            </div>
+        </div>
+    </div>
+    </section> -->
+    <section id="formSection">
+    <div class="body-container">
+
+<div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 displaymode-full pdr-sm-0 pdl-sm-0">
+                      <div class="img-text-block mgt-sm-50 d-flex ">
+                        <div class="img-text-block__content js-img-block__content text-sm-center justify-content-center d-flex">
+                          <div class="img-text-block__title order-1 text-sm-center">
+                            <h1 class=" mgbt-sm-30">Bổ sung thông tin hồ sơ</h1>
+                            <h6>Vui lòng điền tất cả thông tin bắc buộc (*) và click vào icon hướng dẫn<br/> để tham khảo ví dụ!</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+        <div class="product-registration js-product-registration">
+        <div class="container">
+            @await Html.PartialAsync("../Forms/Update_Form.cshtml")
+        </div>
+        </div>
+        <div class="reveal" id="product-info-pnc" data-reveal=""><img src="@assetFolder/assets/img/pnc.jpg" alt="pnc">
+        <h4>Địa điểm của số PNC trên sản phẩm</h4>
+        <div class="row align-center">
+            <div class="col-4"><button class="button primary highlight-secondary-color" data-close="" type="button" value="Register">OK</button></div>
+        </div>
+        </div>
+        <div class="reveal" id="product-info-machine" data-reveal=""><img src="@assetFolder/assets/img/serial-no.jpg" alt="Electrolux Bảo hành số seri">
+        <h4>Địa điểm của số seri trên sản phẩm</h4>
+        <div class="row align-center">
+            <div class="col-4"><button class="cta-link-button" data-close="" type="button" value="Register">OK</button></div>
+        </div>
+        </div>
+        <div class="reveal" id="sn-info" data-reveal=""><img src="@assetFolder/assets/img/serial-no.jpg" alt="Electrolux Bảo hành số seri">
+        <h4>Địa điểm của số seri trên sản phẩm</h4>
+        <div class="row align-center">
+            <div class="col-4"><button class="cta-link-button" data-close="" type="button" value="Register">OK</button></div>
+        </div>
+        </div>
+        <div class="reveal" id="product-info-list-check" data-reveal="">
+        <div class="product-info-list-check-message">
+            <p></p>
+        </div>
+        <div class="ok-btn"><button class="button primary highlight-secondary-color" data-close="" type="button" onclick="return validateForm();">OK</button></div>
+        </div>
+        <div class="reveal" id="form-status" data-reveal="">
+        <div class="row align-center">
+            <div class="col-4"><button class="button primary highlight-secondary-color w-100-percent" data-close="" type="button">OK</button></div>
+        </div>
+        </div>
+    </div>
+    </section>
+    
+</section>

@@ -1,0 +1,534 @@
+﻿{
+    "data": [
+        {
+            "no": "1",
+            "cat": "TASTE",
+            "name": "Tủ lạnh",
+            "viname": "Tủ lạnh",
+            "pnc": "925060513",
+            "model": "ETB4600B-H",
+            "price": "14,490,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "2",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060515",
+            "model": "ETB4600B-G",
+            "price": "14,290,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "3",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060523",
+            "model": "ETB5400B-H",
+            "price": "17,390,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "4",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060524",
+            "model": "ETB5400B-G",
+            "price": "17,090,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "5",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060499",
+            "model": "ETE5720B-G",
+            "price": "18,590,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "6",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060525",
+            "model": "EBE4500B-H",
+            "price": "16,590,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "7",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060526",
+            "model": "EBE4500B-G",
+            "price": "16,390,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "8",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060494",
+            "model": "EME3700H-H",
+            "price": "11,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "9",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060493",
+            "model": "EME3700H-A",
+            "price": "11,890,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "10",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060502",
+            "model": "EHE5224B-A",
+            "price": "25,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "11",
+            "cat": "TASTE",
+            "name": "Fridge",
+            "viname": "Tủ lạnh",
+            "pnc": "925060325",
+            "model": "EHE6879A-B",
+            "price": "42,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "12",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949596507",
+            "model": "EHXD875FAK",
+            "price": "30,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "13",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949596515",
+            "model": "EHD8740FOK",
+            "price": "24,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "14",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "956004191",
+            "model": "EHI7325BA",
+            "price": "19,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "15",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "956004192",
+            "model": "EHI7023BA",
+            "price": "15,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "16",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949163372",
+            "model": "EHI7280BA",
+            "price": "12,890,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "17",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949163451",
+            "model": "EHI7280BB",
+            "price": "13,500,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "18",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949163369",
+            "model": "EHI7260BA",
+            "price": "10,890,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "19",
+            "cat": "TASTE",
+            "name": "BI Induction Hob",
+            "viname": "Bếp từ âm",
+            "pnc": "949163449",
+            "model": "EHI7260BB",
+            "price": "11,500,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "20",
+            "cat": "TASTE",
+            "name": "Hood",
+            "viname": "Hút mùi",
+            "pnc": "942001214",
+            "model": "EFC926BAR",
+            "price": "13,490,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "21",
+            "cat": "TASTE",
+            "name": "Hood",
+            "viname": "Hút mùi",
+            "pnc": "942001279",
+            "model": "EFC936GAR",
+            "price": "11,090,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "22",
+            "cat": "TASTE",
+            "name": "Hood",
+            "viname": "Hút mùi",
+            "pnc": "956004024",
+            "model": "EFC928SC",
+            "price": "14,490,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "23",
+            "cat": "TASTE",
+            "name": "Oven",
+            "viname": "Lò nướng",
+            "pnc": "944184529",
+            "model": "EOB8857AAX",
+            "price": "46,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "24",
+            "cat": "TASTE",
+            "name": "Oven",
+            "viname": "Lò nướng",
+            "pnc": "949499035",
+            "model": "EOB3434BOX",
+            "price": "17,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "25",
+            "cat": "TASTE",
+            "name": "Oven",
+            "viname": "Lò nướng",
+            "pnc": "944064612",
+            "model": "EOB2100COX",
+            "price": "10,490,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "26",
+            "cat": "TASTE",
+            "name": "Freestanding Cooker",
+            "viname": "Bếp tủ liền lò/ Bếp thùng",
+            "pnc": "943004894",
+            "model": "EKI64500OX",
+            "price": "22,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "27",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900815",
+            "model": "EWF9024BDWB",
+            "price": "11,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "28",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900816",
+            "model": "EWF9024ADSA",
+            "price": "12,790,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "29",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900729",
+            "model": "EWF9023BDWA",
+            "price": "13,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "30",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900817",
+            "model": "EWF9523BDWA",
+            "price": "13,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "31",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900818",
+            "model": "EWF9523ADSA",
+            "price": "15,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "32",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900728",
+            "model": "EWF1024BDWA",
+            "price": "13,290,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "33",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900726",
+            "model": "EWF1023BEWA",
+            "price": "16,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "34",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900725",
+            "model": "EWF1023BESA",
+            "price": "17,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "35",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900727",
+            "model": "EWF1042BDWA",
+            "price": "16,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "36",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900724",
+            "model": "EWF1142BEWA",
+            "price": "19,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "37",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900722",
+            "model": "EWF1141AEWA",
+            "price": "22,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "38",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900723",
+            "model": "EWF1142BESA",
+            "price": "21,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "39",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900721",
+            "model": "EWF1141AESA",
+            "price": "24,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "40",
+            "cat": "CARE",
+            "name": "Washer",
+            "viname": "Máy giặt",
+            "pnc": "914900809",
+            "model": "EWF1141SESA",
+            "price": "26,490,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "41",
+            "cat": "CARE",
+            "name": "Washer & Dryer",
+            "viname": "Máy giặt sấy",
+            "pnc": "914900734",
+            "model": "EWW8023AEWA",
+            "price": "16,290,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "42",
+            "cat": "CARE",
+            "name": "Washer & Dryer",
+            "viname": "Máy giặt sấy",
+            "pnc": "914900733",
+            "model": "EWW1042AEWA",
+            "price": "22,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "43",
+            "cat": "CARE",
+            "name": "Washer & Dryer",
+            "viname": "Máy giặt sấy",
+            "pnc": "914900732",
+            "model": "EWW1141AEWA",
+            "price": "24,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "44",
+            "cat": "CARE",
+            "name": "Washer & Dryer",
+            "viname": "Máy giặt sấy",
+            "pnc": "914900838",
+            "model": "EWW8025DGWA",
+            "price": "12,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "45",
+            "cat": "CARE",
+            "name": "Dryer",
+            "viname": "Máy sấy",
+            "pnc": "916002115",
+            "model": "EDS805KQWA",
+            "price": "10,990,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "46",
+            "cat": "CARE",
+            "name": "Dryer",
+            "viname": "Máy sấy",
+            "pnc": "916002117",
+            "model": "EDS805KQSA",
+            "price": "11,490,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "47",
+            "cat": "CARE",
+            "name": "Dryer",
+            "viname": "Máy sấy",
+            "pnc": "916098411",
+            "model": "EDC804CEWA",
+            "price": "14,090,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "48",
+            "cat": "CARE",
+            "name": "Dryer",
+            "viname": "Máy sấy",
+            "pnc": "916098414",
+            "model": "EDH803BEWA",
+            "price": "19,990,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "49",
+            "cat": "CARE",
+            "name": "Dryer",
+            "viname": "Máy sấy",
+            "pnc": "916098417",
+            "model": "EDH903BEWA",
+            "price": "23,190,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "50",
+            "cat": "WB",
+            "name": "Air Conditioner",
+            "viname": "Máy lạnh (điều hòa)",
+            "pnc": "956004610",
+            "model": "ESV18CRR-C2",
+            "price": "15,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "51",
+            "cat": "WB",
+            "name": "Air Conditioner",
+            "viname": "Máy lạnh (điều hòa)",
+            "pnc": "956004619",
+            "model": "ESV18CRR-C3",
+            "price": "15,890,000",
+            "gift": "1,000,000"
+        },
+        {
+            "no": "52",
+            "cat": "WB",
+            "name": "Air Purifier",
+            "viname": "Máy lọc không khí",
+            "pnc": "900943149",
+            "model": "PA91-406GY",
+            "price": "10,390,000",
+            "gift": "500,000"
+        },
+        {
+            "no": "53",
+            "cat": "WB",
+            "name": "Air Purifier",
+            "viname": "Máy lọc không khí",
+            "pnc": "900943150",
+            "model": "PA91-606DG",
+            "price": "14,990,000",
+            "gift": "500,000"
+        }
+    ]
+}

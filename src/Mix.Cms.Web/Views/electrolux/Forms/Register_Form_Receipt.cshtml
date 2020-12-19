@@ -1,0 +1,134 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+<div class="row product-info-header headerUpperCase">
+    <div class="col-12">
+        <h5>Thông Tin Hóa Đơn</h5>
+    </div>
+    <label class="col-12 group-section post-caption noteSection">
+        <p>*Mỗi lượt đăng ký thông tin tương ứng với 01 sản phẩm trên hóa đơn.</p>
+    </label>
+</div>
+<div class="product-info">
+    <div class="row fields">
+        <div class="col-12 col-lg-6">
+            <label class="product-information">
+                <input ng-model="formData.obj.hoa_don"
+                        name="receiptNumber"
+                        type="text"
+                        placeholder="*Số hoá đơn"
+                        aria-describedby="receiptNumber"
+                        required
+                        ng-pattern=""
+                        data-required="Bắt buộc nhập"
+                        data-valid="Tên không hợp lệ. Vui lòng nhập lại."
+                        aria-label="receiptNumber" />
+                <img data-open="sample_receiptNumber"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <span class="form-validate-error"></span>
+            </label>
+        </div>
+        <div class="col-12 col-lg-6">
+            <label class="product-information">
+                <!-- <input 
+                        type="text"
+                        id="initDate"
+ /> -->
+                    <input ng-model="receiptDate"
+                        ng-change="selectDate(receiptDate, 'ngay_tren_hoa_don')"
+                        class="product-info-input"
+                        type="text"
+                        id="receiptDate"
+                        onfocus="(this.type='date');"
+                        name="receiptDate"
+                        placeholder="*Ngày trên hóa đơn"
+                        aria-describedby="receiptDate"
+                        required
+                        data-required="Bắt buộc nhập"
+                        data-valid="Ngày hoặc tháng không hợp lệ. Vui lòng nhập lại."
+                        aria-label="receiptDate" />
+                <img data-open="sample_receiptDate"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <span class="form-validate-error"></span>
+            </label>
+        </div>
+        <div class="col-12 col-lg-6 productPhoto">
+            <div class="fields-productPhoto">
+                <label class="image-upload-label">*Hình hóa đơn giá trị gia tăng</label>
+                <img data-open="sample_receipt"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <input data-files="file.files" ngf-select="selectFiles($files, 'hinh_hoa_don')"
+                        type="file"
+                        class="custom-file-upload-img"
+                        multiple="multiple"
+                        accept="image/jpeg, image/jpg,capture=camera"
+                        name="receiptPhoto"
+                            aria-label="receiptPhoto" />
+                            <div ng-if="form.$submitted && !formData.obj.hinh_hoa_don"><span class="form-error">Bắt buộc nhập</span></div>
+                <!-- <div class="col-12">
+                    <div class="col-md-3 mb-3"
+                            ng-repeat="media in formData.obj.hinh_hoa_don">
+                        <img ng-src="{{media.obj.upload_file}}" />
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="col-12 col-lg-6 productPhoto">
+            <div class="fields-productPhoto">
+                <label class="image-upload-label">Hình chụp giấy ủy quyền công chứng (nếu có)</label>
+                <img data-open="product-info-pnc"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <input data-files="file.files" ngf-select="selectFiles($files, 'hinh_uy_quyen')"
+                        type="file"
+                        class="custom-file-upload-img"
+                        multiple="multiple"
+                        accept="image/jpeg, image/jpg, capture=camera" 
+                        name="documentPhoto"
+                            aria-describedby="documentPhoto"
+                            pattern=""
+                            data-valid="Hình không hợp lệ. Vui lòng nhập lại."
+                            aria-label="documentPhoto" />
+                            <span class="form-validate-error"></span>
+                <!-- <div class="col-12">
+                    <div class="col-md-3 mb-3"
+                            ng-repeat="media in formData.obj.hinh_uy_quyen">
+                        <img ng-src="{{media.obj.upload_file}}" />
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="col-6">
+            <div class="col-md-3 mb-3"
+                    ng-if="formData.obj.hinh_hoa_don">
+                <img ng-src="{{formData.obj.hinh_hoa_don}}" />
+            </div>
+        </div>
+        
+        <div class="col-6">
+            <div class="col-md-3 mb-3"
+                    ng-if="formData.obj.hinh_uy_quyen">
+                <img ng-src="{{formData.obj.hinh_uy_quyen}}" />
+            </div>
+        </div>
+        <label class="col-12 group-section post-caption noteSection">
+            <p>Lưu ý: Hình ảnh cung cấp cần phải rõ ràng, không bị mờ, lóa sáng.</p>
+        </label>
+        </label>
+    </div>
+</div>

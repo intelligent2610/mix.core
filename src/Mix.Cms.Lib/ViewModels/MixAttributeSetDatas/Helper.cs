@@ -15,6 +15,7 @@ using OfficeOpenXml.Table;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -352,10 +353,8 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                                 string value = q.Value.ToString();
                                 if (!string.IsNullOrEmpty(value))
                                 {
-                                    Expression<Func<MixAttributeSetValue, bool>> pre =
-                                       m => m.AttributeFieldName == q.Key &&
-                                            (filterType == "equal" && m.StringValue == (q.Value.ToString())) ||
-                                            (filterType == "contain" && (EF.Functions.Like(m.StringValue, $"%{q.Value}%")));
+                                    Expression<Func<MixAttributeSetValue, bool>> pre = GetValueFilter(filterType, q.Key, value);
+
                                     if (valPredicate != null)
                                     {
                                         valPredicate = ReflectionHelper.CombineExpression(valPredicate, pre, Heart.Enums.MixHeartEnums.ExpressionMethod.Or);
@@ -414,6 +413,21 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                     context.Database.CloseConnection(); transaction.Dispose(); context.Dispose();
                 }
             }
+        }
+
+        private static Expression<Func<MixAttributeSetValue, bool>> GetValueFilter(string filterType, string key, string value)
+        {
+            switch (filterType)
+            {
+                case "equal":
+                    return m => m.AttributeFieldName == key
+                        && (EF.Functions.Like(m.StringValue, $"{value}"));
+                case "contain":
+                    return m => m.AttributeFieldName == key &&
+                                            (EF.Functions.Like(m.StringValue, $"%{value}%"));
+
+            }
+            return null;
         }
 
         public static async Task<RepositoryResponse<List<TView>>> FilterByKeywordAsync<TView>(string culture, string attributeSetName
@@ -532,7 +546,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 Data = new FileViewModel()
                 {
                     FileFolder = folderPath,
-                    Filename = fileName + "-" + DateTime.Now.ToString("yyyyMMdd"),
+                    Filename = fileName + "-" + DateTime.Now.ToString("yyyyMMdd-hh-mm-ss"),
                     Extension = ".xlsx"
                 }
             };
@@ -570,10 +584,13 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                         var r = dtable.NewRow();
                         foreach (var prop in a.Properties())
                         {
-                            bool isHaveValue = a.TryGetValue(prop.Name, out JToken val);
-                            if (isHaveValue)
+                            if (dtable.Columns.Contains(prop.Name))
                             {
-                                r[prop.Name] = val.ToString();
+                                bool isHaveValue = a.TryGetValue(prop.Name, out JToken val);
+                                if (isHaveValue)
+                                {
+                                    r[prop.Name] = val.ToString();
+                                }
                             }
                         }
                         dtable.Rows.Add(r);
@@ -587,7 +604,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                         wsDt.Cells["A1"].LoadFromDataTable(dtable, true, TableStyles.None);
                         wsDt.Cells[wsDt.Dimension.Address].AutoFitColumns();
 
-                        CommonHelper.SaveFileBytes(folderPath, filenameE, pck.GetAsByteArray());
+                        SaveFileBytes(folderPath, filenameE, pck.GetAsByteArray());
                         result.IsSucceed = true;
 
                         return result;
@@ -603,6 +620,36 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
             {
                 result.Errors.Add(ex.Message);
                 return result;
+            }
+        }
+        public static bool SaveFileBytes(string folder, string filename, byte[] bytes)
+        {
+            //data:image/gif;base64,
+            //this image is a single pixel (black)
+            try
+            {
+                folder = $"wwwroot/{folder}";
+                string fullPath = $"{folder}/{filename}";
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
+
+                using (var writer = File.Create(fullPath))
+                {
+                    writer.Write(bytes, 0, bytes.Length);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

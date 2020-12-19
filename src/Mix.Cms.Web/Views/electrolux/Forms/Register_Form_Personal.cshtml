@@ -1,0 +1,144 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+<div class="row personal-info-header headerUpperCase" ng-init="initNestedData()">
+    <div class="col-12">
+        <h5>Thông Tin Cá Nhân</h5>
+    </div>
+</div>
+<div class="personal-info">
+    <div class="row fields">
+        <div class="col-12 col-lg-12">
+            <label>
+                <input ng-model="formData.obj.ho_va_ten"
+                        type="text"
+                        name="fullName"
+                        placeholder="*Họ và tên"
+                        aria-describedby="fullName"
+                        required=""
+                        ng-pattern="alpha"
+                        aria-label="fullName" />
+                <div ng-messages="(form.$submitted || form.fullName.$dirty) && form.fullName.$error" ng-messages-multiple>
+                    <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                    <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                </div>
+            </label>
+        </div>
+        <div class="col-12 col-lg-6">
+            <label>
+                <input ng-model="formData.obj.so_dien_thoai"
+                        type="text"
+                        name="contactNumber"
+                        placeholder="*Số điện thoại"
+                        aria-describedby="number"
+                        required=""
+                        ng-pattern="number"
+                        aria-label="contactNumber" />
+                <div ng-messages="(form.$submitted || form.contactNumber.$dirty) && form.contactNumber.$error" ng-messages-multiple>
+                    <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                    <span class="form-validate-error" ng-message="pattern">Số điện thoại không chính xác. Vui lòng thử lại.</span>
+                </div>
+            </label>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="fields-email">
+                <label>
+                    <input ng-model="formData.obj.thu_dien_tu"
+                            type="email"
+                            name="email"
+                            placeholder="*Thư điện tử"
+                            required=""
+                            ng-pattern="email"
+                            aria-label="email" />
+                    <div ng-messages="(form.$submitted || form.email.$dirty) && form.email.$error" ng-messages-multiple>
+                        <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                        <span class="form-validate-error" ng-message="pattern">Địa chỉ mail không chính xác. Vui lòng thử lại.</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <label class="col-12 col-lg-12">
+            <input ng-model="formData.obj.cmnd"
+                    type="text"
+                    name="identityNumber"
+                    placeholder="*Số chứng minh thư / thẻ căn cước"
+                    aria-describedby="identityNumber"
+                    required
+                    ng-pattern="alpha_numeric"
+                    data-required="Bắt buộc nhập"
+                    data-valid="Số chứng minh thư hoặc thẻ căn cước không hợp lệ. Vui lòng nhập lại."
+                    aria-label="identityNumber" />
+            <span class="form-validate-error"></span>
+        </label>
+        <!--label class="col-12 col-lg-6">
+            <input ng-model="formData.obj.ngay_cap"
+                    type="text" 
+                    name="identityCardDate"
+                    placeholder="*Ngày cấp"
+                    aria-describedby="identityCardDate"
+                    required
+                    ng-pattern="date"
+                    data-required="Bắt buộc nhập"
+                    data-valid="Ngày hoặc tháng không hợp lệ. Vui lòng nhập lại."
+                    aria-label="identityCardDate"
+                    id="identityCardDate" />
+            <img style="right: 17px;"
+                    class="placeholder-image"
+                    src="@assetFolder/assets/img/date-icon.png"
+                    alt="Date Icon"
+                    tabindex="-1" />
+            <span class="form-validate-error"></span>
+        </label-->
+        <div class="col-6 col-lg-6 productPhoto">
+            <div class="fields-productPhoto">
+                <label class="image-upload-label">*Hình chứng minh thư / thẻ căn cước (mặt trước)</label>
+                <img data-open="idCardFront"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <input data-files="file.files" ngf-select="selectFiles($files, 'hinh_cmnd')"
+                        type="file"
+                        class="custom-file-upload-img"
+                        accept="image/jpeg, image/jpg,capture=camera"
+                        name="identityPhotoFront"
+                        aria-label="identityPhotoFront" />
+                        <div ng-if="form.$submitted && !formData.obj.hinh_cmnd"><span class="form-error">Bắt buộc nhập</span></div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-6 productPhoto">
+            <div class="fields-productPhoto">
+                <label class="image-upload-label">*Hình chứng minh thư / thẻ căn cước (mặt sau)</label>
+                <img data-open="idCardBack"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                        <input data-files="file.files" ngf-select="selectFiles($files, 'hinh_cmnd_1')"
+                            type="file"
+                            class="custom-file-upload-img"
+                            accept="image/jpeg, image/jpg,capture=camera"
+                            name="identityPhotoBack"
+                            aria-label="identityPhotoBack" />
+                            <div ng-if="form.$submitted && !formData.obj.hinh_cmnd_1"><span class="form-error">Bắt buộc nhập</span></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-md-3 mb-3"
+                    ng-if="formData.obj.hinh_cmnd">
+                <img ng-src="{{formData.obj.hinh_cmnd}}" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-md-3 mb-3"
+                    ng-if="formData.obj.hinh_cmnd_1">
+                <img ng-src="{{formData.obj.hinh_cmnd_1}}" />
+            </div>
+        </div>
+        <label class="col-12 group-section post-caption noteSection">
+            <p>
+                Lưu ý: Hình ảnh cung cấp cần phải rõ ràng, không bị mờ, lóa sáng.
+            </p>
+        </label>
+    </div>
+</div>

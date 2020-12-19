@@ -1,0 +1,257 @@
+﻿{
+	
+    "data": [
+        {
+            "tpNo": "01",
+            "tpName": "Thành phố Hà Nội"
+        },
+        {
+            "tpNo": "02",
+            "tpName": "Tỉnh Hà Giang"
+        },
+        {
+            "tpNo": "04",
+            "tpName": "Tỉnh Cao Bằng"
+        },
+        {
+            "tpNo": "06",
+            "tpName": "Tỉnh Bắc Kạn"
+        },
+        {
+            "tpNo": "08",
+            "tpName": "Tỉnh Tuyên Quang"
+        },
+        {
+            "tpNo": "10",
+            "tpName": "Tỉnh Lào Cai"
+        },
+        {
+            "tpNo": "11",
+            "tpName": "Tỉnh Điện Biên"
+        },
+        {
+            "tpNo": "12",
+            "tpName": "Tỉnh Lai Châu"
+        },
+        {
+            "tpNo": "14",
+            "tpName": "Tỉnh Sơn La"
+        },
+        {
+            "tpNo": "15",
+            "tpName": "Tỉnh Yên Bái"
+        },
+        {
+            "tpNo": "17",
+            "tpName": "Tỉnh Hoà Bình"
+        },
+        {
+            "tpNo": "19",
+            "tpName": "Tỉnh Thái Nguyên"
+        },
+        {
+            "tpNo": "20",
+            "tpName": "Tỉnh Lạng Sơn"
+        },
+        {
+            "tpNo": "22",
+            "tpName": "Tỉnh Quảng Ninh"
+        },
+        {
+            "tpNo": "24",
+            "tpName": "Tỉnh Bắc Giang"
+        },
+        {
+            "tpNo": "25",
+            "tpName": "Tỉnh Phú Thọ"
+        },
+        {
+            "tpNo": "26",
+            "tpName": "Tỉnh Vĩnh Phúc"
+        },
+        {
+            "tpNo": "27",
+            "tpName": "Tỉnh Bắc Ninh"
+        },
+        {
+            "tpNo": "30",
+            "tpName": "Tỉnh Hải Dương"
+        },
+        {
+            "tpNo": "31",
+            "tpName": "Thành phố Hải Phòng"
+        },
+        {
+            "tpNo": "33",
+            "tpName": "Tỉnh Hưng Yên"
+        },
+        {
+            "tpNo": "34",
+            "tpName": "Tỉnh Thái Bình"
+        },
+        {
+            "tpNo": "35",
+            "tpName": "Tỉnh Hà Nam"
+        },
+        {
+            "tpNo": "36",
+            "tpName": "Tỉnh Nam Định"
+        },
+        {
+            "tpNo": "37",
+            "tpName": "Tỉnh Ninh Bình"
+        },
+        {
+            "tpNo": "38",
+            "tpName": "Tỉnh Thanh Hóa"
+        },
+        {
+            "tpNo": "40",
+            "tpName": "Tỉnh Nghệ An"
+        },
+        {
+            "tpNo": "42",
+            "tpName": "Tỉnh Hà Tĩnh"
+        },
+        {
+            "tpNo": "44",
+            "tpName": "Tỉnh Quảng Bình"
+        },
+        {
+            "tpNo": "45",
+            "tpName": "Tỉnh Quảng Trị"
+        },
+        {
+            "tpNo": "46",
+            "tpName": "Tỉnh Thừa Thiên Huế"
+        },
+        {
+            "tpNo": "48",
+            "tpName": "Thành phố Đà Nẵng"
+        },
+        {
+            "tpNo": "49",
+            "tpName": "Tỉnh Quảng Nam"
+        },
+        {
+            "tpNo": "51",
+            "tpName": "Tỉnh Quảng Ngãi"
+        },
+        {
+            "tpNo": "52",
+            "tpName": "Tỉnh Bình Định"
+        },
+        {
+            "tpNo": "54",
+            "tpName": "Tỉnh Phú Yên"
+        },
+        {
+            "tpNo": "56",
+            "tpName": "Tỉnh Khánh Hòa"
+        },
+        {
+            "tpNo": "58",
+            "tpName": "Tỉnh Ninh Thuận"
+        },
+        {
+            "tpNo": "60",
+            "tpName": "Tỉnh Bình Thuận"
+        },
+        {
+            "tpNo": "62",
+            "tpName": "Tỉnh Kon Tum"
+        },
+        {
+            "tpNo": "64",
+            "tpName": "Tỉnh Gia Lai"
+        },
+        {
+            "tpNo": "66",
+            "tpName": "Tỉnh Đắk Lắk"
+        },
+        {
+            "tpNo": "67",
+            "tpName": "Tỉnh Đắk Nông"
+        },
+        {
+            "tpNo": "68",
+            "tpName": "Tỉnh Lâm Đồng"
+        },
+        {
+            "tpNo": "70",
+            "tpName": "Tỉnh Bình Phước"
+        },
+        {
+            "tpNo": "72",
+            "tpName": "Tỉnh Tây Ninh"
+        },
+        {
+            "tpNo": "74",
+            "tpName": "Tỉnh Bình Dương"
+        },
+        {
+            "tpNo": "75",
+            "tpName": "Tỉnh Đồng Nai"
+        },
+        {
+            "tpNo": "77",
+            "tpName": "Tỉnh Bà Rịa - Vũng Tàu"
+        },
+        {
+            "tpNo": "79",
+            "tpName": "Thành phố Hồ Chí Minh"
+        },
+        {
+            "tpNo": "80",
+            "tpName": "Tỉnh Long An"
+        },
+        {
+            "tpNo": "82",
+            "tpName": "Tỉnh Tiền Giang"
+        },
+        {
+            "tpNo": "83",
+            "tpName": "Tỉnh Bến Tre"
+        },
+        {
+            "tpNo": "84",
+            "tpName": "Tỉnh Trà Vinh"
+        },
+        {
+            "tpNo": "86",
+            "tpName": "Tỉnh Vĩnh Long"
+        },
+        {
+            "tpNo": "87",
+            "tpName": "Tỉnh Đồng Tháp"
+        },
+        {
+            "tpNo": "89",
+            "tpName": "Tỉnh An Giang"
+        },
+        {
+            "tpNo": "91",
+            "tpName": "Tỉnh Kiên Giang"
+        },
+        {
+            "tpNo": "92",
+            "tpName": "Thành phố Cần Thơ"
+        },
+        {
+            "tpNo": "93",
+            "tpName": "Tỉnh Hậu Giang"
+        },
+        {
+            "tpNo": "94",
+            "tpName": "Tỉnh Sóc Trăng"
+        },
+        {
+            "tpNo": "95",
+            "tpName": "Tỉnh Bạc Liêu"
+        },
+        {
+            "tpNo": "96",
+            "tpName": "Tỉnh Cà Mau"
+        }
+    ],
+}

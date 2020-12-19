@@ -1,0 +1,63 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{ 
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture); 
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+   var posts = await Mix.Cms.Lib.ViewModels.MixPosts.ReadViewModel.Repository.GetModelListAsync(
+       "CreatedDateTime", Mix.Heart.Enums.MixHeartEnums.DisplayDirection.Desc,
+       20, 0
+   );
+}
+<section id="indexSection" class="the-le-dieu-kien body-container">
+    <section id="heroBannerSection">
+        <div class="hero-banner-slider hero-banner-slider-js" data-slide-infinite="False" data-slide-autoplay-speed="7000">
+            <div class="hero-banner-standard theme-blue-rich " role="banner">
+            <div class="card col-12">
+                <div class="card-section feature-img" data-imagizer="">
+                    <picture>
+                        <source srcset="@assetFolder/assets/img/promotion-banner-mobile-375x350.jpg" media="(max-width: 767px)">
+                        <source srcset="@assetFolder/assets/img/KV.jpg" media="(min-width: 768px)">
+                        <img src="@assetFolder/assets/img/KV.jpg" alt="Banner homepage">
+                    </picture>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+    <div class="row">
+        <div class="col-12">
+        <div class=" mgbt-sm-50 d-flex flex-direction-column">
+            <div class=" row mgl-sm-0 mgr-sm-0">
+            <div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                <div class="img-text-block    mgt-sm-50  mgbt-sm-30    d-flex  
+                ">
+                <div class="img-text-block__content js-img-block__content      text-sm-center  justify-content-center d-flex">
+                    <div class="img-text-block__title order-1 text-sm-center">
+                    <h1>Tổng giá trị lên đến 10 tỷ đồng</h1>
+                    <h2>Từ 1/1/2021 - 10/2/2021</h2>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="grid d-flex fulltextblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                <div class="full-text-module w-100-percent">
+                <div class="content-container ">
+                    <p>Từ 01/01/2021 đến 10/02/2021 Công ty TNHH Electrolux Việt Nam thực hiện chương trình khuyến mại &quot; Đón Tết Rộn Ràng – Lì Xì Hoành Tráng” - Lì xì 500.000 đồng cho các khách hàng khi mua mỗi sản phẩm Electrolux có giá trị từ 10.000.000 đến dưới 15.000.000 đồng và lì xì 1.000.000 đồng cho mỗi sản phẩm Electrolux có giá trị từ 15.000.000 đồng trở lên trên toàn quốc.
+                    <br><br>
+                    Xem chi tiết thể lệ và điều kiện tham gia chương trình tại
+                    <a href="https://www.tet2021-electrolux.com/the-le-dieu-kien" target="_top">https://www.tet2021-electrolux.com/the-le-dieu-kien</a>
+                    </p>
+                    <!-- <br>
+                    <p style="text-align: center;"><a href="/dang-ky" class="button primary highlight-secondary-color" type="button" name="Register" value="Register" data-register="Vào sổ" data-loading="Tải..." style="margin: 0;">Tham gia chương trình
+                    </a></p> -->
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</section>

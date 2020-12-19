@@ -1,0 +1,244 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{ 
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture); 
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+}
+<style>
+ol, ul{
+    padding-inline-start: 20px;
+}
+li{
+    margin-top: 5px;
+}
+</style>
+@*
+    // Get Configuration
+    @MixService.GetConfig<T>("conf_name", ViewBag.culture)
+
+    // Get Extra Attribute
+    @(Model.Property<TDataType>("[propertyName]"))
+    ex: @(Model.Property<string>("html_title"))
+
+    // Loop Data
+    @foreach(var item in Model.Posts.Items){
+        // get simple Data value
+        var post = item.Post
+        @post.Property("[propertyName]")
+    }
+    @foreach(var item in Model.Modules.Items){
+        // get simple Data value
+        @item.Property("[propertyName]")
+    }
+*@
+<section id="indexSection" class="body-container">
+          <!-- <section id="heroBannerSection">
+            <div class="hero-banner-slider hero-banner-slider-js" data-slide-infinite="False" data-slide-autoplay-speed="7000">
+              <div class="hero-banner-standard theme-blue-rich " role="banner">
+                <div class="card col-12">
+                  <div class="card-section feature-img" data-imagizer="">
+                    <picture>
+                      <source srcset="@assetFolder/assets/img/promotion-banner-mobile-375x350.jpg" media="(max-width: 767px)">
+                      <source srcset="@assetFolder/assets/img/promotion-banner-desktop-1980x500.jpg" media="(min-width: 768px)">
+                      <img src="@assetFolder/assets/img/promotion-banner-desktop-1980x500.jpg" alt="Banner homepage">
+                    </picture>
+                  </div>
+                  <div class="card-section content card-section_content row">
+                    <div class="card-column">
+                      <div class="card-content-wrapper card-column__content">
+                        <h1 class="heading ">Tết trao lì xì, <br>Khai xuân như ý.
+                          <br>
+                          <button class="button primary highlight-secondary-color" type="button" name="Register" value="Register" data-register="Vào sổ" data-loading="Tải..." onclick="return validateForm();" style="margin: 0;">Tham gia chương trình
+                          </button>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section> -->
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class=" mgbt-sm-50 d-flex flex-direction-column">
+                  <div class=" row mgl-sm-0 mgr-sm-0">
+                    <div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 displaymode-full pdr-sm-0 pdl-sm-0">
+                      <div class="img-text-block mgt-sm-50 mgbt-sm-30 d-flex ">
+                        <div class="img-text-block__content js-img-block__content text-sm-center justify-content-center d-flex">
+                          <div class="img-text-block__title order-1 text-sm-center">
+                            <h1>Tổng giá trị lên đến 10 tỷ đồng</h1>
+                            <h2>Từ 21/12/2020 đến 10/02/2021</h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grid d-flex fulltextblock col-lg-12 col-md-12 col-12 displaymode-full pdr-sm-0 pdl-sm-0">
+                      <div class="full-text-module w-100-percent">
+                        
+                                <div class="content-container ">
+                                    <h5>Từ 21/12/2020 đến 10/02/2021, công ty TNHH Electrolux Việt Nam thực hiện chương trình "Tết Trao Lì Xì – Khai Xuân Như Ý” với tổng giá trị giải thưởng lên đến 10 tỉ đồng. Thể lệ tham gia chương trình như sau:</h5>
+                                    <br />
+                                    <ol>
+                                        <li>
+                                            <strong>Tên chương trình: "Tết Trao Lì Xì – Khai Xuân Như Ý”</strong>
+                                        </li>
+                                        <li>
+                                            <strong>Thời gian khuyến mại:</strong>
+                                            Từ
+                                            <strong>21/12/2020</strong>
+                                            đến
+                                            <strong>10/02/2021</strong>
+                                            (chương trình có thể kết thúc khi hết thời gian khuyến mại hoặc đến khi hết quà lì xì, tùy thuộc điều kiện nào đến trước)
+                                        </li>
+                                        <li>
+                                            <strong>Chi tiết thể lệ chương trình:</strong>
+                                        </li>
+                                        <ol type="a">
+                                            <li>Phạm vi áp dung: Toàn quốc</li>
+                                            <li>
+                                                Đối tượng tham gia chương trình: Khách hàng tiêu dùng (*)
+                                                <p>(*) Chương trình không áp dụng đối với các nhà phân phối là cửa hàng bán lẻ, đại lý hoặc các siêu thị điện máy.</p>
+                                            </li>
+                                            <li>
+                                                Hình thức khuyến mại: Tặng tiền lì xì may mắn.
+                                                <p>
+                                                    Khi khách hàng mua mỗi sản phẩm Electrolux chính hãng có giá khuyến nghị (đã bao gồm VAT) từ 10.000.000 đồng trở lên và có trong danh sách sản phẩm khuyến mại đính kèm sẽ đủ điều kiện tham gia chương trình "Tết Trao Lì Xì – Khai Xuân Như Ý” và nhận
+                                                    mức quà tặng lì xì như sau:
+                                                </p>
+                                                <table style="width:60%; border:1px solid">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    <strong>Giá khuyến nghị mỗi sản phẩm đã bao gồm VAT (VND)</strong>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    <strong>Giá trị lì xì (VND)</strong>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    Từ
+                                                                    <strong>10.000.000</strong>
+                                                                    đến dưới
+                                                                    <strong>15.000.000</strong>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    <strong>500.000</strong>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p>
+                                                                    Từ
+                                                                    <strong>15.000.000</strong>
+                                                                    trở lên
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p>
+                                                                    <strong>1.000.000</strong>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </li>
+                                            <li>
+                                                Cách thức gửi quà tặng lì xì: Electrolux sẽ chuyển tiền
+                                                <strong>TRỰC TIẾP</strong>
+                                                cho khách hàng tiêu dùng và
+                                                <strong>KHÔNG THÔNG QUA</strong>
+                                                bất kỳ cửa hàng bán lẻ, đại lý hoặc siêu thị điện máy nào.
+                                            </li>
+                                            <li>
+                                                Cách thức tham gia:
+                                                <p>
+                                                    Khách hàng đăng nhập vào trang Electrolux tại địa chỉ:
+                                                    <a href="www.electrolux.vn/tet2021">www.electrolux.vn/tet2021</a>
+                                                    để đăng kí tham gia chương trình khuyến mại:
+                                                </p>
+
+                                            </li>
+                                            <ol type="i">
+                                                <li>Bước 1: Cung cấp đầy đủ thông tin cá nhân bao gồm:</li>
+                                                <ul>
+                                                    <li>Họ và tên</li>
+                                                    <li>Số điện thoại</li>
+                                                    <li>Địa chỉ email cá nhân</li>
+                                                    <li>Thông tin CMND hoặc Thẻ căn cước cùng hình chụp màu CMND hoặc Thẻ căn cước (mặt trước + mặt sau)</li>
+                                                    <li>Địa chỉ nhận quà tặng lì xì (đối với trường hợp đăng ký nhận lì xì qua đường bưu điện)</li>
+                                                    <li>Số tài khoản ngân hàng (tên chủ tài khoản, số tài khoản, tên ngân hàng và chi nhánh - đối với trường hợp đăng ký nhận lì xì qua ngân hàng)</li>
+                                                </ul>
+                                                <li>Bước 2: Cung cấp thông tin về sản phẩm:</li>
+                                                <ul>
+                                                    <li>Thông tin sản phẩm đã mua</li>
+                                                    <li>Hình ảnh chụp hóa đơn giá trị gia tăng có ghi rõ thông tin chi tiết mã sản phẩm, tên người mua hàng và ngày xuất hóa đơn (ngày xuất hóa đơn này phải nằm trong thời gian diễn ra chương trình). Hóa đơn không có dấu hiệu tẩy xóa, cắt ghép. </li>
+                                                    <li>Khách hàng phải tiến hành đăng ký tham gia chương trong thời gian tối đa là 7 ngày làm việc kể từ ngày ghi trên hóa đơn.</li>
+                                                    <li>Hình ảnh chụp rõ ràng tem của nhà sản xuất (được dán bên trong sản phẩm) có thông tin về các mã số của sản phẩm.</li>
+                                                </ul>
+                                                <li>Bước 3: Đồng ý các điều kiện & điều khoản của chương trình khuyến mại và gửi thông tin cho chương trình. </li>
+                                                <li>Bước 4: Kiểm tra thông tin phản hồi từ chương trình.</li>
+                                            </ol>
+                                            <li>
+                                                Thời gian tiếp nhận thông tin: 
+                                                
+                                                <p>Thời gian áp dụng chương trình khuyến mại là từ <strong>21/12/2020</strong> đến <strong>10/02/2021</strong>. Cổng tiếp nhận thông tin đăng ký tham gia (www.electrolux.vn/tet2021) sẽ được mở từ <strong> 0h00’ ngày 21/12/2020 đến hết 23h59 ngày 17/2/2021</strong>. </p>
+                                                <p>Sau khi điền đầy đủ thông tin trên trang www.electrolux.vn/tet2021, trong vòng 03 ngày làm việc (không tính thứ Bảy, Chủ nhật và ngày Lễ, Tết), khách hàng sẽ nhận được thông báo về tình trạng hồ sơ từ chương trình.</p>
+                                                <p>Nếu hồ sơ cần bổ sung hoặc chỉnh sửa thông tin: khách hàng sẽ được bổ sung hoặc chỉnh sửa thông tin không giới hạn số lần. Thời gian để bổ sung thông tin không quá 10 ngày làm việc kể từ ngày nhận được phản hồi từ chương trình.</p>
+                                                <p>Nếu hồ sơ của khách hàng không đủ điều kiện tham gia chương trình cũng sẽ vẫn nhận được thông báo từ chương trình. </p>
+                                            </li>
+                                            <li>
+                                                Thời gian gửi quà tặng lì xì: Nếu hồ sơ đăng ký hợp lệ: khách hàng sẽ nhận được quà tặng lì xì trong vòng 10 ngày làm việc (không tính thứ Bảy, Chủ nhật và ngày Lễ, Tết) kể từ ngày nhận được thông báo xác nhận hồ sơ tham gia hợp lệ .
+                                            </li>
+                                            <li>
+                                                Phương thức gửi quà tặng lì xì: Electrolux sẽ tiến hành gửi quà tặng lì xì may mắn tùy vào lựa chọn của khách hàng khi đăng kí tham gia chương trình theo hai hình thức:
+                                                <ul>
+                                                    <li>Chuyển khoản trực tiếp tới tài khoản ngân hàng của khách hàng. Khách hàng phải đảm bảo đã cung cấp số tài khoản chính xác và hợp lệ. </li>
+                                                    <li>Dịch vụ chuyển tiền qua đường bưu điện. Khách hàng phải đảm bảo đã cung cấp đúng địa chỉ nhận quà tặng lì xì.</li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                        <li>
+                                            <strong>Quy định chương trình:</strong>
+                                        </li>
+                                        <ol type="a">
+                                            <li>Thông tin sản phẩm hiển thị rõ mã sản phẩm và số lượng sản phẩm trên hóa đơn giá trị gia tăng.</li>
+                                            <li>Hóa đơn cung cấp phải là hóa đơn giá trị gia tăng hợp pháp và thông tin trên hóa đơn được xem là thông tin chính được căn cứ để nhận khuyến mại.</li>
+                                            <li>Ngày xuất hóa đơn phải nằm trong thời gian diễn ra chương trình khuyến mại (<strong>từ 21/12/2020 đến 10/02/2021</strong>).</li>
+                                            <li>Toàn bộ các thông tin cá nhân phải trùng khớp với nhau (thông tin trên CMND/ Thẻ căn cước, họ và tên đăng ký tham gia chương trình, địa chỉ, thông tin chủ tài khoản ngân hàng). Nếu thông tin người nhận quà tặng khác thông tin ghi trên hóa đơn, khách hàng vui lòng cung cấp giấy ủy quyền có công chứng.</li>
+                                            <li>Đối với hóa đơn là tên công ty, khách hàng phải cung cấp giấy ủy quyền có công chứng. Thông tin trên giấy ủy quyền phải trùng khớp với thông tin cá nhân đăng kí tham gia chương trình.</li>
+                                            <li>Khách hàng hoàn toàn chịu trách nhiệm đối với các thông tin cung cấp cho chương trình. Chương trình có quyền yêu cầu khách hàng bổ sung thông tin để xác định tính hợp lệ.</li>
+                                            <li>Mỗi sản phẩm chỉ được tham gia chương trình một lần.</li>
+                                            <li>Được áp dụng đồng thời với các chương trình khuyến mại khác.</li>
+                                            <li>Khách hàng tự chịu trách nhiệm đóng thuế thu nhập cá nhân và chi phí di chuyển nhận giải (nếu có).	</li>
+                                            <li>Tổng giá trị quà tặng lì xì của chương trình là 10 tỉ đồng. Khi hết quỹ quà tặng lì xì chương trình có thể kết thúc sớm trước thời hạn mà không cần báo trước.</li>
+                                            <li>Quà tặng lì xì có thể bị tạm hoãn nếu phát hiện dấu hiệu gian lận và đầu cơ từ phía khách hàng.</li>
+                                            <li>Trường hợp xảy ra tranh chấp, quyết định của Electrolux là quyết định cuối cùng.</li>
+                                            <li>Để tìm hiểu thêm thông tin về chương trình, khách hàng có thể <strong>liên hệ số hotline – 1800 588 899</strong> để được hỗ trợ trong khung thời gian 8h -17h từ thứ Hai đến thứ Bảy hoặc email về địa chỉ: <strong> tet2021@electrolux.com</strong>.</li>
+                                        </ol>
+                                    </ol>
+
+                                    <br />
+                                    <!-- <p style="text-align: center;">
+                                        <button class="button primary highlight-secondary-color" type="button" name="Register" value="Register" data-register="Vào sổ" data-loading="Tải..." onclick="return validateForm();" style="margin: 0;">Tham gia chương trình</button>
+                                    </p> -->
+                                </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </section>

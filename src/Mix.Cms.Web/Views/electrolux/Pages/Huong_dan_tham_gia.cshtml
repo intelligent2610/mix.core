@@ -1,0 +1,59 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{ 
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture); 
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+   var posts = await Mix.Cms.Lib.ViewModels.MixPosts.ReadViewModel.Repository.GetModelListAsync(
+       "CreatedDateTime", Mix.Heart.Enums.MixHeartEnums.DisplayDirection.Desc,
+       20, 0
+   );
+}
+<section id="indexSection" class="the-le-dieu-kien body-container">
+    
+          <div class="container">
+            <!-- <img src="@assetFolder/assets/img/DesktopGuideline.jpg"/> -->
+            <picture>
+                <source srcset="@assetFolder/assets/img/Mobile_Guideline.jpg" media="(max-width: 767px)">
+                <source srcset="@assetFolder/assets/img/DesktopGuideline.jpg" media="(min-width: 768px)">
+                    <img src="@assetFolder/assets/img/DesktopGuideline.jpg" alt="Electrolux tư duy Thụy Điển nâng tầm cuộc sống">
+            </picture>
+            <!-- <div class="row">
+              <div class="col-12">
+                <div class=" mgbt-sm-50 d-flex flex-direction-column">
+                  <div class=" row mgl-sm-0 mgr-sm-0">
+                    <div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                      <div class="img-text-block    mgt-sm-50  mgbt-sm-30    d-flex  
+                     ">
+                        <div class="img-text-block__content js-img-block__content      text-sm-center  justify-content-center d-flex">
+                          <div class="img-text-block__title order-1 text-sm-center">
+                            <h1>Hỗ trợ: 1800 588 899</h1>
+                            <h2>Thời gian làm việc từ: 09:00 - 18:00 từ thứ hai đến thứ bảy</h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grid d-flex fulltextblock col-lg-12 col-md-12 col-12 displaymode-full  pdr-sm-0 pdl-sm-0">
+                      <div class="full-text-module w-100-percent">
+                        <div class="content-container "><strong>Lưu ý về thông tin sản phẩm:</strong>
+                          <p>Hình ảnh không được cắt khép, rách rời. Chứ trên hình ảnh hoặc hóa đơn không được tẩy xóa hoặc bị mờ.
+                          </p>
+                          <ol>
+                            <li>Hình mẫu chứng minh thư, chứng minh nhân dân</li>
+                            <p><img src="https://visabaongoc.com/wp-content/uploads/2018/02/quy-dinh-ve-anh-lam-chung-minh-thu-nhan-dan-3-1024x614.jpg" width="50%"></p>
+                            <li>Hình mẫu về tem sản phẩm</li>
+                            <img src="@assetFolder/assets/sample/tem-may-giat.jpg" width="50%">
+                            <li>Hình mẫu về hóa đơn mua hàng</li>
+                            <img src="@assetFolder/assets/sample/tem-tu-lanh.jpg" width="50%">
+                          </ol>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          
+</section>

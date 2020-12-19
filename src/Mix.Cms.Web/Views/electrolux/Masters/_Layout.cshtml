@@ -1,0 +1,129 @@
+@{ 
+    string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture);
+}
+<!DOCTYPE html>
+<html lang="@ViewBag.culture" amp>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <meta name="theme-color" content="#333333" />
+    <link rel="preload" href="@assetFolder/assets/icons/electrolux_logo_sg.svg" as="image" />
+    <link rel="preload" href="@assetFolder/assets/fonts/ElectroluxSansVN-Regular.woff2" as="Font" type=font/woff2 crossorigin />
+    <link rel="preload" href="@assetFolder/assets/fonts/ElectroluxSansVN-DemiBold.woff2" as="Font" type=font/woff2 crossorigin />
+    <meta name="description" content="@ViewData["Title"]" />
+    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:image" content="@assetFolder/assets/icons/electrolux_logo_sg.svg" />
+    <meta property="og:description" content="@ViewData["Title"]" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Electrolux Viet Nam" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="lytics:topics" content="Electrolux, Support, Register Warranty" />
+    <meta name="viewport" user-scalable="yes" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+    <meta name="apple-mobile-web-app-title" content="PWA Splash" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="alternate" href="" hreflang="vi-VN" />
+    <link rel="alternate" href="" hreflang="vi-VN" />
+    <link rel="icon" type="image/png" href="@assetFolder/assets/icons/eluxfavicon.ico" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      if (!ELECTROLUX) var ELECTROLUX = {}
+      ELECTROLUX.SiteSetting = {
+        placeholderImage: '/assets/img/place-holder.png',
+        hideCompare: false,
+        hideWhereToBuy: false,
+        hideWhereToBuyRetailer: false,
+        hideWhereToBuyStoreLocator: true,
+        hideThePrice: true,
+        hideOutOfStockRetailer: true,
+      }
+      ELECTROLUX.defer = function(toWaitFor, method, target) {
+        target = target || window
+        if (target[toWaitFor]) {
+          method()
+        } else {
+          setTimeout(function() {
+            ELECTROLUX.defer(toWaitFor, method)
+          }, 20)
+        }
+      }
+    </script>
+    <base href="/">
+     
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="@assetFolder/assets/css/app.css" />
+    <link rel="stylesheet" href="@assetFolder/assets/css/ProductRegistration.css?v=1.0.0.1" as="style" media="none" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/app-vendor.min.css" />
+    <link rel="stylesheet" href="@assetFolder/css/theme.min.css?v=1.0.0.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Optional JavaScript -->
+    
+    <!-- SCRIPTS IMPORTED FROM LIVE SITE -->
+    <script type="text/javascript" src="@assetFolder/assets/js/critical.js?v=1.0.0.0" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/vendor.js?v=1.0.0.0" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="@assetFolder/assets/js/app.js?v=1.0.0.0" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/_jqueryui.js?v=1.0.0.0" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/_datepicker.js?v=1.0.0.0" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/contactus.js?v=1.0.0.1" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/productregistration.js?v=1.0.0.0" defer></script>
+    <script type="text/javascript" src="@assetFolder/assets/js/productlisting.js?v=1.0.0.0" defer></script>
+        <script type="text/javascript" src="@assetFolder/assets/js/theme.js?v=1.0.0.0" defer></script>
+    <noscript id='sapper-head-start'></noscript>
+    <title>@ViewData["Title"]</title>
+    <noscript id='sapper-head-end'></noscript>
+     @RenderSection("Seo", false)     
+    <!--[STYLES]-->
+    @RenderSection("Styles", false)    
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NGGFR3P');</script>
+    <!-- End Google Tag Manager -->
+
+    
+    <!--[SCRIPTS]-->
+    @RenderSection("Scripts", false)  
+</head>
+<body 
+  ng-app="MixClient" ng-controller="AppClientController" ng-init="init('vi-vn')"
+  class="@ViewData["PageClass"] body standard-page progressive none-head-nav have-permanent-notice">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGGFR3P"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+    <div id="sapper">
+        <div class="global-inactive-bg js-inactive-bg hide"></div>
+        @await Html.PartialAsync("../Layouts/Navigation.cshtml")
+        <main>
+            @RenderBody()                
+            @await Html.PartialAsync("../Layouts/Footer.cshtml")
+        </main>
+    </div>
+
+     
+    <!--   Core JS Files  -->
+    <script src="/js/framework.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.8.2/angular-messages.min.js"></script>
+    <script src="/js/app-client-required.min.js"></script>
+    <script src="/js/app-client.min.js"></script>
+    <script src="/js/app-shared.min.js"></script>
+    <script src="/js/_custom/electrolux-register-controller.js"></script>
+    <script src="/js/_custom/electrolux-search-controller.js"></script>  
+</body>
+</html>

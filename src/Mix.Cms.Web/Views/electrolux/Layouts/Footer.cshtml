@@ -1,0 +1,218 @@
+@{
+    string assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture);
+}
+
+<!-- <section id="footerSection">
+  <footer role="group" class="footer">
+    <div class="content-container row accordion-mobile hide-for-small" data-allow-all-closed="true" data-accordion="auh8l4-accordion" role="tablist">
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="pp6ke7-accordion-label" aria-hidden="false" id="pp6ke7-accordion">
+          <ul class="menu-group">
+            <li><a class="group-tag" href="#" aria-controls="pp6ke7-accordion" role="tab" id="pp6ke7-accordion-label" aria-expanded="false" aria-selected="false">Nhà bếp</a></li>
+            <li><a href="/thiet-bi/lo-nuong/">Lò nướng âm tủ</a></li>
+            <li><a href="/thiet-bi/thiet-bi-nau-dung-doc-lap/">Thiết bị nấu đứng độc lập</a></li>
+            <li><a href="/thiet-bi/bep/">Bếp</a></li>
+            <li><a href="/thiet-bi/may-hut-mui/">Máy hút mùi</a></li>
+            <li><a href="/thiet-bi/may-rua-bat/">Máy rửa bát</a></li>
+            <li><a href="/thiet-bi/tu-lanh/">Tủ lạnh</a></li>
+            <li><a href="/thiet-bi/lo-vi-song/">Lò vi sóng &amp; thiết bị nấu để bàn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="t3oo40-accordion-label" aria-hidden="false" id="t3oo40-accordion">
+          <ul class="menu-group">
+            <li><span class="group-tag"> </span></li>
+            <li><a href="/thiet-bi/may-pha-ca-phe/" aria-controls="t3oo40-accordion" role="tab" id="t3oo40-accordion-label" aria-expanded="false" aria-selected="false">Máy pha cà phê</a></li>
+            <li><a href="/thiet-bi/noi-com-dien/">Nồi cơm điện</a></li>
+            <li><a href="/thiet-bi/may-nuong-banh-mi/">Máy nướng bánh mì</a></li>
+            <li><a href="/thiet-bi/may-danh-trung/">Máy đánh trứng</a></li>
+            <li><a href="/thiet-bi/binh-dun-nuoc/">Bình đun nước</a></li>
+            <li><a href="/thiet-bi/may-xay-sinh-to-may-ep-trai-cay/">Máy xay sinh tố &amp; máy ép trái cây</a></li>
+            <li><a href="/thiet-bi/cay-nuoc-nong-lanh/">Cây nước nóng lạnh</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="heh324-accordion-label" aria-hidden="false" id="heh324-accordion">
+          <ul class="menu-group">
+            <li><a class="group-tag" href="#" aria-controls="heh324-accordion" role="tab" id="heh324-accordion-label" aria-expanded="false" aria-selected="false">Giặt ủi</a></li>
+            <li><a href="/thiet-bi/may-giat/">Máy giặt và máy giặt sấy</a></li>
+            <li><a href="/thiet-bi/may-say/">Máy sấy quần áo</a></li>
+            <li><a href="/thiet-bi/ban-ui/">Bàn ủi, bàn là</a></li>
+            <li><a href="/thiet-bi/ban-ui-hoi-nuoc-dung/">Bàn ủi hơi nước đứng</a></li>
+            <li><span class="group-tag"> </span></li>
+            <li><a class="group-tag" href="#">Phụ kiện</a></li>
+            <li><a href="/thiet-bi/phu-kien/may-giat/">Máy giặt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="rwxii9-accordion-label" aria-hidden="false" id="rwxii9-accordion">
+          <ul class="menu-group">
+            <li><a class="group-tag" href="#" aria-controls="rwxii9-accordion" role="tab" id="rwxii9-accordion-label" aria-expanded="false" aria-selected="false">Tiện nghi gia đình</a></li>
+            <li><a href="/thiet-bi/may-hut-bui/">Máy hút bụi</a></li>
+            <li><a href="/thiet-bi/may-lanh/">Máy lạnh, điều hòa</a></li>
+            <li><a href="/thiet-bi/may-nuoc-nong/">Máy tắm nước nóng</a></li>
+            <li><a href="/thiet-bi/may-loc-khong-khi/">Máy lọc không khí</a></li>
+            <li><a href="/thiet-bi/may-hut-am/">Máy hút ẩm</a></li>
+            <li><span class="group-tag"> </span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="iksnam-accordion-label" aria-hidden="false" id="iksnam-accordion">
+          <ul class="menu-group">
+            <li><a class="group-tag" href="#" aria-controls="iksnam-accordion" role="tab" id="iksnam-accordion-label" aria-expanded="false" aria-selected="false">Hỗ trợ khách hàng</a></li>
+            <li><a href="/ho-tro/#contact-us-anchor">Liên hệ chúng tôi</a></li>
+            <li><a href="/ho-tro/dang-ky-bao-hanh-truc-tuyen/">Đặt hẹn dịch vụ</a></li>
+            <li><a href="/ho-tro/dang-ky-bao-hanh/">Đăng kí sản phẩm </a></li>
+            <li><a href="/ho-tro/dieu-khoan-va-dieu-kien-bao-hanh-chung/">Thông tin bảo hành</a></li>
+            <li><a href="/ho-tro/faq/">Xử lý sự cố</a></li>
+            <li><a href="/ho-tro/faq/cau-hoi-thuong-gap-ve-mua-hang-truc-tuyen/">Câu hỏi thường gặp về đơn hàng trực tuyến</a></li>
+            <li><a href="/ho-tro/ung-dung-electrolux-life/">Ứng dụng Electrolux Life</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item="" role="presentation">
+        <div class="row accordion-content-mobile" data-tab-content="" role="tabpanel" aria-labelledby="f5nx7m-accordion-label" aria-hidden="false" id="f5nx7m-accordion">
+          <ul class="menu-group">
+            <li><a class="group-tag" href="#" aria-controls="f5nx7m-accordion" role="tab" id="f5nx7m-accordion-label" aria-expanded="false" aria-selected="false">Giới thiệu</a></li>
+            <li><a href="/gioi-thieu-ve-electrolux/cong-ty-chung-toi/">Công ty chúng tôi</a></li>
+            <li><a href="/gioi-thieu-ve-electrolux/nha-thiet-ke-giau-y-tuong/">Nhà thiết kế cải tiến giàu ý tưởng</a></li>
+            <li><a href="/gioi-thieu-ve-electrolux/bao-ve-moi-truong/">Bảo vệ môi trường</a></li>
+            <li><a href="https://career.electroluxgroup.com/open-jobs/?Country=Vietnam">Mục tiêu nghề nghiệp</a></li>
+            <li><a href="/gioi-thieu-ve-electrolux/thuong-hieu-thiet-bi-gia-dung-hang-dau-den-tu-chau-au/">Thương hiệu hàng đầu tại châu Âu</a></li>
+            <li><span class="group-tag"> </span></li>
+            <li><a href="/mua-o-dau/" class="group-tag-link">Mua ở đâu </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content-container row accordion-mobile hide-for-large" data-allow-all-closed="true" data-accordion="">
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Nhà bếp</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/thiet-bi/lo-nuong/">Lò nướng âm tủ</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/thiet-bi-nau-dung-doc-lap/">Thiết bị nấu đứng độc lập</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/bep/">Bếp</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-hut-mui/">Máy hút mùi</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-rua-bat/">Máy rửa bát</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/tu-lanh/">Tủ lạnh</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/lo-vi-song/">Lò vi sóng &amp; thiết bị nấu để bàn</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-pha-ca-phe/">Máy pha cà phê</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/noi-com-dien/">Nồi cơm điện</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-nuong-banh-mi/">Máy nướng bánh mì</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-danh-trung/">Máy đánh trứng</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/binh-dun-nuoc/">Bình đun nước</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-xay-sinh-to-may-ep-trai-cay/">Máy xay sinh tố &amp; máy ép trái cây</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/cay-nuoc-nong-lanh/">Cây nước nóng lạnh</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Giặt ủi</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/thiet-bi/may-giat/">Máy giặt và máy giặt sấy</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-say/">Máy sấy quần áo</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/ban-ui/">Bàn ủi, bàn là</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/ban-ui-hoi-nuoc-dung/">Bàn ủi hơi nước đứng</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Phụ kiện</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/thiet-bi/phu-kien/may-giat/">Máy giặt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Tiện nghi gia đình</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/thiet-bi/may-hut-bui/">Máy hút bụi</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-lanh/">Máy lạnh, điều hòa</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-nuoc-nong/">Máy tắm nước nóng</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-loc-khong-khi/">Máy lọc không khí</a></li>
+            <li role="footer-menuitem"><a href="/thiet-bi/may-hut-am/">Máy hút ẩm</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Hỗ trợ khách hàng</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/ho-tro/#contact-us-anchor">Liên hệ chúng tôi</a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/dang-ky-bao-hanh-truc-tuyen/">Đặt hẹn dịch vụ</a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/dang-ky-bao-hanh/">Đăng kí sản phẩm </a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/dieu-khoan-va-dieu-kien-bao-hanh-chung/">Thông tin bảo hành</a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/faq/">Xử lý sự cố</a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/faq/cau-hoi-thuong-gap-ve-mua-hang-truc-tuyen/">Câu hỏi thường gặp về đơn hàng trực tuyến</a></li>
+            <li role="footer-menuitem"><a href="/ho-tro/ung-dung-electrolux-life/">Ứng dụng Electrolux Life</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile" data-accordion-item=""><a class="group-tag" href="#">Giới thiệu</a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group">
+            <li role="footer-menuitem"><a href="/gioi-thieu-ve-electrolux/cong-ty-chung-toi/">Công ty chúng tôi</a></li>
+            <li role="footer-menuitem"><a href="/gioi-thieu-ve-electrolux/nha-thiet-ke-giau-y-tuong/">Nhà thiết kế cải tiến giàu ý tưởng</a></li>
+            <li role="footer-menuitem"><a href="/gioi-thieu-ve-electrolux/bao-ve-moi-truong/">Bảo vệ môi trường</a></li>
+            <li role="footer-menuitem"><a href="https://career.electroluxgroup.com/open-jobs/?Country=Vietnam">Mục tiêu nghề nghiệp</a></li>
+            <li role="footer-menuitem"><a href="/gioi-thieu-ve-electrolux/thuong-hieu-thiet-bi-gia-dung-hang-dau-den-tu-chau-au/">Thương hiệu hàng đầu tại châu Âu</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns col-12 col-md-2 accordion-item-mobile"><a href="/mua-o-dau/" class="group-tag non-child">Mua ở đâu </a>
+        <div class="row accordion-content-mobile" data-tab-content="" aria-hidden="false">
+          <ul class="menu-group"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-info">
+      <div class="content-container">
+        <div class="social-share col-12 col-md-8 pdl-sm-0 pdr-sm-0">
+          <ul role="menu">
+            <li role="menuitem" class="icons"><a href="https://www.facebook.com/electroluxvietnam/" target="_blank" rel="noreferrer"><img class="preview" data-src="@assetFolder/assets/icons/facebook.svg?mode=crop" src="@assetFolder/assets/icons/facebook.svg?mode=crop" alt="Electrolux Vietnam Facebook" io-loaded="true"></a></li>
+            <li role="menuitem" class="icons"><a href="https://www.pinterest.com/Electrolux/" target="_blank" rel="noreferrer"><img class="preview" data-src="@assetFolder/assets/icons/pinterest.svg?mode=crop" src="@assetFolder/assets/icons/pinterest.svg?mode=crop" alt="Electrolux Vietnam Pinterest" io-loaded="true"></a></li>
+            <li role="menuitem" class="icons"><a href="https://www.youtube.com/channel/UCM_o0GEyCYFWXEm7UpfJRIw" target="_blank" rel="noreferrer"><img class="preview" data-src="@assetFolder/assets/icons/youtube.svg?mode=crop" src="@assetFolder/assets/icons/youtube.svg?mode=crop" alt="Electrolux Vietnam YouTube" io-loaded="true"></a></li>
+            <li role="menuitem" class="icons"><a href="https://twitter.com/Electrolux" target="_blank" rel="noreferrer"><img class="preview" data-src="@assetFolder/assets/icons/twitter.svg?mode=crop" src="@assetFolder/assets/icons/twitter.svg?mode=crop" alt="Electrolux Vietnam Twitter" io-loaded="true"></a></li>
+          </ul>
+          <div class="copyright">
+            <div class="content-container"><span><a href="https://www.electroluxgroup.com/en/" rel="noreferrer">Electroluxgroup.com</a></span></div>
+          </div>
+        </div>
+        <div class="elux-life-app col-12 col-md-4">
+          <div class="content-container--table">
+            <div class="block-table">
+              <div class="vertical-container block-table-cell">
+                <div class="block-table">
+                  <div class="block-table-cell elux-life-app--content without-logo"><strong>Ứng dụng Electrolux Life</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="block-table">
+              <div class="vertical-container block-table-cell"><a href="https://apps.apple.com/app/apple-store/id1352924780?pt=498489&ct=brandsite&mt=8"><img class="preview" data-src="@assetFolder/assets/img/_thumb_10779.png" src="@assetFolder/assets/img/_thumb_10779.png" alt="Download Electrolux Life App iPhone" io-loaded="true"></a></div>
+              <div class="vertical-container block-table-cell"><a href="https://play.google.com/store/apps/details?id=com.electrolux.electroluxlife"><img class="preview" data-src="@assetFolder/assets/img/_thumb_10778.png" src="@assetFolder/assets/img/_thumb_10778.png" alt="Download Electrolux App Android" io-loaded="true"></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <div class="content-container">
+          <div class="col-12 col-lg-6 pdl-sm-0">
+            <p>Bản quyền Electrolux năm 2017 - Bảo lưu mọi quyền<br>Công ty TNHH Electrolux Việt Nam<br>GPKD: 0100831110/KD-0364, do Sở Công Thương Hà Nội cấp ngày 16/10/2020<br>CNĐKDN: 0100831110, do Sở kế hoạch &amp; đầu tư Hà Nội cấp ngày 08/11/2019<br>Địa chỉ: Tầng 1 &amp; 15 tòa nhà Geleximco, số 36 Hoàng Cầu, phường Ô Chợ Dừa, quận Đống Đa, Hà Nội<br>Điện thoại: +84-438574882</p>
+            <div class="mgbt-sm-50 mgbt-md-0"> </div>
+          </div>
+          <div class="col-12 col-lg-6 menu-footer"><span><a href="/dieu-khoan-va-dieu-kien/" rel="noreferrer" title="Các điều khoản sử dụng trang web">Các điều khoản sử dụng trang web</a>
+                <span>| </span></span>
+            <span><a href="/chinh-sach-bao-ve-du-lieu/" rel="noreferrer" title="Chính sách bảo mật thông tin">Chính sách bảo mật thông tin</a>
+                <span>| </span></span>
+            <span><a href="/huong-dan-su-dung-cookie/" rel="noreferrer" title="Hướng dẫn sử dụng Cookie">Hướng dẫn sử dụng Cookie</a>
+                <span>| </span></span>
+            <span><a href="/sitemap/" rel="noreferrer" title="Bản đồ trang">Bản đồ trang</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> -->

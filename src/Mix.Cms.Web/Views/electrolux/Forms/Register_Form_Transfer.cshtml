@@ -1,0 +1,196 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+<div class="row terms rewardingMethod">
+    <div class="col-12 data-consent-group">
+        <div class="group-section pre-caption">
+            <p><strong>Phương thức nhận quà</strong></p>
+            <p class="pre-caption-description">Bạn vui lòng chọn một trong hai phương thức nhận quà tặng lì xì sau đây:</p>
+        </div>
+        <div class="errorSection">
+            <input class="hidden" ng-model="formData.obj.phuong_thuc_nhan_qua" id="methodHiddenInput" name="hiddenMethod" value="" required aria-label="hiddenMethod"
+                data-required="Bạn cần chấp thuận chính sách bảo mật dữ liệu trước khi đăng ký sản phẩm.">
+            <span class="form-validate-error"></span>
+        </div>
+        <ul class="filter-accordion">
+            <li class="filter-accordion_item bankMethod-Parent">
+                <div
+                    class="filter-accordion_item-title js_filter-accordion_item-title bankMethod-Target bankMethod-Trigger" ng-click="selectBankMethod()" >
+                    <div class="form-check">
+                        <input class="form-check-input bankMethod-Trigger" ng-model="formData.obj.phuong_thuc_nhan_qua"
+                            type="radio" name="rewardingMethods" id="bankMethod" required
+                            aria-describedby="rewardingMethods" data-required="Bắt buộc nhập"
+                            data-valid="Tên không hợp lệ. Vui lòng nhập lại." aria-label="rewardingMethods"
+                            value="Chuyển tiền qua ngân hàng" />
+                        <label class="form-check-label bankMethod-Trigger" for="bankMethod">Chuyển tiền qua ngân
+                            hàng.</label>
+
+                    </div>
+                </div>
+                <div class="bankMethod-Content"
+                    ng-if="formData.obj.phuong_thuc_nhan_qua == 'Chuyển tiền qua ngân hàng'">
+                    <div class="filter-accordion_item-content-wrapper">
+                        <div class="filter-accordion_item-content-item">
+                            <div class="row fields diachinhanqua">
+                                <div class="col-12 col-lg-12">
+                                    <div class="row"><label class="col-12 col-lg-4"><input
+                                                ng-model="formData.obj.so_tai_khoan" id="bankNumber" 
+                                                type="text" name="bankNumber" placeholder="*Số tài khoản ngân hàng"
+                                                aria-describedby="bankNumber" required ng-pattern=""
+                                                data-required="Bắt buộc nhập"
+                                                data-valid="Tên không hợp lệ. Vui lòng nhập lại."
+                                                aria-label="bankNumber">
+                                            <!-- <span class="form-validate-error"></span> -->
+                                             <div ng-messages="(form.$submitted || form.bankNumber.$dirty) && form.bankNumber.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                            </label>
+                                        <label class="col-12 col-lg-4"><input ng-model="formData.obj.ngan_hang"
+                                                id="bankName"  type="text" name="bankName"
+                                                placeholder="*Ngân hàng" aria-describedby="bankName" required
+                                                pattern="" data-required="Bắt buộc nhập"
+                                                data-valid="Tên không hợp lệ. Vui lòng nhập lại." aria-label="bankName">
+                                            <!-- <span class="form-validate-error"></span> -->
+                                            <div ng-messages="(form.$submitted || form.bankName.$dirty) && form.bankName.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                            </label>
+                                        <label class="col-12 col-lg-4"><input
+                                                ng-model="formData.obj.chi_nhanh_ngan_hang" id="branchName" 
+                                                type="text" name="branchName"
+                                                placeholder="*Phòng giao dịch / chi nhánh ngân hàng"
+                                                aria-describedby="branchName" required pattern=""
+                                                data-required="Bắt buộc nhập"
+                                                data-valid="Tên không hợp lệ. Vui lòng nhập lại."
+                                                aria-label="branchName">
+                                            <!-- <span class="form-validate-error"></span> -->
+                                            <div ng-messages="(form.$submitted || form.branchName.$dirty) && form.branchName.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="filter-accordion_item postMethod-Parent">
+                <div
+                    class="filter-accordion_item-title js_filter-accordion_item-title postMethod-Target postMethod-Trigger" ng-click="selectPostMethod()" >
+                    <div class="form-check">
+                        <input class="form-check-input postMethod-Trigger" type="radio" name="rewardingMethods"
+                            id="postMethod" ng-model="formData.obj.phuong_thuc_nhan_qua" type="radio" required
+                            aria-describedby="rewardingMethods" data-required="Bắt buộc nhập"
+                            data-valid="Tên không hợp lệ. Vui lòng nhập lại." aria-label="rewardingMethods"
+                            value="Chuyển tiền qua đường bưu điện" />
+                        <label class="form-check-label postMethod-Trigger" for="postMethod">Chuyển tiền qua đường bưu
+                            điện.</label>
+                    </div>
+                </div>
+                <div 
+                    ng-if="formData.obj.phuong_thuc_nhan_qua == 'Chuyển tiền qua đường bưu điện'"
+                class="postMethod-Content">
+                    <div class="filter-accordion_item-content-wrapper">
+                        <div class="filter-accordion_item-content-item">
+                            <div class="row fields diachinhanqua">
+                                <div class="col-12 col-lg-12">
+                                    <div class="row">
+                                        <label class="col-12 col-lg-6">
+                                            <textarea ng-model="formData.obj.dia_chi" id="addressTextarea"
+                                                name="addressTextarea" placeholder="*Địa chỉ" required
+                                                aria-describedby="addressTextarea"
+                                                data-required="Bắt buộc nhập"
+                                                data-valid="Địa chỉ không hợp lệ. Vui lòng nhập lại." aria-label="addressTextarea">
+
+                                          </textarea>
+                                            <div ng-messages="(form.$submitted || form.addressTextarea.$dirty) && form.addressTextarea.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+
+                                        </label>
+                                        <div class="form-group col-12 col-lg-2">
+
+                                            <select ng-model="formData.obj.thanh_pho" name="cityDrodown"
+                                                class="form-control customized-dropdown" id="cityDrodown" required
+                                                aria-describedby="cityDrodown" 
+                                                data-required="Bắt buộc nhập" data-valid="Vui lòng điền vào."
+                                                ng-change="selectCity()"
+                                                aria-label="cityDrodown">
+                                                <option value="" selected>
+                                                    *Tỉnh / Thành phố ▼
+                                                </option>
+                                                <option ng-repeat="item in cities|orderBy:'tpName'" value="{{item.tpName}}">{{item.tpName}}</option>
+                                            </select>
+                                            <!-- <span class="form-validate-error"></span> -->
+                                             <div ng-messages="(form.$submitted || form.cityDrodown.$dirty) && form.cityDrodown.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-2"><select ng-model="formData.obj.quan" value="" name="districtDropdown"
+                                                class="form-control customized-dropdown" id="districtDropdown" required
+                                                aria-describedby="modelNumber" 
+                                                data-required="Bắt buộc nhập" data-valid="Vui lòng điền vào."
+                                                ng-change="selectDistrict()"
+                                                aria-label="modelNumber">
+                                                <option value="" selected>
+                                                    *Quận / Huyện ▼
+                                                </option>
+                                                <option ng-repeat="d in districts | filter:{tpNo: cityCode}|orderBy:'qhName'" value="{{d.qhName}}">{{d.qhName}}</option>
+                                            </select>
+                                            <!-- <span class="form-validate-error"></span> -->
+                                             <div ng-messages="(form.$submitted || form.modelNumber.$dirty) && form.modelNumber.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 col-lg-2"><select ng-model="formData.obj.phuong" value="" name="wardDropdown"
+                                                class="form-control customized-dropdown" id="wardDropdown" required
+                                                aria-describedby="modelNumber" 
+                                                data-required="Bắt buộc nhập" data-valid="Vui lòng điền vào."
+                                                ng-change="selectWard()"
+                                                aria-label="modelNumber">
+                                               <option value="" selected>
+                                                    *Phường / Xã ▼
+                                                </option>
+                                                <option ng-repeat="w in wards | filter:{qhNo: districtCode}|orderBy:'pxName'" value="{{w.pxName}}">{{w.pxName}}</option>
+                                            </select>
+                                            <!-- <span class="form-validate-error"></span> -->
+                                             <div ng-messages="(form.$submitted || form.wardDropdown.$dirty) && form.wardDropdown.$error" ng-messages-multiple>
+                                                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+                                                <span class="form-validate-error" ng-message="pattern">Họ và tên không hợp lệ. Vui lòng nhập lại.</span>
+                                            </div>
+                                        </div>
+                                        <label class="col-12 group-section post-caption noteSection">
+                                            <p>*Ghi chú: Khách hàng mang chứng minh thư/thẻ căn cước đến bưu điện gần
+                                                nhất để nhận quà tặng</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <fieldset class="columns col-12 col-md-12 col-lg-12"><span class="tnc-checkbox " data-validate-check="" ng-click="isAgree = !isAgree"></span>
+        <input data-consent-option="" name="dataProtectionConsent" type="checkbox" required
+            
+            aria-label="dataProtectionConsent"
+            data-required="Bạn cần chấp thuận chính sách bảo mật dữ liệu trước khi đăng ký sản phẩm."
+            data-value-check="Yes" data-value-uncheck="No">
+        <div class="label-offset"><label class="tncbox" for="dataProtectionConsent" data-consent-label="">
+                <p>Tôi xác nhận rằng tôi đã đọc, hiểu và đồng ý với toàn bộ 
+                    <a href="#">Chính Sách Bảo Mật</a>
+                    bao gồm cả cách thức dữ liệu cá nhân của tôi có thể được thu thập và sử dụng bởi Công Ty
+                            TNHH Electrolux Việt Nam nhằm mục đích phục vụ cho chương trình khuyến mại này.
+                </p>
+            </label></div>
+        <div><span class="form-validate-error" ng-if="form.$submitted && !isAgree">Bạn cần chấp thuận chính sách bảo mật dữ liệu trước khi đăng ký sản phẩm.</span></div>
+    </fieldset>
+</div>

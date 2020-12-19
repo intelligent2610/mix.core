@@ -1,0 +1,119 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+<div class="row product-info-header headerUpperCase">
+    <div class="col-12">
+        <h5>Thông Tin Sản Phẩm</h5>
+    </div>
+    <label class="col-12 group-section post-caption noteSection">
+        <p>*Mỗi lượt đăng ký thông tin tương ứng với 01 mã sản phẩm trên hóa đơn.</p>
+    </label>
+</div>
+<div class="product-info">
+    <div class="row fields">
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <select ng-model="formData.obj.ma_san_pham"
+                        ng-change="selectProduct()"
+                        name="modelNumber"
+                        required
+                        class="form-control customized-dropdown"
+                        id="ModelDropdown"
+                        aria-describedby="modelNumber"
+                        ng-pattern="alpha_numeric_with_minus"
+                        data-required="Bắt buộc nhập"
+                        data-valid="Vui lòng điền vào."
+                        aria-label="modelNumber">
+                    <option value="" selected>*Mã sản phẩm (Model) ▼</option>
+                    <option ng-repeat="item in products" value="{{item.model}}">{{item.model}}</option>
+                </select>
+                <img style="right: 17px;"
+                        data-open="product-info-model"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />      
+                <span class="form-validate-error"></span>                                 
+            </div>
+            <!-- <div ng-messages="form.$submitted && form.modelNumber.$error" ng-messages-multiple>
+                <span class="form-validate-error" ng-message="required">Bắt buộc nhập</span>
+            </div> -->
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <select ng-model="formData.obj.pnc"
+                        class="form-control customized-dropdown"
+                        disabled
+                        id="PNCDropdown">
+                    <option value="" selected>*Mã định danh (PNC)</option>
+                    <option ng-repeat="item in products" value="{{item.pnc}}">{{item.pnc}}</option>
+                </select>
+                <!-- <img style="right: 17px;" data-open="product-info-pnc"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" /> -->
+                 <span class="form-validate-error"></span>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <label class="product-information">
+                <input ng-model="formData.obj.sn"
+                        class="product-info-sn"
+                        name="serialno"
+                        type="text"
+                        placeholder="*Số serial (S.N)"
+                        ng-pattern="number"
+                        maxlength="8"
+                        aria-describedby="serialno"
+                        required
+                        data-required="Bắt buộc nhập"
+                        data-valid="Số không hợp lệ. Vui lòng nhập lại."
+                        aria-label="serialno" />
+                <img data-open="product-info-sn"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <span class="form-validate-error"></span>
+            </label>
+        </div>
+        <div class="col-12 col-md-6 productPhoto">
+            <div class="fields-productPhoto">
+                <label class="image-upload-label">*Hình tem sản phẩm</label>
+                <img data-open="product-info-tem"
+                        data-unscroll=""
+                        tabindex="-1"
+                        class="infoIcon placeholder-image"
+                        src="@assetFolder/assets/img/info-icon.png"
+                        alt="Info Icon" />
+                <input
+                    data-files="file.files" 
+                    ngf-select="selectFiles($files, 'hinh_tem')"
+                    type="file"
+                    class="custom-file-upload-img"
+                    multiple="multiple"
+                    name="temPhoto"
+                    aria-label="temPhoto"
+                    accept="image/*,capture=camera" />
+                    <div ng-if="form.$submitted && !formData.obj.hinh_tem"><span class="form-error">Bắt buộc nhập</span></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-md-3 mb-3"
+                    ng-if="formData.obj.hinh_tem">
+                <img ng-src="{{formData.obj.hinh_tem}}" />
+            </div>
+        </div>
+        <!-- <div class="col-12">
+            <div class="col-md-3 mb-3"
+                    ng-repeat="media in formData.obj.hinh_tem">
+                <img ng-src="{{media.obj.hinh_tem}}" />
+            </div>
+        </div> -->
+        <label class="col-12 group-section post-caption noteSection">
+            <p>Lưu ý: Hình ảnh cung cấp cần phải rõ ràng, không bị mờ, lóa sáng.</p>
+        </label>
+    </div>
+</div>

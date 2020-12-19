@@ -1,0 +1,191 @@
+@using Mix.Cms.Lib
+@using Mix.Cms.Lib.Services
+@model Mix.Cms.Lib.ViewModels.MixPages.ReadMvcViewModel
+@{
+   string assetFolder = MixCmsHelper.GetAssetFolder(ViewBag.culture);
+   string templateFolder = MixCmsHelper.GetTemplateFolder(ViewBag.culture);
+   var posts = await Mix.Cms.Lib.ViewModels.MixPosts.ReadViewModel.Repository.GetModelListAsync(
+       "CreatedDateTime", Mix.Heart.Enums.MixHeartEnums.DisplayDirection.Desc,
+       20, 0
+   );
+}
+
+<style>
+    .invalid-status {
+        text-decoration: underline;
+        color: red;
+    }
+</style>
+<section ng-if="isInit" ng-controller="ElectroluxSearchFormController"
+         id="indexSection" class="the-le-dieu-kien body-container">
+<mix-loader ng-show="isBusy"></mix-loader>
+    <main>
+        <section id="indexSection" class="body-container">
+        </section>
+        <div id="PopupTrangThai">
+            <div class="hero-search support hero-search-d2c theme-blue-rich">
+                <div class="featured-img" data-imagizer=""></div>
+                <div class="content-container theme-blue-mid">
+                    <div class="text-center h1-title">Theo dõi trạng thái hồ sơ.</div>
+                    <form>
+
+                        <div class="compare-buynow compatibility-check text-center"><span class="how-to-model">Bạn vui lòng nhập Mã hóa đơn và 5 cuối Số điện thoại bạn đẫ dùng để đăng kí tham gia chương trình.</span></div>
+                        <div class="form-controls mgt-md-30 mgt-sm-20">
+                            <div class="row">
+                                <div class=" col-12 col-lg-5">
+                                  <input ng-model="queries.so_dien_thoai"  ng-enter="search()" id="hero-search" type="text" name="fivedigitText" placeholder="Số điện thoại" class="ui-autocomplete-input">
+                                  </div>
+                                <div class="col-12 col-lg-5">
+                                  <input ng-model="queries.hoa_don"  ng-enter="search()" id="hero-search" type="text" name="searchText" placeholder="*Mã hóa đơn" class="ui-autocomplete-input"></div>
+                                
+                                <div ng-click="search()" class="col-12 col-lg-2"><button class="button primary highlight-secondary-color tracuuButton" type="button" style="">Tra cứu</button></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="resultTableSection">
+            <div class="grid d-flex fulltextblock col-lg-12 col-md-12 col-12 displaymode-full pdr-sm-0 pdl-sm-0">
+                <div class="full-text-module w-100-percent">
+                    <div class="content-container ">
+                        <p><span style="font-size: x-large;"><strong> </strong></span></p>
+                        <!-- <div class="js-global-flashes-area" id="globalMessages">
+                            <div class="ids-message ids-message--close ids-message--error ids-message--icon ids-message--small js-close-target js-flash-message" role="alert">
+                                Xin lỗi, Quý Khách vui lòng cập nhật lại thông tin trong Hóa Đơn <a href="#">XXX</a>. Xin cảm ơn.
+                            </div>
+                        </div> -->
+                        <p><span style="font-size: x-large;"><strong> </strong></span></p>
+                        <table border="1">
+                            <tbody>
+                                <tr>
+                                    <td style="color: #041e4f; background: #041e4f; width: 537px;" colspan="5">
+                                        <h2 style="color: #ffffff; margin-bottom:0; padding: 10px 0;">Danh sách hồ sơ</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #041e4f; width: 90px; text-align: left;">
+                                        <h4><strong>Số Thứ Tự</strong></h4>
+                                    </td>
+                                    <td style="color: #041e4f; width: 108px; text-align: left;">
+                                        <h4><strong>Họ và Tên</strong></h4>
+                                    </td>
+                                    <td style="color: #041e4f; width: 127px; text-align: left;">
+                                        <h4><strong>Mã Hóa Đơn</strong></h4>
+                                    </td>
+                                    <td style="color: #041e4f; width: 127px; text-align: left;">
+                                        <h4><strong>Ngày đăng ký</strong></h4>
+                                    </td>
+                                    <td style="color: #041e4f; width: 154px; text-align: left;">
+                                        <h4><strong>Trạng thái hồ sơ</strong></h4>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in data track by $index">
+                                    <td style="width: 90px;">
+                                        <p ng-bind="$index+1"></p>
+                                    </td>
+                                    <td style="width: 108px;">
+                                        <p ng-bind="item.obj.ho_va_ten"></p>
+                                    </td>
+                                    <td style="width: 127px;">
+                                        <p ng-bind="item.obj.hoa_don"></p>
+                                    </td>
+                                    <td style="width: 127px;">
+                                        <p ng-bind="item.createdDateTime | utcToLocal:'d/M/y'"></p>
+                                    </td>
+                                    <td style="width: 154px;">
+                                        <div ng-switch="item.obj.status">
+                                            <p ng-switch-when="Open">Đang xử lý</p>
+                                            <p ng-switch-when="Valid">Hợp lệ</p>
+                                            <div ng-switch-when="Invalid">
+                                                Bổ sung thông tin
+                                                <a class="text-danger" href="/cap-nhat-ho-so?id={{item.obj.id}}">tại đây</a> </div>
+                                            
+                                            <p ng-switch-when="Reject">Không hợp lệ</p>
+                                        </div>
+                                    </td>
+                                </tr>                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="contactsSection">
+            <div class=" mgt-sm-50 mgbt-sm-50 d-flex flex-direction-column">
+                <div class=" row mgl-sm-0 mgr-sm-0">
+                    <div class="grid d-flex textimageblock col-lg-12 col-md-12 col-12 pdr-sm-0 pdl-sm-0">
+                        <div class="img-text-block mgr-md-10 mgbt-sm-10 mgl-md-10 theme-blue-tint d-flex ">
+                            <div class="img-text-block__content js-img-block__content ">
+                                <div id="contact-us-anchor" style="text-align: center; font-size: 45px;" class="theme-blue-tint">
+                                    <strong>
+                                        <br>
+                                        Chúng tôi sẵn sàng hỗ trợ bạn
+                                    </strong>
+                                </div>
+                                <div style="text-align: center; font-size: 38px;" class="theme-blue-tint">
+                                    <strong>
+                                        <br>
+                                        Liên hệ với chúng tôi
+                                        <br>
+                                        <br>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid d-flex textimageblock col-lg-3 col-md-3 col-12 displaymode-one-quarter pdr-sm-0 pdl-sm-0">
+                        <div class="img-text-block mg-sm-10 mg-md-10 theme-blue-tint d-flex flex-direction-column ">
+                            <div class="img-text-block__img pd-sm-0 d-flex"><img class="preview height-100 " data-src="/assets/icons/social100x1002.png?mode=crop&preset=h100" src="/content/templates/electrolux/assets/assets/icons/social100x1002.png?mode=crop&preset=h100" alt="Mạng xã hội" io-loaded="true"></div>
+                            <div class="img-text-block__content js-img-block__content pdt-sm-20 pdt-md-20 pdbt-sm-30 pdbt-md-30 text-sm-center justify-content-start d-flex">
+                                <div class="img-text-block__title order-1 text-sm-center">Mạng xã hội</div>
+                                <div class="img-text-block__description order-3">Kết nối với chúng tôi trong hôm nay để cập nhật thông tin mới nhất.</div>
+                                <div class="img-text-block__link order-4 mgt-auto"><a href="https://www.facebook.com/electroluxvietnam/" class="cta-link-icon">Khám phá ngay</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid d-flex textimageblock col-lg-3 col-md-3 col-12 displaymode-one-quarter pdr-sm-0 pdl-sm-0">
+                        <div class="img-text-block mg-sm-10 mg-md-10 theme-blue-tint d-flex flex-direction-column ">
+                            <div class="img-text-block__img pd-sm-0 d-flex"><img class="preview height-100 " data-src="/assets/icons/message100x1002.png?mode=crop&preset=h100" src="/content/templates/electrolux/assets/assets/icons/message100x1002.png?mode=crop&preset=h100" alt="Email" io-loaded="true"></div>
+                            <div class="img-text-block__content js-img-block__content pdt-sm-20 pdt-md-20 pdr-sm-10 pdr-md-10 pdbt-sm-30 pdbt-md-30 pdl-sm-10 pdl-md-10 text-sm-center justify-content-start d-flex">
+                                <div class="img-text-block__title order-1 text-sm-center">
+                                    <span>
+                                        Email
+                                        <br>
+                                    </span>
+                                </div>
+                                <div class="img-text-block__description order-3"><span>Chia sẻ thắc mắc của bạn bất cứ lúc nào</span></div>
+                                <div class="img-text-block__link order-4 mgt-auto"><a href="mailto:tet2021@electrolux.com" class="cta-link-icon">Gửi email ngay</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid d-flex textimageblock col-lg-3 col-md-3 col-12 displaymode-one-quarter pdr-sm-0 pdl-sm-0">
+                        <div class="img-text-block mg-sm-10 mg-md-10 theme-blue-tint d-flex flex-direction-column ">
+                            <div class="img-text-block__img pd-sm-0 d-flex"><img class="preview height-100 " data-src="/assets/icons/talk-to-us100x1002.png?mode=crop&preset=h100" src="/content/templates/electrolux/assets/assets/icons/talk-to-us100x1002.png?mode=crop&preset=h100" alt="Trao đổi trực tiếp" io-loaded="true"></div>
+                            <div class="img-text-block__content js-img-block__content pdt-sm-20 pdt-md-20 pdbt-sm-30 pdbt-md-30 text-sm-center justify-content-start d-flex">
+                                <div class="img-text-block__title order-1 text-sm-center"><span>Trao đổi trực tiếp</span></div>
+                                <div class="img-text-block__description order-3">
+                                    <p style="text-align: center;">Thứ hai đến thứ bảy, từ 8h – 18h</p>
+                                </div>
+                                <div class="img-text-block__link order-4 mgt-auto"><a href="tel:+1800 588 899" class="cta-link-icon">1800 5888 99</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid d-flex textimageblock col-lg-3 col-md-3 col-12 displaymode-one-quarter pdr-sm-0 pdl-sm-0">
+                        <div class="img-text-block mg-sm-10 mg-md-10 theme-blue-tint d-flex flex-direction-column ">
+                            <div class="img-text-block__img pd-sm-0 d-flex"><img class="preview height-100 " data-src="/assets/icons/service-center100x1002.png?mode=crop&preset=h100" src="/content/templates/electrolux/assets/assets/icons/service-center100x1002.png?mode=crop&preset=h100" alt="Trung tâm chăm sóc khách hàng" io-loaded="true"></div>
+                            <div class="img-text-block__content js-img-block__content pdt-sm-20 pdt-md-20 pdbt-sm-30 pdbt-md-30 text-sm-center justify-content-start d-flex">
+                                <div class="img-text-block__title order-1 text-sm-center">Trung tâm chăm sóc khách hàng</div>
+                                <div class="img-text-block__description order-2">
+                                    <p><span>Lầu 9, tòa nhà AB, 76 Lê Lai, Phường Bến Thành, Quận 1, TP. HCM</span></p>
+                                </div>
+                                <div class="img-text-block__link order-3 mgt-auto"><a href="#" class="cta-link-icon">Tìm kiếm ngay</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </main>
+    @await Html.PartialAsync("../Widgets/Alert_Modal.cshtml")
+</section>

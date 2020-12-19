@@ -1,0 +1,706 @@
+@{ var assetFolder = Mix.Cms.Lib.MixCmsHelper.GetAssetFolder(ViewBag.culture); }
+
+<form
+  ng-controller="ElectroluxRegisterController"
+  ng-init="init('register')"
+  data-validate=""
+  novalidate=""
+  data-customersourceidprepend="VN"
+  data-sourceapi=""
+>
+  <div
+    ng-if="formData"
+    ng-init="initNestedData()"
+    class="row personal-info-header"
+  >
+    <div class="col-12">
+      <h5>Thông Tin Cá Nhân</h5>
+      <pre>{{formData.obj|json}}</pre>
+      <pre>{{receipt.obj|json}}</pre>
+    </div>
+  </div>
+  <div class="personal-info">
+    <div class="row fields">
+      <div class="col-12 col-lg-6">
+        <div class="row">
+          <div class="col-4 col-lg-3">
+            <div class="form-group">
+              <select
+                ng-model="formData.obj.gioi_tinh"
+                class="form-control customized-dropdown"
+                id="sel1"
+              >
+                <option value="" selected disabled>Giới Tính ▼</option>
+                <option value="Ông">Ông</option>
+                <option value="Bà">Bà</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-8 col-lg-9">
+            <label
+              ><input
+                ng-model="formData.obj.ho"
+                type="text"
+                name="lastName"
+                placeholder="*Họ"
+                aria-describedby="lastname"
+                required=""               
+                aria-label="lastName" />
+              <span class="form-validate-error"></span
+            ></label>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <label
+          ><input
+            ng-model="formData.obj.ten"
+            type="text"
+            name="firstName"
+            placeholder="*Tên"
+            aria-describedby="firstName"
+            required=""
+            pattern="alpha"
+            data-required="Bắt buộc nhập"
+            data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+            aria-label="firstName" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <label
+              ><input
+                ng-model="formData.obj.so_dien_thoai"
+                type="text"
+                name="contactNumber"
+                placeholder="*Số điện thoại"
+                data-removealtnum="Thêm số điện thoại thay thế "
+                data-addaltnum="Số điện thoại thay thế "
+                data-altplaceholder="Số điện thoại thay thế "
+                aria-describedby="number"
+                required=""
+                pattern="number"
+                data-required="Bắt buộc nhập"
+                data-valid="Số điện thoại không chính xác. Vui lòng thử lại "
+                data-altvalid="Số điện thoại thay thế không chính xác. Vui lòng thử lại "
+                aria-label="contactNumber" />
+              <span class="form-validate-error"></span
+            ></label>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="fields-email">
+              <label
+                ><input
+                  ng-model="formData.obj.email"
+                  type="email"
+                  name="email"
+                  placeholder="*Email"
+                  data-removealtemail="Thêm email thay thế "
+                  data-addaltemail="Email thay thế "
+                  data-altplaceholder="Email thay thế "
+                  aria-describedby="email"
+                  required=""
+                  ng-pattern="email"
+                  data-required="Bắt buộc nhập"
+                  data-valid="Địa chỉ mail không chính xác. Vui lòng thử lại "
+                  data-altvalid="Email thay thế không chính xác. Vui lòng thử lại "
+                  aria-label="email" />
+                <span class="form-validate-error"></span
+              ></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="row">
+          <label class="col-12 col-lg-6"
+            ><input ng-model="formData.obj.cmnd"
+              type="text"
+              name="identity"
+              placeholder="*Số Chứng minh thư / Số Hộ chiếu"
+              aria-describedby="identity"
+              required
+              pattern="alpha"
+              data-required="Bắt buộc nhập"
+              data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+              aria-label="identity" />
+            <span class="form-validate-error"></span
+          ></label>
+          <label class="col-12 col-lg-6"
+            ><input
+              type="text"
+              name="identity"
+              placeholder="*Ngày cấp"
+              aria-describedby="identity"
+              required
+              pattern="alpha"
+              data-required="Bắt buộc nhập"
+              data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+              aria-label="identity" />
+            <img
+              style="right: 17px;"
+              class="placeholder-image"
+              src="@assetFolder/assets/img/date-icon.png"
+              alt="Date Icon"
+              tabindex="-1" />
+            <span class="form-validate-error"></span
+          ></label>
+        </div>
+      </div>
+      <div class="col-12 col-lg-12 productPhoto">
+        <div class="fields-productPhoto">
+          <label class="image-upload-label"
+            >Hình CMND / Hộ Chiếu ( 2 mặt trước và sau )</label
+          >
+          <img
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon"
+          />
+          <input
+            type="file"
+            class="custom-file-upload-img"
+            data-files="file.files"
+            ngf-select="selectFiles($files)"
+            accept="image/*;capture=camera"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row product-info-header">
+    <div class="col-12">
+      <h5>Thông Tin Hóa Đơn</h5>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="row fields">
+      <div class="col-12 col-md-4">
+        <label class="product-information"
+          ><input ng-model="receipt.obj.hoa_don"
+            class="product-info-input"
+            type="text"
+            placeholder="*Hoá Đơn"
+            required=""
+            data-valid=""
+            data-required="Bắt buộc nhập"
+            aria-label="modelno" />
+          <img
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="product-information"
+          ><input ng-model="receipt.obj.ma_san_pham"
+            class="product-info-input"
+            
+            type="number"
+            placeholder="*Mã Sản Phẩm (Model)"
+            aria-describedby="productModelNo"
+            required=""
+            data-valid=""
+            data-required="Bắt buộc nhập"
+             />
+          <img
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="product-information"
+          ><input ng-model="receipt.obj.gia_tri"
+            class="product-info-input"
+            name="serialno"
+            type="text"
+            placeholder="*Giá Trị"
+            aria-describedby="machineserialno"
+            data-required="Bắt buộc nhập"
+            required=""
+            aria-label="serialno" />
+          <img
+            data-open="product-info-machine"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-lg-6">
+        <label class="product-information"
+          ><input ng-model="receipt.obj.ngay_mua_hang"
+            class="product-info-input hasDatepicker"
+            type="text"
+            id="prefAppDate"
+            name="prefAppDate"
+            placeholder="*Ngày mua hàng"
+            aria-describedby="dateofpurchase"
+            required=""
+            data-required="Bắt buộc nhập"
+            data-valid="Ngày mua hàng không chính xác. Vui lòng thử lại "
+            aria-label="Date of Purchase" />
+          <img
+            class="placeholder-image"
+            src="@assetFolder/assets/img/date-icon.png"
+            alt="Date Icon"
+            tabindex="-1" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-lg-6">
+        <label class="product-information"
+          ><input ng-model="receipt.obj.noi_mua"
+            class="product-info-input"
+            name="modelno"
+            type="text"
+            placeholder="*Nơi Mua"
+            aria-describedby="productModelNo"
+            required=""
+            ng-pattern="alpha_numeric"
+            data-valid=""
+            data-required="Bắt buộc nhập"
+            aria-label="modelno" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 productPhoto">
+        <div class="fields-productPhoto">
+          <label class="image-upload-label">Hình Hóa Đơn Gốc</label>
+          <img
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon"
+          />
+          <input
+            type="file"
+            class="custom-file-upload-img"
+            data-files="file.files"
+            ngf-select="selectFiles($files)"
+            accept="image/*;capture=camera"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row product-info-header">
+    <div class="col-12">
+      <h5>Thông Tin Sản Phẩm</h5>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="row fields">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <select ng-model="product.obj.ma_san_pham"
+            class="form-control customized-dropdown" id="sel1">
+            <option value="" selected disabled>Mã Sản Phẩm ▼</option>
+            <option value="">ETB4600B-H</option>
+            <option value="">ETB4600B-G</option>
+            <option value="">ETB5400B-H</option>
+            <option value="">ETB5400B-G</option>
+            <option value="">ETE5720B-G</option>
+            <option value="">EBE4500B-H</option>
+            <option value="">EBE4500B-G</option>
+            <option value="">EME3700H-H</option>
+            <option value="">EME3700H-A</option>
+            <option value="">EHE5224B-A</option>
+            <option value="">EHE6879A-B</option>
+            <option value="">EHXD875FAK</option>
+            <option value="">EHD8740FOK</option>
+            <option value="">EHI7325BA</option>
+            <option value="">EHI7023BA</option>
+            <option value="">EHI7280BA</option>
+            <option value="">EHI7280BB</option>
+            <option value="">EHI7260BA</option>
+            <option value="">EHI7260BB</option>
+            <option value="">EFC926BAR</option>
+            <option value="">EFC936GAR</option>
+            <option value="">EFC928SC</option>
+            <option value="">EOB8857AAX</option>
+            <option value="">EOB3434BOX</option>
+            <option value="">EOB2100COX</option>
+            <option value="">EKI64500OX</option>
+            <option value="">EWF9024BDWB</option>
+            <option value="">EWF9024ADSA</option>
+            <option value="">EWF9023BDWA</option>
+            <option value="">EWF9523BDWA</option>
+            <option value="">EWF9523ADSA</option>
+            <option value="">EWF1024BDWA</option>
+            <option value="">EWF1023BEWA</option>
+            <option value="">EWF1023BESA</option>
+            <option value="">EWF1042BDWA</option>
+            <option value="">EWF1142BEWA</option>
+            <option value="">EWF1141AEWA</option>
+            <option value="">EWF1142BESA</option>
+            <option value="">EWF1141AESA</option>
+            <option value="">EWF1141SESA</option>
+            <option value="">EWW8023AEWA</option>
+            <option value="">EWW1042AEWA</option>
+            <option value="">EWW1141AEWA</option>
+            <option value="">EWW8025DGWA</option>
+            <option value="">EDS805KQWA</option>
+            <option value="">EDS805KQSA</option>
+            <option value="">EDC804CEWA</option>
+            <option value="">EDH803BEWA</option>
+            <option value="">EDH903BEWA</option>
+            <option value="">ESV18CRR-C2</option>
+            <option value="">ESV18CRR-C3</option>
+            <option value="">PA91-406GY</option>
+            <option value="">PA91-606DG</option>
+          </select>
+          <img
+            style="right: 17px;"
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon"
+          />
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <select ng-model="product.obj.pnc" 
+            class="form-control customized-dropdown" id="sel1">
+            <option value="" selected disabled>PNC ▼</option>
+            <option value="">925060513</option>
+            <option value="">925060515</option>
+            <option value="">925060523</option>
+            <option value="">925060524</option>
+            <option value="">925060499</option>
+            <option value="">925060525</option>
+            <option value="">925060526</option>
+            <option value="">925060494</option>
+            <option value="">925060493</option>
+            <option value="">925060502</option>
+            <option value="">925060325</option>
+            <option value="">949596507</option>
+            <option value="">949596515</option>
+            <option value="">956004191</option>
+            <option value="">956004192</option>
+            <option value="">949163372</option>
+            <option value="">949163451</option>
+            <option value="">949163369</option>
+            <option value="">949163449</option>
+            <option value="">942001214</option>
+            <option value="">942001279</option>
+            <option value="">956004024</option>
+            <option value="">944184529</option>
+            <option value="">949499035</option>
+            <option value="">944064612</option>
+            <option value="">943004894</option>
+            <option value="">914900815</option>
+            <option value="">914900816</option>
+            <option value="">914900729</option>
+            <option value="">914900817</option>
+            <option value="">914900818</option>
+            <option value="">914900728</option>
+            <option value="">914900726</option>
+            <option value="">914900725</option>
+            <option value="">914900727</option>
+            <option value="">914900724</option>
+            <option value="">914900722</option>
+            <option value="">914900723</option>
+            <option value="">914900721</option>
+            <option value="">914900809</option>
+            <option value="">914900734</option>
+            <option value="">914900733</option>
+            <option value="">914900732</option>
+            <option value="">914900838</option>
+            <option value="">916002115</option>
+            <option value="">916002117</option>
+            <option value="">916098411</option>
+            <option value="">916098414</option>
+            <option value="">916098417</option>
+            <option value="">956004610</option>
+            <option value="">956004619</option>
+            <option value="">900943149</option>
+            <option value="">900943150</option>
+          </select>
+          <img
+            style="right: 17px;"
+            data-open="product-info-machine"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon"
+          />
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <label class="product-information"
+          ><input ng-model="product.obj.sn"
+            class="product-info-input"
+            name="serialno"
+            type="text"
+            placeholder="*SN"
+            aria-describedby="machineserialno"
+            data-required="Bắt buộc nhập"
+            required=""
+            pattern="number"
+            aria-label="serialno" />
+          <img
+            data-open="product-info-machine"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon" />
+          <span class="form-validate-error"></span
+        ></label>
+      </div>
+      <div class="col-12 col-md-6 productPhoto">
+        <div class="fields-productPhoto">
+          <label class="image-upload-label">Hình Tem</label>
+          <img
+            data-open="product-info-pnc"
+            data-unscroll=""
+            tabindex="-1"
+            class="infoIcon placeholder-image"
+            src="@assetFolder/assets/img/info-icon.png"
+            alt="Info Icon"
+          />
+          <input
+            type="file"
+            class="custom-file-upload-img"
+            data-files="file.files"
+            ngf-select="selectFiles($files)"
+            accept="image/*;capture=camera"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row terms">
+    <div class="col-12 data-consent-group">
+      <div class="group-section pre-caption">
+        <p><strong>Phương Thức Nhận Quà</strong></p>
+        <p class="pre-caption-description">
+          Bạn muốn nhận quà qua các phương thức nào sau đây:
+        </p>
+      </div>
+      <ul class="filter-accordion">
+        <li class="filter-accordion_item">
+          <div
+            class="filter-accordion_item-title js_filter-accordion_item-title"
+          >
+            Chuyển khoản qua ngân hàng
+          </div>
+          <div class="filter-accordion_item-content" style="height: 0px;">
+            <div class="filter-accordion_item-content-wrapper">
+              <div class="filter-accordion_item-content-item">
+                <div class="row fields diachinhanqua">
+                  <div class="col-12 col-lg-12">
+                    <div class="row">
+                      <label class="col-12 col-lg-4"
+                        ><input
+                          type="text"
+                          name="identity"
+                          placeholder="*Số Tài Khoản Ngân Hàng"
+                          aria-describedby="identity"
+                          required
+                          pattern="alpha"
+                          data-required="Bắt buộc nhập"
+                          data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+                          aria-label="identity" />
+                        <span class="form-validate-error"></span
+                      ></label>
+                      <label class="col-12 col-lg-4"
+                        ><input
+                          type="text"
+                          name="identity"
+                          placeholder="*Ngân Hàng"
+                          aria-describedby="identity"
+                          required
+                          pattern="alpha"
+                          data-required="Bắt buộc nhập"
+                          data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+                          aria-label="identity" />
+                        <span class="form-validate-error"></span
+                      ></label>
+                      <label class="col-12 col-lg-4"
+                        ><input
+                          type="text"
+                          name="identity"
+                          placeholder="*Phòng GD / Chi Nhánh Ngân Hàng"
+                          aria-describedby="identity"
+                          required
+                          pattern="alpha"
+                          data-required="Bắt buộc nhập"
+                          data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+                          aria-label="identity" />
+                        <span class="form-validate-error"></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="filter-accordion_item">
+          <div
+            class="filter-accordion_item-title js_filter-accordion_item-title"
+          >
+            Chuyển tiền qua đường bưu điện.
+          </div>
+          <div class="filter-accordion_item-content">
+            <div class="filter-accordion_item-content-wrapper">
+              <div class="filter-accordion_item-content-item">
+                <div class="row fields diachinhanqua">
+                  <div class="col-12 col-lg-12">
+                    <div class="row">
+                      <label class="col-12 col-lg-6">
+                        <textarea
+                          name="identity"
+                          placeholder="*Địa chỉ"
+                          aria-describedby="identity"
+                          required
+                          pattern="alpha"
+                          data-required="Bắt buộc nhập"
+                          data-valid="Tên không hợp lệ. Vui lòng nhập lại"
+                          aria-label="identity"
+                        ></textarea>
+                        <span class="form-validate-error"></span
+                      ></label>
+                      <div class="form-group col-12 col-lg-2">
+                        <select
+                          class="form-control customized-dropdown"
+                          id="sel1"
+                        >
+                          <option value="" selected disabled
+                            >Phường / Xã ▼</option>
+                          <option value="">ETB4600B-H</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-12 col-lg-2">
+                        <select
+                          class="form-control customized-dropdown"
+                          id="sel1"
+                        >
+                          <option value="" selected disabled
+                            >Quận / Huyện ▼</option>
+                          <option value="">ETB4600B-H</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-12 col-lg-2">
+                        <select
+                          class="form-control customized-dropdown"
+                          id="sel1"
+                        >
+                          <option value="" selected disabled
+                            >Tỉnh / Thành Phố ▼</option>
+                          <option value="">ETB4600B-H</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <fieldset class="columns col-12 col-md-12 col-lg-12">
+      <span class="tnc-checkbox" data-validate-check=""></span>
+      <input
+        data-consent-option=""
+        name="dataProtectionConsent"
+        type="checkbox"
+        required=""
+        aria-label="dataProtectionConsent"
+        data-required="Bạn cần chấp thuận chính sách bảo mật dữ liệu trước khi đăng ký sản phẩm."
+        data-value-check="Yes"
+        data-value-uncheck="No"
+      />
+      <div class="label-offset">
+        <label class="tncbox" for="dataProtectionConsent" data-consent-label="">
+          <p>
+            Tôi xác nhận rằng tôi đã đọc, hiểu và đồng ý với toàn bộ
+            <a href="/chinh-sach-bao-ve-du-lieu/">Chính Sách Bảo Mật</a>
+            bao gồm cả cách thức dữ liệu cá nhân của tôi có thể được thu thập,
+            sử dụng và tiết lộ bởi Công Ty TNHH Electrolux Việt Nam và các công
+            ty có liên quan của Công Ty TNHH Electrolux Việt Nam theo quy định
+            tại Chính Sách Bảo Mật.
+          </p>
+        </label>
+      </div>
+      <div class="form-validate-error"></div>
+    </fieldset>
+    <fieldset class="columns col-12 col-md-12 col-lg-12">
+      <span class="tnc-checkbox" data-validate-check=""></span>
+      <input
+        data-consent-option=""
+        name="termsAndConditionsAcceptance"
+        type="checkbox"
+        required=""
+        aria-label="termsAndConditionsAcceptance"
+        data-required="Bạn cần chấp thuận điều kiện & điều khoản bảo hành trước khi đăng ký sản phẩm."
+        data-value-check="Yes"
+        data-value-uncheck="No"
+      />
+      <div class="label-offset">
+        <label
+          class="tncbox"
+          for="termsAndConditionsAcceptance"
+          data-consent-label=""
+        >
+          <p>
+            Tôi đồng ý về
+            <a href="/ho-tro/dieu-khoan-va-dieu-kien-bao-hanh-chung/"
+              >Điều khoản và Điều kiện bảo hành.</a
+            >
+          </p>
+        </label>
+      </div>
+      <div class="form-validate-error"></div>
+    </fieldset>
+  </div>
+  <div class="row submit-reset">
+    <fieldset class="col-12 col-md-2">
+      <button
+        class="button primary highlight-secondary-color"
+        type="button"
+        name="Register"
+        value="Register"
+        data-register="Vào sổ"
+        data-loading="Tải..."
+        onclick="return validateForm();"
+        
+      >
+        Hoàn Tất Đăng Ký
+      </button>
+    </fieldset>
+  </div>
+  <input type="hidden" name="Country" value="Vietnam" />
+  <input type="hidden" name="CountryHeader" value="VNM" />
+  <input type="hidden" name="Language" value="vi-VN" />
+  <input
+    type="hidden"
+    name="RedirectLink"
+    value="/ho-tro/dang-ky-bao-hanh/thanh-cong/"
+  />
+</form>
