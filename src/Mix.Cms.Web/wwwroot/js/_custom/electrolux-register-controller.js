@@ -20,6 +20,8 @@
         $scope.alpha_numeric_with_minus = /^[a-zA-Z0-9\-]+$/;
         $scope.integer = /^[-+]?\d+$/;
         $scope.number = /^[-+]?\d*(?:[\.\,]\d+)?$/;
+        $scope.phone_number = /^[0-9]{10}$/,
+        $scope.identity_card = /^[a-zA-Z0-9]{9,12}$/,
         $scope.email = /^[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9](?:[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9-]{0,61}[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9])?(?:\.[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9](?:[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9-]{0,61}[a-zA-Z\s\u0e00-\u0e7e\u4e00-\u9eff\u0000-\u007f\u0080-\u00ff\u0100-\u024f\u1e00-\u1eff\u0300-\u036f0-9])?)+$/,
           $scope.url = /^(https?|ftp|file|ssh):\/\/(((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-zA-Z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/;
         $scope.domain = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,8}$/;
@@ -49,6 +51,9 @@
           $scope.isAgree = false;
           $scope.bankMethod = "Chuyển tiền qua ngân hàng";
           $scope.postMethod = "Chuyển tiền qua đường bưu điện";
+          commonService.loadJArrayData("bank_list.json").then((resp) => {
+            $scope.banks = resp.data;
+          });
           commonService.loadJArrayData("product_list.json").then((resp) => {
             $scope.products = resp.data;
           });
@@ -102,20 +107,19 @@
             $scope.isBusy = true;
             var saveResult = await dataService.save($scope.formData);
             if (saveResult.isSucceed) {
-              $scope.alert('Cảm ơn quý khách hàng đã tham gia chương trình “Tết Trao Lì Xì – Khai Xuân Như Ý”.  Hồ sơ của quý khách hàng đã được đăng ký hoàn tất!');
+              $scope.alert($rootScope.settings.data.sms_thankyou);
               $scope.formData = angular.copy($scope.defaultData);
               $scope.isBusy = false;
               $scope.$apply();
             } else {
-              $scope.alert('Thông tin chưa hợp lệ');
+              $scope.alert($rootScope.settings.data.sms_invalid);
               $scope.isBusy = false;
               $scope.$apply();
             }
           }
         }
-        $scope.alert = async function (msg) {
-            
-          $scope.$apply($scope.msg.content = msg);
+        $scope.alert = async function (msg) {            
+          $scope.msg.content = msg;
             $('#alertModal').modal('show');
         }
         $scope.selectProduct = function () {
@@ -126,19 +130,10 @@
             }
           }
         }
-        $scope.selectReceiptDate = function (data, $event) {
-          alert('a');
-          alert($event.target.value)
-          // var currentElement = $event.target;
-          // console.log(currentElement.value);                  
-          // $scope.formData.obj.ngay_tren_hoa_don = currentElement.value;            
-
-        }
         
         $scope.selectBankMethod = function (data, $event) {
           // var currentElement = $event.target;
-          // console.log(currentElement.value);                  
-          console.log($scope.bankMethod);
+               
           $scope.formData.obj.phuong_thuc_nhan_qua = $scope.bankMethod;
           $scope.formData.obj.dia_chi = '';
           $scope.formData.obj.thanh_pho = '';
@@ -148,27 +143,13 @@
         }
         $scope.selectPostMethod = function (data, $event) {
           // var currentElement = $event.target;
-          // console.log(currentElement.value);
+
           $scope.formData.obj.phuong_thuc_nhan_qua = $scope.postMethod;
           $scope.formData.obj.so_tai_khoan = '';
           $scope.formData.obj.ngan_hang = '';
           $scope.formData.obj.chi_nhanh_ngan_hang = '';
         }
-        // $scope.initDate = function () {
-        //   // init datepicker
-        //   var date;
-        //   $('#receiptDate').datepicker({
-        //     onSelect: function (t) {
-        //       c.formValidatorInstance.validateSpecific($(this)), c.formValidatorInstance.validateRemaining();
-        //       date = $(this).val();
-        //       $('#receiptDate').val(date);
-        //       alert(date);
-        //     },
-        //     dateFormat: 'dd/mm/yy',
-        //     gotoCurrent: !1,
-        //   });
-        //   $scope.formData.obj.ngay_tren_hoa_don = date;
-        // }
+       
         $scope.selectCity = function () {
           if ($scope.formData.obj.thanh_pho) {
             const city = $rootScope.findObjectByKey($scope.cities, 'tpName', $scope.formData.obj.thanh_pho);
@@ -241,8 +222,8 @@
           return val;
         }
         $scope.validate = async function (data) {
-          //$scope.$apply($scope.form.$submitted = true);
-          validateForm();
+          $scope.form.$submitted = true;
+          // validateForm();
           return $scope.formData.obj.hinh_cmnd && $scope.formData.obj.hinh_cmnd_1 && $scope.formData.obj.hinh_hoa_don && $scope.formData.obj.hinh_tem && $scope.form.$valid;
         }
         $scope.selectDate = function (src, des) {
@@ -254,6 +235,12 @@
         }
       }]);
 }(angular, jQuery));
+
+
+
+
+
+
 
 
 

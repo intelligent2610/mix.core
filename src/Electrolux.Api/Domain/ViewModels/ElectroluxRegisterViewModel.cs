@@ -217,14 +217,14 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
         {
             base.Validate(_context, _transaction);
 
-            var hd = Obj.Value<string>("hoa_don");
+            var hd = Obj.Value<string>("so_hoa_don");
             var ma_san_pham = Obj.Value<string>("ma_san_pham");
             var sn = Obj.Value<string>("sn");
             var pnc = Obj.Value<string>("pnc");
             IsValid = !_context.MixAttributeSetValue.Where(m => m.DataId != Id 
                 && 
                     (
-                        m.AttributeFieldName == "hoa_don" && m.StringValue == hd.Trim()
+                        m.AttributeFieldName == "so_hoa_don" && m.StringValue == hd.Trim()
                         || m.AttributeFieldName == "ma_san_pham" && m.StringValue == ma_san_pham.Trim()
                         || m.AttributeFieldName == "sn" && m.StringValue == sn.Trim()
                         || m.AttributeFieldName == "pnc" && m.StringValue == pnc.Trim()

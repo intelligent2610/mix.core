@@ -166,7 +166,7 @@ namespace Electrolux.Api.Controllers
         {
             string attributeSetName = Request.Query["attributeSetName"].ToString();
             string exportPath = $"content/exports/module/{attributeSetName}";
-            var getData = await Helper.FilterByKeywordAsync<FormPortalViewModel>(Request, _lang);
+            var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
 
             var jData = new List<JObject>();
             if (getData.IsSucceed)
