@@ -121,8 +121,10 @@ namespace Electrolux.Api.Domain
                     {
                         val.StringValue = obj.Value<string>(prop.Name);
                     }
+                    _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetValues/_{val.Id}");
                 }
                 _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetDatas/_{dataId}_{culture}");
+                
                 await context.SaveChangesAsync();
                 return true;
             }
