@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -434,19 +435,31 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                     return new JProperty(item.AttributeFieldName, item.DateTimeValue);
 
                 case MixEnums.MixDataType.Date:
+                    if (!item.DateTimeValue.HasValue)
+                    {
+                        if (DateTime.TryParseExact(
+                            item.StringValue, 
+                            "MM/dd/yyyy HH:mm:ss", 
+                            CultureInfo.InvariantCulture, 
+                            DateTimeStyles.RoundtripKind, 
+                            out DateTime date))
+                        {
+                            item.DateTimeValue = date;
+                        }
+                    }
                     return (new JProperty(item.AttributeFieldName, item.DateTimeValue));
 
                 case MixEnums.MixDataType.Time:
                     return (new JProperty(item.AttributeFieldName, item.DateTimeValue));
 
                 case MixEnums.MixDataType.Double:
-                    return (new JProperty(item.AttributeFieldName, item.DoubleValue));
+                    return (new JProperty(item.AttributeFieldName, item.DoubleValue ?? 0));
 
                 case MixEnums.MixDataType.Boolean:
                     return (new JProperty(item.AttributeFieldName, item.BooleanValue));
 
                 case MixEnums.MixDataType.Integer:
-                    return (new JProperty(item.AttributeFieldName, item.IntegerValue));
+                    return (new JProperty(item.AttributeFieldName, item.IntegerValue ?? 0));
 
                 case MixEnums.MixDataType.Reference:
                     //string url = $"/api/v1/odata/en-us/related-attribute-set-data/mobile/parent/set/{Id}/{item.Field.ReferenceId}";

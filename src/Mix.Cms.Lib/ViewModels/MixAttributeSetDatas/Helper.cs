@@ -614,7 +614,18 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                         var wsDt = pck.Workbook.Worksheets.Add(SheetName);
                         wsDt.Cells["A1"].LoadFromDataTable(dtable, true, TableStyles.None);
                         wsDt.Cells[wsDt.Dimension.Address].AutoFitColumns();
-
+                        for (int i = 2; i <= lstData.Count + 2; i++)
+                        {
+                            for (int j = 1; j <= headers.Count; j++)
+                            {
+                                if (wsDt.Cells[i, j].Value != null && wsDt.Cells[i,j].Value.ToString().IndexOf("http") == 0)
+                                {
+                                    var temp = wsDt.Cells[i, j].Value;
+                                    wsDt.Cells[i, j].Value = null;
+                                    wsDt.Cells[i, j].Formula = $"=HYPERLINK(\"{temp}\",\"Link\")";
+                                }
+                            }
+                        }
                         SaveFileBytes(folderPath, filenameE, pck.GetAsByteArray());
                         result.IsSucceed = true;
 

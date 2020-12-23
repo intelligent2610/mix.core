@@ -32,7 +32,7 @@ namespace Electrolux.Api.Controllers
                 var result = new ElectroluxPaginationModel<ElectroluxRegisterViewModel>(getData.Data);
                 var fieldQueries = !string.IsNullOrEmpty(Request.Query["query"]) ? JObject.Parse(Request.Query["query"]) : new JObject();
                 result.TotalGift = await ElectroluxHelper.SumGift(_lang, fieldQueries.Value<string>("status"));
-                return Ok(getData.Data);
+                return Ok(result);
             }
             else
             {
@@ -61,16 +61,6 @@ namespace Electrolux.Api.Controllers
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
             if (getData.IsSucceed)
             {
-                //var result = new List<ElectroluxRegisterViewModel>();
-                //foreach (var item in getData.Data.Items)
-                //{
-                //    var dt = item.Obj.Value<string>("so_dien_thoai");
-                //    var hd = item.Obj.Value<string>("hoa_don");
-                //    if (dt.IndexOf(phone) == dt.Length-5 && hd == receipt)srtxfdvx
-                //    {
-                //        result.Add(item);
-                //    }
-                //}
                 return Ok(getData.Data.Items);
             }
             else
@@ -186,16 +176,40 @@ namespace Electrolux.Api.Controllers
             string attributeSetName = Request.Query["attributeSetName"].ToString();
             string exportPath = $"content/exports/module/{attributeSetName}";
             Dictionary<string, Type> headers = new Dictionary<string, Type> {
+                { "stt", typeof(int)},
+                { "id", typeof(string)},
                 { "ho_va_ten", typeof(string)},
-                { "cmnd", typeof(string)},
                 { "so_dien_thoai", typeof(string)},
-                { "gia_tri_giai_thuong", typeof(int)},
+                { "cmnd", typeof(string)},
+                { "hinh_cmnd", typeof(string)},
+                { "hinh_cmnd_1", typeof(string)},
+                { "thu_dien_tu", typeof(string)},
                 { "so_hoa_don", typeof(string)},
+                { "ngay_tren_hoa_don", typeof(DateTime)},
                 { "ma_san_pham", typeof(string)},
                 { "pnc", typeof(string)},
                 { "sn", typeof(string)},
-                { "hinh_cmnd", typeof(string)},
-                { "hinh_cmnd_1", typeof(string)},
+                { "gia_tri_giai_thuong", typeof(int)},
+                { "hinh_hoa_don", typeof(string)},
+                { "hinh_tem", typeof(string)},
+                { "phuong_thuc_nhan_qua", typeof(string)},
+                { "chu_tai_khoan", typeof(string)},
+                { "so_tai_khoan", typeof(string)},
+                { "ngan_hang", typeof(string)},
+                { "chi_nhanh_ngan_hang", typeof(string)},
+                { "dia_chi", typeof(string)},
+                { "phuong", typeof(string)},
+                { "quan", typeof(string)},
+                { "thanh_pho", typeof(string)},
+                { "hinh_uy_quyen", typeof(string)},
+                { "code", typeof(string)},
+                { "sms_status", typeof(string)},
+                { "ip_address", typeof(string)},
+                { "status", typeof(string)},
+                { "admin", typeof(string)},
+                { "admin_notes", typeof(string)},
+                { "ngay_tao", typeof(string)},
+                { "log", typeof(string)},
             };
 
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
@@ -203,12 +217,36 @@ namespace Electrolux.Api.Controllers
             var jData = new List<JObject>();
             if (getData.IsSucceed)
             {
+                var i = 0;
                 foreach (var item in getData.Data.Items)
                 {
+                    i++;
+                    item.Obj["stt"] = i;
+                    //item.Obj["hinh_cmnd"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_cmnd")}\",\"Link\")";
+                    //item.Obj["hinh_cmnd_1"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_cmnd_1")}\",\"Link\")";
+                    //item.Obj["hinh_hoa_don"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_hoa_don")}\",\"Link\")";
+                    //item.Obj["hinh_tem"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_tem")}\",\"Link\")";
+                    //item.Obj["hinh_uy_quyen"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_uy_quyen")}\",\"Link\")";
+                    if (DateTime.TryParse(item.Obj.Value<string>("ngay_tren_hoa_don"), out DateTime d))
+                    {
+                        item.Obj["ngay_tren_hoa_don"] = d.ToLocalTime();
+                    }
+                    else
+                    {
+                        item.Obj["ngay_tren_hoa_don"] = DateTime.Now;
+                    }
+                    item.Obj["ngay_tao"] = item.CreatedDateTime.ToLocalTime();
                     jData.Add(item.Obj);
                 }
                 var result = Helper.ExportAttributeToExcel(jData, string.Empty, exportPath, $"{attributeSetName}", headers: headers);
-                return Ok(result.Data);
+                if (result.IsSucceed)
+                {
+                    return Ok(result.Data);
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
             }
             else
             {

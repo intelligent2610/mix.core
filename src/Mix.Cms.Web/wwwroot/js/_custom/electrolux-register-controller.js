@@ -9,7 +9,7 @@
         $scope.receipt = null;
         $scope.product = null;
         $scope.medias = [];
-        $scope.admins = ['admin', 'admin1', 'admin2', 'admin3', 'admin4'];
+        $scope.admins = ['admin1', 'admin2', 'admin3', 'admin4'];
         $scope.msg = {
           title: '',
           type: '',
@@ -38,6 +38,7 @@
         ) {
           dataService.lang = 'vi-vn';
           $scope.successMsg = "Thành công";
+          $scope.invalidRDate = '';
           $scope.validateHandler = validateHandler;
           $scope.loadingHandler = loadingHandler;
           $scope.successHandler = successHandler;
@@ -88,7 +89,7 @@
           }
           $scope.$apply();
         };
-
+       
         $scope.loadDefault = async function () {
           var getDefault = await dataService.initData($scope.formName);
 
@@ -117,15 +118,18 @@
               $scope.$apply();
             }
           }
+          $scope.$apply();
+
         }
         $scope.alert = async function (msg) {            
-          $scope.msg.content = msg;
+          $scope.$apply($scope.msg.content = msg);
             $('#alertModal').modal('show');
         }
         $scope.selectProduct = function () {
           if ($scope.formData.obj.ma_san_pham) {
             const pr = $rootScope.findObjectByKey($scope.products, 'model', $scope.formData.obj.ma_san_pham);
             if (pr) {
+              $scope.formData.obj.gia_tri_giai_thuong = parseFloat(pr.gift.replaceAll(',',''));
               $scope.formData.obj.pnc = pr.pnc;
             }
           }
@@ -183,34 +187,45 @@
           console.log(file);
         }
         $scope.openCroppie = function (file, type) {
-          var modalInstance = $uibModal.open({
-            animation: true,
-            windowClass: "show",
-            templateUrl: "/app/app-shared/components/modal-croppie/croppie.html",
-            controller: "ModalCroppieController",
-            controllerAs: "$ctrl",
-            size: "lg",
-            resolve: {
-              mediaService: mediaService,
-              file: function () {
-                return file;
-              },
-              w: 800,
-              h: 600,
-              rto: null,
-              autoSave: false
-            },
-          });
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          // ctrl.cropped.source = null;
+          reader.onload = function () { 
+            var image = new Image();
+            image.src = reader.result;
 
-          modalInstance.result.then(
-            function (result) {
-              // let media = angular.copy($scope.defaultMedia);
-              // media.obj.title = result.title;
-              $scope.formData.obj[type] = result.fullPath;
-              // arr.push(media);
-            },
-            function () { }
-          );
+            image.onload = function () { 
+              var modalInstance = $uibModal.open({
+                animation: true,
+                windowClass: "show",
+                templateUrl: "/app/app-shared/components/modal-croppie/croppie.html",
+                controller: "ModalCroppieController",
+                controllerAs: "$ctrl",
+                size: "lg",
+                resolve: {
+                  mediaService: mediaService,
+                  file: function () {
+                    return file;
+                  },
+                  w: this.width,
+                  h: this.height,
+                  rto: null,
+                  autoSave: false
+                },
+              });
+
+              modalInstance.result.then(
+                function (result) {
+                  // let media = angular.copy($scope.defaultMedia);
+                  // media.obj.title = result.title;
+                  $scope.formData.obj[type] = result.fullPath;
+                  // arr.push(media);
+                },
+                function () { }
+              );
+            }
+          }
+          
         };
         $scope.randomCode = function () {
           var max = 99999;
@@ -228,13 +243,50 @@
         }
         $scope.selectDate = function (src, des) {
           // $scope.formData.obj[des] = `${src.getDate()}/${src.getMonth()}/${src.getFullYear()}`;
-          $scope.formData.obj[des] = src;
+
+          var receiptDate = $('#receiptDate').val();
+          if (receiptDate) {
+            // alert(src)
+            var date = receiptDate;
+            var varDate = new Date(date); //dd-mm-YYYY
+            varDate.setHours(0, 0, 0, 0);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            var validDate = new Date();
+            validDate.setHours(0, 0, 0, 0);
+            validDate.setDate(today.getDate() - 7);
+
+            var validStartDate = new Date(2020, 11, 21, 0, 0, 0, 0);
+            var validEndDate = new Date(2021, 01, 10, 0, 0, 0, 0);
+
+            if (varDate.getTime() >= validDate.getTime() && (varDate.getTime() >= validStartDate.getTime() && varDate.getTime() <= validEndDate.getTime())) {
+              //Do something..
+              $scope.invalidRDate = false;
+              $scope.formData.obj[des] = src;
+              console.log(true);
+            } else {
+              //  alert("2 Ngày xuất hóa đơn không hợp lệ!");
+              $scope.invalidRDate = true;
+              // receiptDate.type='text'
+            }
+          } else {
+            console.log('false');
+          }          
         }
         window.onSubmit = function(token) {
           $scope.register();
         }
       }]);
 }(angular, jQuery));
+
+
+
+
+
+
+
+
+
 
 
 

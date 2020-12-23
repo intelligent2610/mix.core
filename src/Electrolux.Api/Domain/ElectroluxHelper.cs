@@ -50,12 +50,18 @@ namespace Electrolux.Api.Domain
             }
         }
 
-        public static async Task<long> SumGift(string culture, string status)
+        public static async Task<double> SumGift(string culture, string status)
         {
-            var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(culture, "register", "equal", "status", status);
+            var queries = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(status))
+            {
+                queries.Add("status", status);
+            }
+            var getData = await Mix.Cms.Lib.ViewModels.MixAttributeSetDataValues.Helper.FilterByOtherValueAsync<Mix.Cms.Lib.ViewModels.MixAttributeSetValues.ReadViewModel>
+                    (culture, "register", "equal", queries, "gia_tri_giai_thuong");
             return getData.Data
-                    .Where(p => !string.IsNullOrEmpty(p.Property<string>("gia_tri_giai_thuong")))
-                    .Sum(p => p.Property<long>("gia_tri_gia_thuong"));
+                    .Where(p => p.DoubleValue.HasValue)
+                    .Sum(p => p.DoubleValue.Value);
         }
 
         public static async Task<bool> SendMessageByStatus(string culture, string status)
