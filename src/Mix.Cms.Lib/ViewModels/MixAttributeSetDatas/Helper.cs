@@ -7,7 +7,6 @@ using Mix.Common.Helper;
 using Mix.Domain.Core.ViewModels;
 using Mix.Domain.Data.Repository;
 using Mix.Domain.Data.ViewModels;
-using Mix.Heart.Extensions;
 using Mix.Heart.Helpers;
 using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
@@ -344,29 +343,9 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                             }
                         }
                     }
-                    if (fieldQueries != null && fieldQueries.Properties().Count() > 0) // filter by specific field name
-                    {
-                        foreach (var q in fieldQueries)
-                        {
-                            if (fields.Any(f => f.Name == q.Key))
-                            {
-                                string value = q.Value.ToString();
-                                if (!string.IsNullOrEmpty(value))
-                                {
-                                    Expression<Func<MixAttributeSetValue, bool>> pre = GetValueFilter(filterType, q.Key, value);
 
-                                    if (valPredicate != null)
-                                    {
-                                        valPredicate = ReflectionHelper.CombineExpression(valPredicate, pre, Heart.Enums.MixHeartEnums.ExpressionMethod.Or);
-                                    }
-                                    else
-                                    {
-                                        valPredicate = pre;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    valPredicate = GetValuePredicateByFieldQueries(fieldQueries, fields, filterType, context, transaction);
+                    
                     if (valPredicate != null)
                     {
                         attrPredicate = attrPredicate == null ? valPredicate
@@ -413,6 +392,37 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                     context.Database.CloseConnection(); transaction.Dispose(); context.Dispose();
                 }
             }
+        }
+
+        private static Expression<Func<MixAttributeSetValue, bool>> GetValuePredicateByFieldQueries(
+                JObject fieldQueries, List<MixAttributeFields.ReadViewModel> fields, string filterType, 
+                MixCmsContext context, IDbContextTransaction transaction)
+        {
+            Expression<Func<MixAttributeSetValue, bool>> valPredicate = null;
+            if (fieldQueries != null && fieldQueries.Properties().Count() > 0) // filter by specific field name
+            {
+                foreach (var q in fieldQueries)
+                {
+                    if (fields.Any(f => f.Name == q.Key))
+                    {
+                        string value = q.Value.ToString();
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            Expression<Func<MixAttributeSetValue, bool>> pre = GetValueFilter(filterType, q.Key, value);
+
+                            if (valPredicate != null)
+                            {
+                                valPredicate = ReflectionHelper.CombineExpression(valPredicate, pre, Heart.Enums.MixHeartEnums.ExpressionMethod.Or);
+                            }
+                            else
+                            {
+                                valPredicate = pre;
+                            }
+                        }
+                    }
+                }
+            }
+            return valPredicate;
         }
 
         private static Expression<Func<MixAttributeSetValue, bool>> GetValueFilter(string filterType, string key, string value)
@@ -537,9 +547,10 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 }
             }
         }
+        
         public static RepositoryResponse<FileViewModel> ExportAttributeToExcel(List<JObject> lstData, string sheetName
           , string folderPath, string fileName
-          , List<string> headers = null)
+          , Dictionary<string, Type> headers = null)
         {
             var result = new RepositoryResponse<FileViewModel>()
             {
@@ -574,7 +585,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                     {
                         foreach (var item in headers)
                         {
-                            dtable.Columns.Add(item, typeof(string));
+                            dtable.Columns.Add(item.Key, item.Value);
                         }
                     }
 
@@ -622,6 +633,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                 return result;
             }
         }
+        
         public static bool SaveFileBytes(string folder, string filename, byte[] bytes)
         {
             //data:image/gif;base64,

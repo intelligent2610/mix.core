@@ -50,6 +50,14 @@ namespace Electrolux.Api.Domain
             }
         }
 
+        public static async Task<long> SumGift(string culture, string status)
+        {
+            var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(culture, "register", "equal", "status", status);
+            return getData.Data
+                    .Where(p => !string.IsNullOrEmpty(p.Property<string>("gia_tri_giai_thuong")))
+                    .Sum(p => p.Property<long>("gia_tri_gia_thuong"));
+        }
+
         public static async Task<bool> SendMessageByStatus(string culture, string status)
         {
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(culture, "register", "equal", "status", status);
@@ -73,6 +81,7 @@ namespace Electrolux.Api.Domain
             }
             return false;
         }
+
         public static async Task<string> SendMessage(string status, string phone, string bid = null)
         {
             string culture = MixService.GetConfig<string>("DefaultCulture");
@@ -124,7 +133,7 @@ namespace Electrolux.Api.Domain
                     _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetValues/_{val.Id}");
                 }
                 _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetDatas/_{dataId}_{culture}");
-                
+
                 await context.SaveChangesAsync();
                 return true;
             }

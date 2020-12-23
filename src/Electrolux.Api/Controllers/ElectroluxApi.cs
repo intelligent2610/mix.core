@@ -1,4 +1,5 @@
 ﻿using Electrolux.Api.Domain;
+using Electrolux.Api.Domain.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,9 @@ namespace Electrolux.Api.Controllers
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
             if (getData.IsSucceed)
             {
+                var result = new ElectroluxPaginationModel<ElectroluxRegisterViewModel>(getData.Data);
+                var fieldQueries = !string.IsNullOrEmpty(Request.Query["query"]) ? JObject.Parse(Request.Query["query"]) : new JObject();
+                result.TotalGift = await ElectroluxHelper.SumGift(_lang, fieldQueries.Value<string>("status"));
                 return Ok(getData.Data);
             }
             else
@@ -125,6 +129,21 @@ namespace Electrolux.Api.Controllers
                 return BadRequest();
             }
         }
+        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("sum-gift/{status}")]
+        public async Task<ActionResult> SumGift([FromRoute] string? status = null)
+        {
+            var result = await ElectroluxHelper.SendMessageByStatus(_lang, status);
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
         // GET: api/v1/rest/{culture}/attribute-set-data
         [HttpGet("init/{attributeSet}")]
@@ -166,6 +185,19 @@ namespace Electrolux.Api.Controllers
         {
             string attributeSetName = Request.Query["attributeSetName"].ToString();
             string exportPath = $"content/exports/module/{attributeSetName}";
+            Dictionary<string, Type> headers = new Dictionary<string, Type> {
+                { "ho_va_ten", typeof(string)},
+                { "cmnd", typeof(string)},
+                { "so_dien_thoai", typeof(string)},
+                { "gia_tri_giai_thuong", typeof(int)},
+                { "so_hoa_don", typeof(string)},
+                { "ma_san_pham", typeof(string)},
+                { "pnc", typeof(string)},
+                { "sn", typeof(string)},
+                { "hinh_cmnd", typeof(string)},
+                { "hinh_cmnd_1", typeof(string)},
+            };
+
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
 
             var jData = new List<JObject>();
@@ -175,7 +207,7 @@ namespace Electrolux.Api.Controllers
                 {
                     jData.Add(item.Obj);
                 }
-                var result = Helper.ExportAttributeToExcel(jData, string.Empty, exportPath, $"{attributeSetName}", null);
+                var result = Helper.ExportAttributeToExcel(jData, string.Empty, exportPath, $"{attributeSetName}", headers: headers);
                 return Ok(result.Data);
             }
             else
