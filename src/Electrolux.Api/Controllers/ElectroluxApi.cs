@@ -142,30 +142,6 @@ namespace Electrolux.Api.Controllers
 
             var cultures = FileRepository.Instance.GetFile("register.json", "data", true, "{}");
             return JObject.Parse(cultures.Content);
-            //return new RepositoryResponse<JObject>()
-            //{
-            //    IsSucceed = true,
-            //    Data = obj as JObject
-            //};
-            //var getAttrSet = await Mix.Cms.Lib.ViewModels.MixAttributeSets.UpdateViewModel.Repository.GetSingleModelAsync(m => m.Name == "register");
-            //if (getAttrSet.IsSucceed)
-            //{
-            //    ElectroluxRegisterViewModel result = new ElectroluxRegisterViewModel()
-            //    {
-            //        Specificulture = _lang,
-            //        AttributeSetId = getAttrSet.Data.Id,
-            //        AttributeSetName = getAttrSet.Data.Name,
-            //        Status = MixEnums.MixContentStatus.Published,
-            //        Fields = getAttrSet.Data.Fields
-            //    };
-            //    result.ExpandView();
-            //    result.Obj["code"] = ElectroluxHelper.GenerateCodeInteger(5);
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(getAttrSet.Errors);
-            //}
         }
 
         // GET api/attribute-set-data
@@ -208,8 +184,8 @@ namespace Electrolux.Api.Controllers
                 { "status", typeof(string)},
                 { "admin", typeof(string)},
                 { "admin_notes", typeof(string)},
-                { "ngay_tao", typeof(string)},
-                { "log", typeof(string)},
+                { "ngay_tao", typeof(DateTime)},
+                { "logs", typeof(string)},
             };
 
             var getData = await Helper.FilterByKeywordAsync<ElectroluxRegisterViewModel>(Request, _lang);
@@ -222,18 +198,13 @@ namespace Electrolux.Api.Controllers
                 {
                     i++;
                     item.Obj["stt"] = i;
-                    //item.Obj["hinh_cmnd"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_cmnd")}\",\"Link\")";
-                    //item.Obj["hinh_cmnd_1"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_cmnd_1")}\",\"Link\")";
-                    //item.Obj["hinh_hoa_don"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_hoa_don")}\",\"Link\")";
-                    //item.Obj["hinh_tem"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_tem")}\",\"Link\")";
-                    //item.Obj["hinh_uy_quyen"] = $"=HYPERLINK(\"{item.Obj.Value<string>("hinh_uy_quyen")}\",\"Link\")";
-                    if (DateTime.TryParse(item.Obj.Value<string>("ngay_tren_hoa_don"), out DateTime d))
+                    if (!string.IsNullOrEmpty(item.Obj["ngay_tren_hoa_don"]?.ToString()))
                     {
-                        item.Obj["ngay_tren_hoa_don"] = d.ToLocalTime();
+                        item.Obj["ngay_tren_hoa_don"] = item.Obj.Value<DateTime?>("ngay_tren_hoa_don")?.ToLocalTime();
                     }
                     else
                     {
-                        item.Obj["ngay_tren_hoa_don"] = DateTime.Now;
+                        item.Obj["ngay_tren_hoa_don"] = default(DateTime);
                     }
                     item.Obj["ngay_tao"] = item.CreatedDateTime.ToLocalTime();
                     jData.Add(item.Obj);

@@ -1,4 +1,5 @@
-﻿using Mix.Cms.Lib.Models.Cms;
+﻿using Mix.Cms.Lib;
+using Mix.Cms.Lib.Models.Cms;
 using Mix.Cms.Lib.Services;
 using Mix.Cms.Lib.ViewModels.MixAttributeSetDatas;
 using Mix.Services;
@@ -135,8 +136,27 @@ namespace Electrolux.Api.Domain
                     if (val != null)
                     {
                         val.StringValue = obj.Value<string>(prop.Name);
+                        _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetValues/_{val.Id}");
                     }
-                    _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetValues/_{val.Id}");
+                    else
+                    {
+                        var data = context.MixAttributeSetData.FirstOrDefault(m => m.Specificulture == culture && m.Id == dataId);
+                        var field = context.MixAttributeField.FirstOrDefault(m => m.AttributeSetId == data.AttributeSetId && m.Name == prop.Name);
+                        val = new MixAttributeSetValue()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Specificulture = culture,
+                            DataId = dataId,
+                            AttributeFieldId = field.Id,
+                            AttributeFieldName = field.Name,
+                            AttributeSetName = field.AttributeSetName,
+                            StringValue = obj.Value<string>(prop.Name),
+                            CreatedDateTime = DateTime.Now,
+                            Status = MixEnums.MixContentStatus.Published.ToString()
+                        };
+                        context.Entry(val).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+                        context.SaveChanges();
+                    }
                 }
                 _ = CacheService.RemoveCacheAsync($"Mix/Cms/Lib/ViewModels/MixAttributeSetDatas/_{dataId}_{culture}");
 

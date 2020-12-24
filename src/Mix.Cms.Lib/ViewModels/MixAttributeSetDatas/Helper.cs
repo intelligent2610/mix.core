@@ -613,7 +613,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                         string SheetName = sheetName != string.Empty ? sheetName : "Report";
                         var wsDt = pck.Workbook.Worksheets.Add(SheetName);
                         wsDt.Cells["A1"].LoadFromDataTable(dtable, true, TableStyles.None);
-                        wsDt.Cells[wsDt.Dimension.Address].AutoFitColumns();
+                        
                         for (int i = 2; i <= lstData.Count + 2; i++)
                         {
                             for (int j = 1; j <= headers.Count; j++)
@@ -626,6 +626,7 @@ namespace Mix.Cms.Lib.ViewModels.MixAttributeSetDatas
                                 }
                             }
                         }
+                        wsDt.Cells[wsDt.Dimension.Address].AutoFitColumns();
                         SaveFileBytes(folderPath, filenameE, pck.GetAsByteArray());
                         result.IsSucceed = true;
 
